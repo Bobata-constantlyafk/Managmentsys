@@ -8,10 +8,10 @@ import {Task} from './tasks.model';
 })
 export class TasksComponent implements OnInit {
   tasks: Task[] = [
-    {name: 'Task1'},
-    {name: 'Task2'},
-    {name: 'Task3'},
-    {name: 'Task4'},
+    {id: 1, name: 'Task1'},
+    {id: 2, name: 'Task2'},
+    {id: 3, name: 'Task3'},
+    {id: 4, name: 'Task4'},
   ];
 
   constructor() {}
@@ -20,5 +20,12 @@ export class TasksComponent implements OnInit {
 
   removeTask(id) {
     this.tasks.splice(id, 1);
+  }
+
+  addTask(input) {
+    const name: string = input.value;
+    const id = Math.max.apply(Math, this.tasks.map((task) => task.id));
+    this.tasks.push(new Task(id, name));
+    input.value = '';
   }
 }
