@@ -17,4 +17,8 @@ export class TasksComponent implements OnInit {
   constructor() {}
 
   ngOnInit() {}
+
+  removeTask(id) {
+    this.tasks.splice(id, 1);
+  }
 }
