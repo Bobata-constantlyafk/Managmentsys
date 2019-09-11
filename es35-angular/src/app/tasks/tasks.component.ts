@@ -1,5 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {Task} from './tasks.model';
+import {$} from 'protractor';
 
 @Component({
   selector: 'app-tasks',
@@ -18,7 +19,11 @@ export class TasksComponent implements OnInit {
 
   ngOnInit() {}
 
-  removeTask(id) {
+  removeTask(event, id) {
+    const el = event.target;
+    const parent = el.parentNode;
+    // parent.classList.remove('animated');
+    // parent.classList.add('animated');
     this.tasks.splice(id, 1);
   }
 
