@@ -3,11 +3,13 @@ import { NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
 import { RolesComponent } from './roles/roles.component';
+import { TasksComponent } from './tasks/tasks.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    RolesComponent
+    RolesComponent,
+    TasksComponent
   ],
   imports: [
     BrowserModule
