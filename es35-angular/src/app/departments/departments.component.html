@@ -1,0 +1,15 @@
+
+
+<h1>Departments</h1>
+
+
+<div class="container">
+    <ul class="list-group">
+        <li class="list-group-item row animated fadeInDown faster"
+            *ngFor="let department of departments">
+            <span>{{department.id}}.</span> 
+            <span>{{department.name}}</span>
+        </li>
+    </ul>
+</div>
+
