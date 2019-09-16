@@ -13,6 +13,7 @@ export class EmployeesComponent implements OnInit {
     new Employee(3, "Robert"),
     new Employee(4, "Patric"),
   ];
+  // employees: number[] = [1, 2, 3, 4]
 
   constructor() { }
 
