@@ -24,7 +24,14 @@ export class TasksComponent implements OnInit {
 
   constructor() {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    const addInput = document.getElementById('addInput') as HTMLInputElement;
+    addInput.addEventListener('keydown', (event) => {
+      if (event.keyCode === 13) {
+        this.addTask(addInput);
+      }
+    });
+  }
 
   removeTask(event, id) {
     this.tasks.splice(id, 1);
@@ -46,7 +53,7 @@ export class TasksComponent implements OnInit {
     this.currentTask = this.tasks[id];
     this.currentTask.toggleEdit();
     setTimeout(() => {
-      const el = document.getElementById('taskEditInput');
+      const el = document.getElementById('taskEditInput') as HTMLInputElement;
       el.focus();
       el.select();
       el.addEventListener('keydown', (event) => {

@@ -8,10 +8,13 @@
 <div class="container">
   <div class="add-task">
     <div class="input-group add-input col-sm-10">
-      <input type="text" class="form-control" #addInput />
+      <input id="addInput" type="text" class="form-control" #addInput />
     </div>
     <div class="input-group add-input col-sm-2">
-      <a class="btn btn-success add-button" (click)="addTask(addInput)"
+      <a
+        id="addButton"
+        class="btn btn-success add-button"
+        (click)="addTask(addInput)"
         ><span style="color: white">Add</span></a
       >
     </div>
