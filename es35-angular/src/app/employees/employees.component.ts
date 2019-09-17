@@ -8,10 +8,13 @@ import { Employee } from './employee';
 })
 export class EmployeesComponent implements OnInit {
   employees: Employee[] = [
-    new Employee(1, "Bob"),
-    new Employee(2, "Sven"),
-    new Employee(3, "Robert"),
-    new Employee(4, "Patric"),
+    new Employee(1, "Bobert","Williamson"),
+    new Employee(68, "Sven","Bjergsen"),
+    new Employee(421, "Strahomir","Bozhikravov"),
+    new Employee(4, "Monica","Bellucci"),
+    new Employee(10, "Himari","Nakamoto"),
+    new Employee(7, "Jordan","Jordanoff"),
+    new Employee(8,"Roza","Yordanova")
   ];
   // employees: number[] = [1, 2, 3, 4]
 
