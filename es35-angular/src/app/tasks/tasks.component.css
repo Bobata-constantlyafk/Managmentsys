@@ -1,11 +1,8 @@
-p {
+.name p {
   padding: 0;
   margin: 0;
   vertical-align: middle;
   margin: auto;
-}
-
-p {
   cursor: pointer;
   transition-duration: 0.1s;
 }

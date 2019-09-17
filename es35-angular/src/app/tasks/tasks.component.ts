@@ -14,7 +14,11 @@ export class TasksComponent implements OnInit {
     new Task(4, 'Task4'),
   ];
 
+  isEditing = false;
+
   show = false;
+
+  currentElement;
 
   currentTask: Task = new Task(0, '');
 
@@ -28,14 +32,29 @@ export class TasksComponent implements OnInit {
 
   addTask(input) {
     const name: string = input.value;
-    const id = Math.max.apply(Math, this.tasks.map((task) => task.id));
+    const id: number = this.tasks[this.tasks.length - 1].id + 1;
     this.tasks.push(new Task(id, name));
     input.value = '';
   }
 
-  viewDetails(event, i) {
+  viewDetails(i) {
     this.show = true;
     this.currentTask = this.tasks[i];
+  }
+
+  editTask(id) {
+    this.currentTask = this.tasks[id];
+    this.currentTask.toggleEdit();
+    setTimeout(() => {
+      const el = document.getElementById('taskEditInput');
+      el.focus();
+      el.select();
+      el.addEventListener('keydown', (event) => {
+        if (event.keyCode === 13) {
+          this.currentTask.toggleEdit();
+        }
+      });
+    }, 1);
   }
 
   off() {
