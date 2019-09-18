@@ -59,11 +59,14 @@ export class TasksComponent implements OnInit {
       el.addEventListener('keydown', (event) => {
         if (event.keyCode === 13) {
           this.currentTask.toggleEdit();
+          el.removeEventListener('focusout', handler);
         }
       });
-      el.addEventListener('focusout', (event) => {
+      const handler = (event) => {
         this.currentTask.toggleEdit();
-      });
+        el.removeEventListener('focusout', handler);
+      };
+      el.addEventListener('focusout', handler);
     }, 1);
   }
 
