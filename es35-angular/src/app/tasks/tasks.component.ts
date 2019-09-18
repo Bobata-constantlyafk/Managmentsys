@@ -61,6 +61,9 @@ export class TasksComponent implements OnInit {
           this.currentTask.toggleEdit();
         }
       });
+      el.addEventListener('focusout', (event) => {
+        this.currentTask.toggleEdit();
+      });
     }, 1);
   }
 
