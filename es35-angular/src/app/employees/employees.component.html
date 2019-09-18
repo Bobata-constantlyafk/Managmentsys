@@ -1,0 +1,24 @@
+<h1>Employees</h1>
+
+<div class="container">
+<div class="add-task">
+        <div class="input-group add-input col-sm-10">
+          <input type="text" class="form-control" #addInput />
+        </div>
+        <div class="input-group add-input col-sm-2">
+          <a class="btn btn-success add-button" (click)="addEmployee(addInput)">
+        <span style="color: white">Add</span>
+        </a>
+        </div>
+</div>
+<ul class="list-group">
+        <li class="list-group-item row animated fadeInDown faster"
+            *ngFor="let employee of employees">
+            <p>{{employee.name}} {{employee.lastname}}</p>
+            <a class="btn btn-danger col-sm-2" (click)="removeEmployee($event, i)">
+                    <i class="fa fa-remove" style="color: white"></i>
+                  </a>
+        </li>
+    </ul>
+</div>
+

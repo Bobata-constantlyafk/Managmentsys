@@ -1,19 +1,15 @@
-import { Component, OnInit } from '@angular/core'; 
-import { Department } from '../department';
-import { DEPARTMENTS } from '../mock-departments';
+import {Component, OnInit} from '@angular/core';
+import {Department} from '../department';
+import {DEPARTMENTS} from '../mock-departments';
 
 @Component({
   selector: 'app-departments',
   templateUrl: './departments.component.html',
-  styleUrls: ['./departments.component.css']
+  styleUrls: ['./departments.component.css'],
 })
 export class DepartmentsComponent implements OnInit {
-
   departments = DEPARTMENTS;
-  constructor() { }
-
-  ngOnInit() {
-  }
+  constructor() {}
 
   showDep(input) {
     const name: string = input.value;
@@ -37,4 +33,6 @@ export class DepartmentsComponent implements OnInit {
     input.value = '';
   }
 
+
+  ngOnInit() {}
 }

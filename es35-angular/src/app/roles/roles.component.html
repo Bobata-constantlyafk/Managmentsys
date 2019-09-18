@@ -1,0 +1,37 @@
+<!-- <h1>Roles</h1>
+  <ul>
+    <li *ngFor="let role of roles">
+      {{ role.name }}
+    </li>
+  </ul> -->
+  <div id="overlay" (click)="off()" [style.display]="show ? 'flex' : 'none'">
+    <div class="in-overlay">
+      <h2>Details</h2>
+      <h3>{{ currentRole.name }}</h3>
+    </div>
+  </div>
+  <h1>Roles</h1>
+  <div class="container">
+    <div class="add-role">
+      <div class="input-group add-input col-sm-10">
+        <input type="text" class="form-control" #addInput />
+      </div>
+      <div class="input-group add-input col-sm-2">
+        <a class="btn btn-success add-button" (click)="addRole(addInput)"
+          ><span style="color: white">Add</span></a
+        >
+      </div>
+    </div>
+    <ul class="list-group">
+      <li
+        class="list-group-item row animated fadeInDown faster"
+        *ngFor="let role of roles; let i = index"
+      >
+        <p class="col-sm-10" (click)="viewDetails($event, i)">{{ role.name }}</p>
+        <a class="btn btn-danger col-sm-2" (click)="removeRole($event, i)">
+          <i class="fa fa-remove" style="color: white"></i>
+        </a>
+      </li>
+    </ul>
+  </div>
+
