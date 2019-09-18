@@ -15,4 +15,26 @@ export class DepartmentsComponent implements OnInit {
   ngOnInit() {
   }
 
+  showDep(input) {
+    const name: string = input.value;
+    const id = Math.max.apply(Math, this.departments.map((task) => task.id));
+    this.departments.push(new Department(id, name));
+    input.value = '';
+  }
+
+  removeDep(event, id) {
+    const el = event.target;
+    const parent = el.parentNode;
+    // parent.classList.remove('animated');
+    // parent.classList.add('animated');
+    this.departments.splice(id, 1);
+  }
+
+  addDep(input) {
+    const name: string = input.value;
+    const id = Math.max.apply(Math, this.departments.map((task) => task.id));
+    this.departments.push(new Department(id, name));
+    input.value = '';
+  }
+
 }
