@@ -14,13 +14,22 @@ export class RolesComponent implements OnInit {
     new Role(4,'Role 4')
   ];
 
+  isEditing = false;
   show = false;
+  currentElement;
 
   currentRole: Role = new Role(0, '');
 
   constructor() {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    const addInput = document.getElementById('addInput') as HTMLInputElement;
+    addInput.addEventListener('keydown', (event) => {
+      if (event.keyCode === 13) {
+        this.addRole(addInput);
+      }
+    });
+  }
 
   removeRole(event, id) {
     this.roles.splice(id, 1);
@@ -33,9 +42,26 @@ export class RolesComponent implements OnInit {
     input.value = '';
   }
 
-  viewDetails(event, i) {
+  viewDetails(i) {
     this.show = true;
     this.currentRole = this.roles[i];
+  }
+  editRole(id) {
+    this.currentRole = this.roles[id];
+    this.currentRole.toggleEdit();
+    setTimeout(() => {
+      const el = document.getElementById('roleEditInput') as HTMLInputElement;
+      el.focus();
+      el.select();
+      el.addEventListener('keydown', (event) => {
+        if (event.keyCode === 13) {
+          this.currentRole.toggleEdit();
+        }
+      });
+      el.addEventListener('focusout', (event) => {
+        this.currentRole.toggleEdit();
+      });
+    }, 1);
   }
 
   off() {
