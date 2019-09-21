@@ -10,6 +10,7 @@ import {RolesComponent} from './roles/roles.component';
 import {EmployeesComponent} from './employees/employees.component';
 
 const appRoutes: Routes = [
+  {path: '', redirectTo: 'tasks', pathMatch: 'full'},
   {path: 'tasks', component: TasksComponent},
   {path: 'departments', component: DepartmentsComponent},
   {path: 'employees', component: EmployeesComponent},
