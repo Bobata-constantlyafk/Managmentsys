@@ -6,6 +6,7 @@ import { Employee } from './employee';
   templateUrl: './employees.component.html',
   styleUrls: ['./employees.component.css']
 })
+
 export class EmployeesComponent implements OnInit {
   employees: Employee[] = [
     new Employee(1, "Bobert","Williamson"),
@@ -19,6 +20,8 @@ export class EmployeesComponent implements OnInit {
   // employees: number[] = [1, 2, 3, 4]
 
   constructor() { }
+
+  currentEmployee: Employee = new Employee(0, '','');
 
   ngOnInit() {
     console.log(this.employees)

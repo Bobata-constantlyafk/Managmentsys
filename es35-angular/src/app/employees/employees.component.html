@@ -17,8 +17,18 @@
             <p>{{employee.name}} {{employee.lastname}}</p>
             <a class="btn btn-danger col-sm-2" (click)="removeEmployee($event, i)">
                     <i class="fa fa-remove" style="color: white"></i>
-                  </a>
+            </a>
+
+            <div class="button col-sm-4">
+              <a class="btn btn-primary" (click)="editEmployee(i)">
+                <i class="fa fa-edit" style="color: white"></i>
+              </a>
+            </div>
+
         </li>
-    </ul>
+</ul>
+
+
+
 </div>
 
