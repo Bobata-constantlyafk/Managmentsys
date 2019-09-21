@@ -1,15 +1,25 @@
-.name p {
+.title p {
   padding: 0;
   margin: 0;
   vertical-align: middle;
   margin: auto;
-  cursor: pointer;
   transition-duration: 0.1s;
+}
+
+.title {
+  padding: 7px 0;
 }
 
 li:hover {
   background-color: rgb(206, 206, 206);
-  transition-duration: 0.1s;
+}
+
+.options {
+  display: none;
+}
+
+li:hover > .options {
+  display: flex;
 }
 
 h2,

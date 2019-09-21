@@ -1,6 +1,58 @@
-<h1>Roles</h1>
+<!-- <h1>Roles</h1>
   <ul>
     <li *ngFor="let role of roles">
       {{ role.name }}
     </li>
-  </ul>
+  </ul> -->
+  <div id="overlay" (click)="off()" [style.display]="show ? 'flex' : 'none'">
+    <div class="in-overlay">
+      <h2>Details</h2>
+      <h3>{{ currentRole.name }}</h3>
+    </div>
+  </div>
+  <h1>Roles</h1>
+  <div class="container">
+    <div class="add-role">
+      <div class="input-group add-input col-sm-10">
+        <input id="addInput" type="text" class="form-control" #addInput />
+      </div>
+      <div class="input-group add-input col-sm-2">
+        <a
+          id="addButton"
+          class="btn btn-success add-button"
+          (click)="addRole(addInput)"
+          ><span style="color: white">Add</span></a
+        >
+      </div>
+    </div>
+    <ul class="list-group">
+      <li
+        class="list-group-item row animated fadeInDown faster"
+        *ngFor="let role of roles; let i = index"
+      >
+        <div class="col-sm-10 name">
+          <p *ngIf="!role.isEditing" (click)="viewDetails(i)" #roleName>
+            {{ role.name }}
+          </p>
+          <input
+            *ngIf="role.isEditing"
+            type="text"
+            style="width: 100%"
+            id="roleEditInput"
+            [(ngModel)]="role.name"
+          />
+        </div>
+        <div class="button col-sm-1">
+          <a class="btn btn-primary" (click)="editRole(i)">
+            <i class="fa fa-edit" style="color: white"></i>
+          </a>
+        </div>
+        <div class="button col-sm-1">
+          <a class="btn btn-danger" (click)="removeRole($event, i)">
+            <i class="fa fa-remove" style="color: white"></i>
+          </a>
+        </div>
+      </li>
+    </ul>
+  </div>
+
