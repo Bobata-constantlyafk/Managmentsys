@@ -4,12 +4,17 @@
     <h3>{{ currentTask.name }}</h3>
   </div>
 </div>
+
+
 <h1>Tasks</h1>
 <div class="container">
+
   <div class="add-task">
+
     <div class="input-group add-input col-sm-10">
       <input id="addInput" type="text" class="form-control" #addInput />
     </div>
+
     <div class="input-group add-input col-sm-2">
       <a
         id="addButton"
@@ -19,6 +24,7 @@
       >
     </div>
   </div>
+  
   <ul class="list-group">
     <li
       class="list-group-item row animated fadeInDown faster"
@@ -36,22 +42,26 @@
           [(ngModel)]="task.name"
         />
       </div>
+
       <div class="options col-sm-3">
         <div class="button col-sm-4">
           <a class="btn btn-info" (click)="viewDetails(i)">
             <i class="fa fa-info-circle" style="color: white"></i>
           </a>
         </div>
+
         <div class="button col-sm-4">
           <a class="btn btn-primary" (click)="editTask(i)">
             <i class="fa fa-edit" style="color: white"></i>
           </a>
         </div>
+
         <div class="button col-sm-4">
           <a class="btn btn-danger" (click)="removeTask($event, i)">
             <i class="fa fa-remove" style="color: white"></i>
           </a>
         </div>
+
       </div>
     </li>
   </ul>
