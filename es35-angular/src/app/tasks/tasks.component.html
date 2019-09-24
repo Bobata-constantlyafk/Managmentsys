@@ -1,8 +1,11 @@
-<div id="overlay" (click)="off()" [style.display]="show ? 'flex' : 'none'">
-  <div class="in-overlay">
-    <h2>Details</h2>
-    <h3>{{ currentTask.name }}</h3>
-  </div>
+<div
+  id="overlay"
+  (click)="off()"
+  [style.display]="show ? 'flex' : 'none'"
+></div>
+<div class="in-overlay" [style.display]="show ? 'inline' : 'none'">
+  <h2>Details</h2>
+  <h3>{{ currentTask.name }}</h3>
 </div>
 <h1>Tasks</h1>
 <div class="container">
@@ -48,7 +51,7 @@
           </a>
         </div>
         <div class="button col-sm-4">
-          <a class="btn btn-danger" (click)="removeTask($event, i)">
+          <a class="btn btn-danger" (click)="removeTask(i)">
             <i class="fa fa-remove" style="color: white"></i>
           </a>
         </div>
