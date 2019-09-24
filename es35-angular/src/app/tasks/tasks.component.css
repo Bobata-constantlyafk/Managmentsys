@@ -1,4 +1,4 @@
-.name p {
+.title p {
   padding: 0;
   margin: 0;
   vertical-align: middle;
@@ -6,9 +6,20 @@
   transition-duration: 0.1s;
 }
 
+.title {
+  padding: 7px 0;
+}
+
 li:hover {
   background-color: rgb(206, 206, 206);
-  transition-duration: 0.1s;
+}
+
+.options {
+  display: none;
+}
+
+li:hover > .options {
+  display: flex;
 }
 
 h2,
@@ -18,9 +29,13 @@ h3 {
 }
 
 .in-overlay {
+  top: 21%;
+  left: 25%;
+  position: absolute;
   min-width: 50%;
   height: 60%;
   background-color: #fff;
+  z-index: 3;
 }
 
 #overlay {

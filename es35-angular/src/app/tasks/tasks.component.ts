@@ -1,30 +1,26 @@
 import {Component, OnInit} from '@angular/core';
 import {Task} from './tasks.model';
+import {TasksService} from './tasks.service';
 
 @Component({
   selector: 'app-tasks',
   templateUrl: './tasks.component.html',
   styleUrls: ['./tasks.component.css'],
 })
-export class TasksComponent implements OnInit {
-  tasks: Task[] = [
-    new Task(1, 'Task1'),
-    new Task(2, 'Task2'),
-    new Task(3, 'Task3'),
-    new Task(4, 'Task4'),
-  ];
 
+export class TasksComponent implements OnInit {
+  tasks: Task[];
   isEditing = false;
 
   show = false;
 
-  currentElement;
-
   currentTask: Task = new Task(0, '');
 
-  constructor() {}
+  constructor(private tasksService: TasksService) {}
 
   ngOnInit() {
+    this.tasks = this.tasksService.getTasks();
+
     const addInput = document.getElementById('addInput') as HTMLInputElement;
     addInput.addEventListener('keydown', (event) => {
       if (event.keyCode === 13) {
@@ -33,14 +29,13 @@ export class TasksComponent implements OnInit {
     });
   }
 
-  removeTask(event, id) {
-    this.tasks.splice(id, 1);
+  removeTask(id) {
+    this.tasksService.removeTask(id);
   }
 
   addTask(input) {
-    const name: string = input.value;
-    const id: number = this.tasks[this.tasks.length - 1].id + 1;
-    this.tasks.push(new Task(id, name));
+    const taskName = input.value;
+    this.tasksService.addTask(taskName);
     input.value = '';
   }
 
