@@ -1,15 +1,72 @@
 <h1>Employees</h1>
 
 <div class="container">
+
 <div class="add-task">
-        <div class="input-group add-input col-sm-10">
-          <input type="text" class="form-control" #addInput />
-        </div>
-        <div class="input-group add-input col-sm-2">
-          <a class="btn btn-success add-button" (click)="addEmployee(addInput)">
+  
+  <div class="input-group add-input col-sm-10">
+    <input type="text" class="form-control" #addInput />
+  </div>
+
+
+  <div class="input-group add-input col-sm-2">
+    <a
+      id="addButton"
+      class="btn btn-success add-button"
+      (click)="addEmployee(addInput)">
         <span style="color: white">Add</span>
+    </a>
+  </div>
+
+</div>
+
+<ul class="list-group">
+  <li
+    class="list-group-item row animated fadeInDown faster"
+    *ngFor="let employee of employees; let i = index">
+
+    <div class="col-sm-9 title">
+      <p *ngIf="!employee.isEditing" #employeeName>
+        {{ employee.name }}
+        {{employee.lastname}}
+      </p>
+      <input
+        *ngIf="employee.isEditing"
+        type="text"
+        style="width: 100%"
+        id="employeeEditInput"
+        [(ngModel)]="employee.name"
+        />
+    </div>
+
+    <div class="options col-sm-3">
+      <div class="button col-sm-4">
+        <a class="btn btn-info" (click)="viewDetails(i)">
+          <i class="fa fa-info-circle" style="color: white"></i>
         </a>
-        </div>
+      </div>
+
+      <div class="button col-sm-4">
+        <a class="btn btn-primary" (click)="editEmployee(i)">
+          <i class="fa fa-edit" style="color: white"></i>
+        </a>
+      </div>
+
+      <div class="button col-sm-4">
+        <a class="btn btn-danger" (click)="removeEmployee($event, i)">
+          <i class="fa fa-remove" style="color: white"></i>
+        </a>
+      </div>
+
+      
+    </div>
+   </li>
+  </ul>
+</div>
+
+
+        <!-- 
+       
 </div>
 <ul class="list-group">
         <li class="list-group-item row animated fadeInDown faster"
@@ -17,8 +74,13 @@
             <p>{{employee.name}} {{employee.lastname}}</p>
             <a class="btn btn-danger col-sm-2" (click)="removeEmployee($event, i)">
                     <i class="fa fa-remove" style="color: white"></i>
-                  </a>
-        </li>
-    </ul>
-</div>
+            </a>
 
+            <div class="button col-sm-4">
+              <a class="btn btn-primary" (click)="editEmployee(i)">
+                <i class="fa fa-edit" style="color: white"></i>
+              </a>
+            </div>
+
+        </li>
+</ul> -->

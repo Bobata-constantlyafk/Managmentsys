@@ -3,6 +3,10 @@
   margin: 0 auto;
 }
 
+.nav-link {
+  user-select: none;
+}
+
 h1 {
   text-align: center;
 }
