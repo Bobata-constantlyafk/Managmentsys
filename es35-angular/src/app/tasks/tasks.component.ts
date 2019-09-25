@@ -1,20 +1,20 @@
 import {Component, OnInit} from '@angular/core';
 import {Task} from './tasks.model';
 import {TasksService} from './tasks.service';
+import {Employee} from '../employees/employee';
 
 @Component({
   selector: 'app-tasks',
   templateUrl: './tasks.component.html',
   styleUrls: ['./tasks.component.css'],
 })
-
 export class TasksComponent implements OnInit {
   tasks: Task[];
   isEditing = false;
 
-  show = false;
+  showDetails = false;
 
-  currentTask: Task = new Task(0, '');
+  currentTask: Task = new Task(0, '', '');
 
   constructor(private tasksService: TasksService) {}
 
@@ -22,25 +22,28 @@ export class TasksComponent implements OnInit {
     this.tasks = this.tasksService.getTasks();
 
     const addInput = document.getElementById('addInput') as HTMLInputElement;
-    addInput.addEventListener('keydown', (event) => {
-      if (event.keyCode === 13) {
-        this.addTask(addInput);
-      }
-    });
+    const taskTitle = addInput.value;
+    // addInput.addEventListener('keydown', (event) => {
+    //   if (event.keyCode === 13) {
+    //     this.tasksService.addTask(taskTitle, );
+    //   }
+    // });
   }
 
   removeTask(id) {
     this.tasksService.removeTask(id);
   }
 
-  addTask(input) {
-    const taskName = input.value;
-    this.tasksService.addTask(taskName);
-    input.value = '';
+  addTask(titleInput: HTMLInputElement, descInput: HTMLInputElement): void {
+    const taskTitle = titleInput.value;
+    const taskDesc = descInput.value;
+    this.tasksService.addTask(taskTitle, taskDesc);
+    titleInput.value = '';
+    descInput.value = '';
   }
 
   viewDetails(i) {
-    this.show = true;
+    this.showDetails = true;
     this.currentTask = this.tasks[i];
   }
 
@@ -65,7 +68,7 @@ export class TasksComponent implements OnInit {
     }, 1);
   }
 
-  off() {
-    this.show = false;
+  closeDetails() {
+    this.showDetails = false;
   }
 }

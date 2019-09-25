@@ -1,19 +1,16 @@
 <div
   id="overlay"
-  (click)="off()"
-  [style.display]="show ? 'flex' : 'none'"
+  (click)="closeDetails()"
+  [style.display]="showDetails ? 'inline' : 'none'"
 ></div>
-<div class="in-overlay" [style.display]="show ? 'inline' : 'none'">
+<div class="in-overlay card" [style.display]="showDetails ? 'inline' : 'none'">
   <h2>Details</h2>
   <h3>{{ currentTask.name }}</h3>
 </div>
 
-
 <h1>Tasks</h1>
 <div class="container">
-
   <div class="add-task">
-
     <div class="input-group add-input col-sm-10">
       <input id="addInput" type="text" class="form-control" #addInput />
     </div>
@@ -27,7 +24,7 @@
       >
     </div>
   </div>
-  
+
   <ul class="list-group">
     <li
       class="list-group-item row animated fadeInDown faster"
@@ -64,7 +61,6 @@
             <i class="fa fa-remove" style="color: white"></i>
           </a>
         </div>
-
       </div>
     </li>
   </ul>
