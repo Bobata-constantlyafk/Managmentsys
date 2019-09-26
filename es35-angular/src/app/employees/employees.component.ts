@@ -1,29 +1,28 @@
-import { Component, OnInit } from '@angular/core';
-import { Employee } from './employee';
+import {Component, OnInit} from '@angular/core';
+import {Employee} from './employee';
 
 @Component({
   selector: 'app-employees',
   templateUrl: './employees.component.html',
-  styleUrls: ['./employees.component.css']
+  styleUrls: ['./employees.component.css'],
 })
-
 export class EmployeesComponent implements OnInit {
   employees: Employee[] = [
-    new Employee(1, "Bobert","Williamson"),
-    new Employee(68, "Bjorg","Svenskeren"),
-    new Employee(421, "Strahomir","Bozhikravov"),
-    new Employee(4, "Monica","Bellucci"),
-    new Employee(10, "Himari","Nakamoto"),
-    new Employee(7, "Jordan","Jordanoff"),
-    new Employee(8,"Roza","Yordanova")
+    new Employee(1, 'Bobert', 'Williamson'),
+    new Employee(68, 'Bjorg', 'Svenskeren'),
+    new Employee(421, 'Strahomir', 'Bozhikravov'),
+    new Employee(4, 'Monica', 'Bellucci'),
+    new Employee(10, 'Himari', 'Nakamoto'),
+    new Employee(7, 'Jordan', 'Jordanoff'),
+    new Employee(8, 'Roza', 'Yordanova'),
   ];
 
   isEditing = false;
   show = false;
   currentElement;
-  currentEmployee: Employee = new Employee(0, '','');
+  currentEmployee: Employee = new Employee(0, '', '');
 
-  constructor() { }
+  constructor() {}
 
   ngOnInit() {
     const addInput = document.getElementById('addInput') as HTMLInputElement;
@@ -36,9 +35,12 @@ export class EmployeesComponent implements OnInit {
 
   addEmployee(input) {
     const name: string = input.value;
-    const id = Math.max.apply(Math, this.employees.map((employee) => employee.id + 1));
-    const familyname:string = "Novakov"
-    this.employees.push(new Employee(id, name,familyname));
+    const id = Math.max.apply(
+      Math,
+      this.employees.map((employee) => employee.id + 1)
+    );
+    const familyname: string = 'Novakov';
+    this.employees.push(new Employee(id, name, familyname));
     input.value = '';
   }
 
@@ -51,12 +53,13 @@ export class EmployeesComponent implements OnInit {
     this.employees.splice(id, 1);
   }
 
-
   editEmployee(id) {
     this.currentEmployee = this.employees[id];
     this.currentEmployee.toggleEdit();
     setTimeout(() => {
-      const el = document.getElementById('employeeEditInput') as HTMLInputElement;
+      const el = document.getElementById(
+        'employeeEditInput'
+      ) as HTMLInputElement;
       el.focus();
       el.select();
       el.addEventListener('keydown', (event) => {
