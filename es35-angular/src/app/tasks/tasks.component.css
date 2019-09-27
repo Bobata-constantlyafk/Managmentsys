@@ -33,9 +33,16 @@ h3 {
   left: 25%;
   position: absolute;
   min-width: 50%;
-  height: 60%;
+  height: 62%;
   background-color: #fff;
   z-index: 3;
+  display: none;
+  padding: 20px;
+}
+
+.select-menu {
+  margin: 0;
+  margin-bottom: 15px;
 }
 
 #overlay {

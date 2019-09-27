@@ -12,7 +12,9 @@ export class TasksComponent implements OnInit {
   tasks: Task[];
   isEditing = false;
 
-  showDetails = false;
+  showDetails: boolean;
+  showOverlay: boolean;
+  showAddForm: boolean;
 
   currentTask: Task = new Task(0, '', '');
 
@@ -20,14 +22,9 @@ export class TasksComponent implements OnInit {
 
   ngOnInit() {
     this.tasks = this.tasksService.getTasks();
-
-    const addInput = document.getElementById('addInput') as HTMLInputElement;
-    const taskTitle = addInput.value;
-    // addInput.addEventListener('keydown', (event) => {
-    //   if (event.keyCode === 13) {
-    //     this.tasksService.addTask(taskTitle, );
-    //   }
-    // });
+    this.showDetails = false;
+    this.showOverlay = false;
+    this.showAddForm = false;
   }
 
   removeTask(id) {
@@ -38,12 +35,14 @@ export class TasksComponent implements OnInit {
     const taskTitle = titleInput.value;
     const taskDesc = descInput.value;
     this.tasksService.addTask(taskTitle, taskDesc);
+    this.closeAddForm();
     titleInput.value = '';
     descInput.value = '';
   }
 
   viewDetails(i) {
     this.showDetails = true;
+    this.showOverlay = true;
     this.currentTask = this.tasks[i];
   }
 
@@ -69,6 +68,28 @@ export class TasksComponent implements OnInit {
   }
 
   closeDetails() {
+    this.showDetails = false;
+    this.showOverlay = false;
+  }
+
+  viewAddForm(): void {
+    this.showOverlay = true;
+    this.showAddForm = true;
+    // document.addEventListener('keydown', (event) => {
+    //   if (event.keyCode === 13) {
+    //     this.tasksService.addTask(taskTitle);
+    //   }
+    // });
+  }
+
+  closeAddForm(): void {
+    this.showOverlay = false;
+    this.showAddForm = false;
+  }
+
+  closeEverything(): void {
+    this.showOverlay = false;
+    this.showAddForm = false;
     this.showDetails = false;
   }
 }

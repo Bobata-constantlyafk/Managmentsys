@@ -17,8 +17,12 @@ export class Task {
     this.isEditing = false;
   }
 
-  assignEmployee(employee: Employee) {
+  assignEmployee(employee: Employee): void {
     this.employees.push(employee);
+  }
+
+  assignDepartment(department: Department): void {
+    this.department = department;
   }
 
   toggleEdit() {

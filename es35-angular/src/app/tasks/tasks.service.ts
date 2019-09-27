@@ -12,13 +12,23 @@ export class TasksService {
     return Tasks;
   }
 
-  // getTasksOfDepartment(depId: number): Task[] {
-  //   return Tasks.filter((task) => task.department.id === depId);
-  // }
+  getTaskByIndex(index: number): Task {
+    return Tasks[index];
+  }
 
-  // getTasksOfEmployee(empId: number): Task[] {
-  //   return Tasks.filter((task) => task.employees);
-  // }
+  getLastTask(): Task {
+    return Task[Tasks.length - 1];
+  }
+
+  getTasksOfDepartment(depId: number): Task[] {
+    return Tasks.filter((task) => task.department.id === depId);
+  }
+
+  getTasksOfEmployee(empId: number): Task[] {
+    return Tasks.filter((task) =>
+      task.employees.filter((employee) => employee.id === empId)
+    );
+  }
 
   removeTask(index: number): void {
     Tasks.splice(index, 1);
