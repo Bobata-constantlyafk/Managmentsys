@@ -1,5 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {Employee} from './employee';
+import {EmployeeService} from '../employee.service';
 
 @Component({
   selector: 'app-employees',
@@ -7,25 +8,17 @@ import {Employee} from './employee';
   styleUrls: ['./employees.component.css'],
 })
 export class EmployeesComponent implements OnInit {
-  employees: Employee[] = [
-    new Employee(1, 'Bobert', 'Williamson'),
-    new Employee(68, 'Bjorg', 'Svenskeren'),
-    new Employee(421, 'Strahomir', 'Bozhikravov'),
-    new Employee(4, 'Monica', 'Bellucci'),
-    new Employee(10, 'Himari', 'Nakamoto'),
-    new Employee(7, 'Jordan', 'Jordanoff'),
-    new Employee(8, 'Roza', 'Yordanova'),
-  ];
-
+  employees: Employee[];
+  employeeservice: EmployeeService;
   isEditing = false;
   show = false;
   currentElement;
   currentEmployee: Employee = new Employee(0, '', '');
 
-  constructor() {}
+  constructor(private employeeService: EmployeeService) {}
 
   ngOnInit() {
-    this.employees = this.employeeservice.getEmployees();
+    this.getEmployees();
     const addInput = document.getElementById('addInput') as HTMLInputElement;
     addInput.addEventListener('keydown', (event) => {
       if (event.keyCode === 13) {
@@ -48,6 +41,12 @@ export class EmployeesComponent implements OnInit {
   viewDetails(i) {
     this.show = true;
     this.currentEmployee = this.employees[i];
+  }
+
+  getEmployees(): void {
+    this.employeeService
+      .getEmployees()
+      .subscribe((employees) => (this.employees = employees));
   }
 
   removeEmployee(event, id) {
