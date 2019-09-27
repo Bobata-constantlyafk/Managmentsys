@@ -1,9 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {Employee} from './employee';
-<<<<<<< HEAD
-=======
 import {EmployeeService} from '../employee.service';
->>>>>>> Boba
 
 @Component({
   selector: 'app-employees',
@@ -11,21 +8,8 @@ import {EmployeeService} from '../employee.service';
   styleUrls: ['./employees.component.css'],
 })
 export class EmployeesComponent implements OnInit {
-<<<<<<< HEAD
-  employees: Employee[] = [
-    new Employee(1, 'Bobert', 'Williamson'),
-    new Employee(68, 'Bjorg', 'Svenskeren'),
-    new Employee(421, 'Strahomir', 'Bozhikravov'),
-    new Employee(4, 'Monica', 'Bellucci'),
-    new Employee(10, 'Himari', 'Nakamoto'),
-    new Employee(7, 'Jordan', 'Jordanoff'),
-    new Employee(8, 'Roza', 'Yordanova'),
-  ];
-
-=======
   employees: Employee[];
   employeeservice: EmployeeService;
->>>>>>> Boba
   isEditing = false;
   show = false;
   currentElement;
@@ -34,7 +18,6 @@ export class EmployeesComponent implements OnInit {
   constructor(private employeeService: EmployeeService) {}
 
   ngOnInit() {
-    this.getEmployees();
     const addInput = document.getElementById('addInput') as HTMLInputElement;
     addInput.addEventListener('keydown', (event) => {
       if (event.keyCode === 13) {
@@ -49,11 +32,7 @@ export class EmployeesComponent implements OnInit {
       Math,
       this.employees.map((employee) => employee.id + 1)
     );
-<<<<<<< HEAD
-    const familyname: string = 'Novakov';
-=======
     const familyname = 'Novakov';
->>>>>>> Boba
     this.employees.push(new Employee(id, name, familyname));
     input.value = '';
   }
@@ -61,12 +40,6 @@ export class EmployeesComponent implements OnInit {
   viewDetails(i) {
     this.show = true;
     this.currentEmployee = this.employees[i];
-  }
-
-  getEmployees(): void {
-    this.employeeService
-      .getEmployees()
-      .subscribe((employees) => (this.employees = employees));
   }
 
   removeEmployee(event, id) {
