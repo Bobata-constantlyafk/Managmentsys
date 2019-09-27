@@ -15,11 +15,10 @@ export class EmployeesComponent implements OnInit {
   currentElement;
   currentEmployee: Employee = new Employee(0, '', '');
 
-  constructor() {}
+  constructor(private employeeService: EmployeeService) {}
 
   ngOnInit() {
-    this.employees = this.employeeservice.getEmployees();
-
+    this.getEmployees();
     const addInput = document.getElementById('addInput') as HTMLInputElement;
     addInput.addEventListener('keydown', (event) => {
       if (event.keyCode === 13) {
@@ -42,6 +41,12 @@ export class EmployeesComponent implements OnInit {
   viewDetails(i) {
     this.show = true;
     this.currentEmployee = this.employees[i];
+  }
+
+  getEmployees(): void {
+    this.employeeService
+      .getEmployees()
+      .subscribe((employees) => (this.employees = employees));
   }
 
   removeEmployee(event, id) {

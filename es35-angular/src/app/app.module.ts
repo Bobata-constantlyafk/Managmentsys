@@ -8,6 +8,7 @@ import {TasksComponent} from './tasks/tasks.component';
 import {DepartmentsComponent} from './departments/departments.component';
 import {RolesComponent} from './roles/roles.component';
 import {EmployeesComponent} from './employees/employees.component';
+import { MessageComponent } from './message/message.component';
 
 const appRoutes: Routes = [
   {path: '', redirectTo: 'tasks', pathMatch: 'full'},
@@ -24,6 +25,7 @@ const appRoutes: Routes = [
     EmployeesComponent,
     RolesComponent,
     TasksComponent,
+    MessageComponent,
   ],
   imports: [
     RouterModule.forRoot(
