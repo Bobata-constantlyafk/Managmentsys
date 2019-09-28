@@ -9,8 +9,7 @@ import {MessageService} from './message.service';
 })
 export class EmployeeService {
   constructor(private messageService: MessageService) {}
-  getEmployees(): Observable<Employee[]> {
-    this.messageService.add('EmployeeService: fetched employees');
-    return of(Employees);
+  getEmployees(): Employee[] {
+    return Employees;
   }
 }
