@@ -5,30 +5,30 @@ import {TasksService} from '../tasks.service';
 @Component({
   selector: 'app-task-add',
   templateUrl: './task-add.component.html',
-  styleUrls: ['./task-add.component.css', '../tasks.component.css'],
+  styleUrls: ['../tasks.component.css', './task-add.component.css'],
 })
 export class TaskAddComponent implements OnInit {
-  @Output() taskAdded: EventEmitter<Task>;
+  @Output() closeComp = new EventEmitter();
   task: Task;
-  taskService: TasksService;
-  constructor() {}
 
-  ngOnInit() {
-    this.taskAdded = new EventEmitter<Task>();
-  }
+  constructor(private tasksService: TasksService) {}
 
-  addTask(
-    title: HTMLInputElement,
-    desc: HTMLInputElement,
-    dep: HTMLInputElement,
-    emp: HTMLInputElement
-  ) {
+  ngOnInit() {}
+
+  addTask(title: HTMLInputElement, desc: HTMLInputElement) {
     const taskTitle = title.value;
     const taskDesc = desc.value;
-    const taskDepartment = dep.value;
-    const taskEmployee = emp.value;
-    this.taskService.addTask(taskTitle, taskDesc);
-    const createdTask = this.taskService.getLastTask();
+    // const taskDepartment = dep.value;
+    // const taskEmployee = emp.value;
+    this.tasksService.addTask(taskTitle, taskDesc);
+    // const createdTask = this.tasksService.getLastTask();
+    this.close();
     // createdTask.assignDepartment(taskDepartment);
+    title.value = '';
+    desc.value = '';
+  }
+
+  close() {
+    this.closeComp.emit();
   }
 }

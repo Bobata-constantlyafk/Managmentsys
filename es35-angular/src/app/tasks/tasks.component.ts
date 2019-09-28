@@ -31,15 +31,6 @@ export class TasksComponent implements OnInit {
     this.tasksService.removeTask(id);
   }
 
-  addTask(titleInput: HTMLInputElement, descInput: HTMLInputElement): void {
-    const taskTitle = titleInput.value;
-    const taskDesc = descInput.value;
-    this.tasksService.addTask(taskTitle, taskDesc);
-    this.closeAddForm();
-    titleInput.value = '';
-    descInput.value = '';
-  }
-
   viewDetails(i) {
     this.showDetails = true;
     this.showOverlay = true;
@@ -75,11 +66,6 @@ export class TasksComponent implements OnInit {
   viewAddForm(): void {
     this.showOverlay = true;
     this.showAddForm = true;
-    // document.addEventListener('keydown', (event) => {
-    //   if (event.keyCode === 13) {
-    //     this.tasksService.addTask(taskTitle);
-    //   }
-    // });
   }
 
   closeAddForm(): void {

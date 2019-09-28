@@ -33,10 +33,11 @@ h3 {
   left: 25%;
   position: absolute;
   min-width: 50%;
+  max-width: 50%;
   height: 62%;
   background-color: #fff;
   z-index: 3;
-  display: none;
+  display: flex;
   padding: 20px;
 }
 

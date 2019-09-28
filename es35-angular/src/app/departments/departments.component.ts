@@ -9,7 +9,6 @@ import {DEPARTMENTS} from '../mock-departments';
 })
 export class DepartmentsComponent implements OnInit {
   departments = DEPARTMENTS;
-  constructor() {}
 
   ngOnInit() {}
 }

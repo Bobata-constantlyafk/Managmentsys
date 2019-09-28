@@ -1,16 +1,16 @@
-<div
+<!-- <div
   id="overlay"
   (click)="closeEverything()"
   [style.display]="showOverlay ? 'inline' : 'none'"
-></div>
+></div> -->
 <app-task-details
   [task]="currentTask"
-  class="in-overlay card"
   [style.display]="showDetails ? 'inline' : 'none'"
+  (closeComp)="showDetails = false"
 ></app-task-details>
 <app-task-add
-  class="in-overlay card"
   [style.display]="showAddForm ? 'inline' : 'none'"
+  (closeComp)="showAddForm = false"
 ></app-task-add>
 
 <h1>Tasks</h1>
