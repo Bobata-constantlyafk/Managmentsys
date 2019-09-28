@@ -18,7 +18,7 @@ export class EmployeesComponent implements OnInit {
   constructor(private employeeService: EmployeeService) {}
 
   ngOnInit() {
-    this.getEmployees();
+    this.employees = this.employeeService.getEmployees();
     const addInput = document.getElementById('addInput') as HTMLInputElement;
     addInput.addEventListener('keydown', (event) => {
       if (event.keyCode === 13) {
@@ -28,13 +28,8 @@ export class EmployeesComponent implements OnInit {
   }
 
   addEmployee(input) {
-    const name: string = input.value;
-    const id = Math.max.apply(
-      Math,
-      this.employees.map((employee) => employee.id + 1)
-    );
-    const familyname = 'Novakov';
-    this.employees.push(new Employee(id, name, familyname));
+    const employeeName = input.value;
+    this.employeeService.addEmployee(employeeName);
     input.value = '';
   }
 
@@ -43,14 +38,8 @@ export class EmployeesComponent implements OnInit {
     this.currentEmployee = this.employees[i];
   }
 
-  getEmployees(): void {
-    this.employeeService
-      .getEmployees()
-      .subscribe((employees) => (this.employees = employees));
-  }
-
-  removeEmployee(event, id) {
-    this.employees.splice(id, 1);
+  removeEmployee(id) {
+    this.employeeService.removeEmployee(id);
   }
 
   editEmployee(id) {
