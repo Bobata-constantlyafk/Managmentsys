@@ -7,7 +7,6 @@ import {TasksService} from './tasks.service';
   templateUrl: './tasks.component.html',
   styleUrls: ['./tasks.component.css'],
 })
-
 export class TasksComponent implements OnInit {
   tasks: Task[];
   isEditing = false;
