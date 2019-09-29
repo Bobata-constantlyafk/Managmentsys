@@ -1,6 +1,9 @@
 import {Component, OnInit, Input, Output, EventEmitter} from '@angular/core';
 import {Task} from '../tasks.model';
 import {TasksService} from '../tasks.service';
+import {Department} from 'src/app/department';
+import {EmployeeService} from 'src/app/employee.service';
+import {Employee} from 'src/app/employees/employee';
 
 @Component({
   selector: 'app-task-add',
@@ -10,10 +13,21 @@ import {TasksService} from '../tasks.service';
 export class TaskAddComponent implements OnInit {
   @Output() closeComp = new EventEmitter();
   task: Task;
+  departments: string[];
+  employees: string[];
 
-  constructor(private tasksService: TasksService) {}
+  constructor(
+    private tasksService: TasksService,
+    private employeeService: EmployeeService
+  ) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    const tmp = this.employeeService
+      .getEmployees()
+      .filter((employee) => employee.name);
+    console.log(tmp);
+    // this.employees = tmp;
+  }
 
   addTask(title: HTMLInputElement, desc: HTMLInputElement) {
     const taskTitle = title.value;

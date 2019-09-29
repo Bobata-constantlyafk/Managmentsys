@@ -9,8 +9,8 @@ import {DepartmentsComponent} from './departments/departments.component';
 import {RolesComponent} from './roles/roles.component';
 import {EmployeesComponent} from './employees/employees.component';
 import {DashboardComponent} from './dashboard/dashboard.component';
-import { TaskDetailsComponent } from './tasks/task-details/task-details.component';
-import { TaskAddComponent } from './tasks/task-add/task-add.component';
+import {TaskDetailsComponent} from './tasks/task-details/task-details.component';
+import {TaskAddComponent} from './tasks/task-add/task-add.component';
 
 const appRoutes: Routes = [
   {path: '', redirectTo: 'dashboard', pathMatch: 'full'},

@@ -10,6 +10,7 @@ export class Employee {
     this.lastname = lastname;
     this.isEditing = false;
   }
+
   toggleEdit() {
     this.isEditing = !this.isEditing;
   }
