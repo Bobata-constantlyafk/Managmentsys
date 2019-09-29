@@ -17,7 +17,7 @@ export class TasksService {
   }
 
   getLastTask(): Task {
-    return Task[Tasks.length - 1];
+    return Tasks[Tasks.length - 1];
   }
 
   getTasksOfDepartment(depId: number): Task[] {
@@ -25,9 +25,18 @@ export class TasksService {
   }
 
   getTasksOfEmployee(empId: number): Task[] {
-    return Tasks.filter((task) =>
-      task.employees.filter((employee) => employee.id === empId)
-    );
+    // return Tasks.filter((task) =>
+    //   task.employees.filter((employee) => employee.id === empId)
+    // );
+    const tasks: Task[] = new Array();
+    Tasks.forEach((task) => {
+      task.employees.forEach((emp) => {
+        if (emp.id === empId) {
+          tasks.push(task);
+        }
+      });
+    });
+    return tasks;
   }
 
   removeTask(index: number): void {

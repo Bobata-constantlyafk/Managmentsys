@@ -13,8 +13,8 @@ import {Employee} from 'src/app/employees/employee';
 export class TaskAddComponent implements OnInit {
   @Output() closeComp = new EventEmitter();
   task: Task;
-  departments: string[];
-  employees: string[];
+  departments: Department[];
+  employees: Employee[];
 
   constructor(
     private tasksService: TasksService,
@@ -22,14 +22,14 @@ export class TaskAddComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    const tmp = this.employeeService
-      .getEmployees()
-      .filter((employee) => employee.name);
-    console.log(tmp);
-    // this.employees = tmp;
+    this.employees = this.employeeService.getEmployees();
   }
 
-  addTask(title: HTMLInputElement, desc: HTMLInputElement) {
+  addTask(
+    title: HTMLInputElement,
+    desc: HTMLInputElement,
+    emp: HTMLInputElement
+  ) {
     const taskTitle = title.value;
     const taskDesc = desc.value;
     if (taskTitle === '' || taskDesc === '') {
@@ -38,9 +38,13 @@ export class TaskAddComponent implements OnInit {
     }
 
     // const taskDepartment = dep.value;
-    // const taskEmployee = emp.value;
+    const taskEmployee = emp.value;
+    const employee = this.employeeService
+      .getEmployees()
+      .filter((empl) => empl.name === taskEmployee)[0];
     this.tasksService.addTask(taskTitle, taskDesc);
     // const createdTask = this.tasksService.getLastTask();
+    this.tasksService.getLastTask().assignEmployee(employee);
     this.close();
     // createdTask.assignDepartment(taskDepartment);
     title.value = '';

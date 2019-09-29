@@ -15,6 +15,7 @@ export class Task {
     this.title = title;
     this.description = description;
     this.isEditing = false;
+    this.employees = new Array();
   }
 
   assignEmployee(employee: Employee): void {

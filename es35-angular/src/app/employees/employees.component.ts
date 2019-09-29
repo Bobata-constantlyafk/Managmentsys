@@ -18,10 +18,7 @@ export class EmployeesComponent implements OnInit {
   constructor(private employeeService: EmployeeService) {}
 
   ngOnInit() {
-<<<<<<< HEAD
-=======
     this.employees = this.employeeService.getEmployees();
->>>>>>> dev
     const addInput = document.getElementById('addInput') as HTMLInputElement;
     addInput.addEventListener('keydown', (event) => {
       if (event.keyCode === 13) {
@@ -41,13 +38,8 @@ export class EmployeesComponent implements OnInit {
     this.currentEmployee = this.employees[i];
   }
 
-<<<<<<< HEAD
-  removeEmployee(event, id) {
-    this.employees.splice(id, 1);
-=======
   removeEmployee(id) {
     this.employeeService.removeEmployee(id);
->>>>>>> dev
   }
 
   editEmployee(id) {

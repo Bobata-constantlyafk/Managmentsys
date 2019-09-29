@@ -10,7 +10,15 @@
       <span>Department: </span><span>{{ task.department }}</span>
     </div>
     <div>
-      <span>Employee: </span><span>{{ task.employees }}</span>
+      <p>Employees:</p>
+      <ul>
+        <li
+          *ngFor="let employee of task.employees; let i = index"
+          (click)="seeEmpTasks(employee.id)"
+        >
+          {{ employee.name }} {{ employee.lastname }}
+        </li>
+      </ul>
     </div>
   </div>
 </div>
