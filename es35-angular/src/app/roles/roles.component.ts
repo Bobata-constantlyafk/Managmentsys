@@ -1,26 +1,19 @@
-import { Component, OnInit } from '@angular/core';
-import { Role } from '../roles/role';
-
+import {Component, OnInit} from '@angular/core';
+import {Role} from '../roles/role';
+import {RolesService} from './roles.service';
 @Component({
   selector: 'app-roles',
   templateUrl: './roles.component.html',
-  styleUrls: ['./roles.component.css']
+  styleUrls: ['./roles.component.css'],
 })
 export class RolesComponent implements OnInit {
-  roles = [
-    new Role(1,'Role 1'),
-    new Role(2,'Role 2'),
-    new Role(3,'Role 3'),
-    new Role(4,'Role 4')
-  ];
-
+  roles: Role[];
   isEditing = false;
   show = false;
-  currentElement;
 
   currentRole: Role = new Role(0, '');
 
-  constructor() {}
+  constructor(private rolesService: RolesService) {}
 
   ngOnInit() {
     const addInput = document.getElementById('addInput') as HTMLInputElement;
@@ -31,14 +24,13 @@ export class RolesComponent implements OnInit {
     });
   }
 
-  removeRole(event, id) {
-    this.roles.splice(id, 1);
+  removeRole(id) {
+    this.rolesService.removeRole(id);
   }
 
   addRole(input) {
-    const name: string = input.value;
-    const id = Math.max.apply(Math, this.roles.map((role) => role.id));
-    this.roles.push(new Role(id, name));
+    const roleName = input.value;
+    this.rolesService.addRole(roleName);
     input.value = '';
   }
 
@@ -56,16 +48,18 @@ export class RolesComponent implements OnInit {
       el.addEventListener('keydown', (event) => {
         if (event.keyCode === 13) {
           this.currentRole.toggleEdit();
+          el.removeEventListener('focusout', handler);
         }
       });
-      el.addEventListener('focusout', (event) => {
+      const handler = (event) => {
         this.currentRole.toggleEdit();
-      });
+        el.removeEventListener('focusout', handler);
+      };
+      el.addEventListener('focusout', handler);
     }, 1);
   }
 
   off() {
     this.show = false;
   }
-
 }

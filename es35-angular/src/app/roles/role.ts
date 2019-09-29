@@ -1,10 +1,12 @@
 import {Department} from '../department';
+import {Employee} from '../employees/employee';
 
 export class Role {
   id: number;
   name: string;
   isEditing: boolean;
   department: Department;
+  employees: Employee[];
 
   constructor(id: number, name: string) {
     this.id = id;
