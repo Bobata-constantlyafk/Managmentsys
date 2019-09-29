@@ -13,22 +13,20 @@ export class DepartmentsComponent implements OnInit {
     new Department(3, 'Task3'),
     new Department(4, 'Task4'),
   ];
-  
-  
+
   isEditing = false;
-  
+
   show = false;
-  
+
   currentElement;
-  
+
   currentDep: Department = new Department(0, '');
   constructor() {}
-  
+
   showDep(i) {
     this.show = true;
     this.currentDep = this.departments[i];
   }
-
 
   addDep(input) {
     const name: string = input.value;
@@ -37,42 +35,43 @@ export class DepartmentsComponent implements OnInit {
     input.value = '';
   }
 
-
-    ngOnInit() {
-      const addInput = document.getElementById('addInput') as HTMLInputElement;
+  ngOnInit() {
+    const addInput = document.getElementById('addInput') as HTMLInputElement;
     addInput.addEventListener('keydown', (event) => {
       if (event.keyCode === 13) {
         this.addDep(addInput);
       }
     });
-    }
+  }
 
-    removeDep(event, id) {
-      this.departments.splice(id, 1);
-    }
+  removeDep(event, id) {
+    this.departments.splice(id, 1);
+  }
 
-    editDep(id) {
-      this.currentDep = this.departments[id];
-      this.currentDep.toggleEdit();
-      setTimeout(() => {
-        const el = document.getElementById('departmentEditInput') as HTMLInputElement;
-        el.focus();
-        el.select();
-        el.addEventListener('keydown', (event) => {
-          if (event.keyCode === 13) {
-            this.currentDep.toggleEdit();
-            el.removeEventListener('focusout', handler);
-          }
-        });
-        const handler = (event) => {
+  editDep(id) {
+    this.currentDep = this.departments[id];
+    this.currentDep.toggleEdit();
+    setTimeout(() => {
+      const el = document.getElementById(
+        'departmentEditInput'
+      ) as HTMLInputElement;
+      el.focus();
+      el.select();
+      el.addEventListener('keydown', (event) => {
+        if (event.keyCode === 13) {
           this.currentDep.toggleEdit();
           el.removeEventListener('focusout', handler);
-        };
-        el.addEventListener('focusout', handler);
-      }, 1);
-    }
+        }
+      });
+      const handler = (event) => {
+        this.currentDep.toggleEdit();
+        el.removeEventListener('focusout', handler);
+      };
+      el.addEventListener('focusout', handler);
+    }, 1);
+  }
 
-    off() {
-      this.show = false;
-    }
+  off() {
+    this.show = false;
+  }
 }
