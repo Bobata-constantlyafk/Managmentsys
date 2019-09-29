@@ -18,6 +18,11 @@ export class TaskAddComponent implements OnInit {
   addTask(title: HTMLInputElement, desc: HTMLInputElement) {
     const taskTitle = title.value;
     const taskDesc = desc.value;
+    if (taskTitle === '' || taskDesc === '') {
+      alert('Fill all');
+      return;
+    }
+
     // const taskDepartment = dep.value;
     // const taskEmployee = emp.value;
     this.tasksService.addTask(taskTitle, taskDesc);

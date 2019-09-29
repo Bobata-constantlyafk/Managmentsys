@@ -34,7 +34,7 @@ export class TasksService {
     Tasks.splice(index, 1);
   }
 
-  addTask(taskTitle: string, taskDesc): void {
+  addTask(taskTitle: string, taskDesc: string): void {
     const id: number = Tasks[Tasks.length - 1].id + 1;
     Tasks.push(new Task(id, taskTitle, taskDesc));
   }
