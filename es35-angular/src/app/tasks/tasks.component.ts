@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {Task} from './tasks.model';
 import {TasksService} from './tasks.service';
+import {Employee} from '../employees/employee';
 
 @Component({
   selector: 'app-tasks',
@@ -11,35 +12,28 @@ export class TasksComponent implements OnInit {
   tasks: Task[];
   isEditing = false;
 
-  show = false;
+  showDetails: boolean;
+  showOverlay: boolean;
+  showAddForm: boolean;
 
-  currentTask: Task = new Task(0, '');
+  currentTask: Task = new Task(0, '', '');
 
   constructor(private tasksService: TasksService) {}
 
   ngOnInit() {
     this.tasks = this.tasksService.getTasks();
-
-    const addInput = document.getElementById('addInput') as HTMLInputElement;
-    addInput.addEventListener('keydown', (event) => {
-      if (event.keyCode === 13) {
-        this.addTask(addInput);
-      }
-    });
+    this.showDetails = false;
+    this.showOverlay = false;
+    this.showAddForm = false;
   }
 
   removeTask(id) {
     this.tasksService.removeTask(id);
   }
 
-  addTask(input) {
-    const taskName = input.value;
-    this.tasksService.addTask(taskName);
-    input.value = '';
-  }
-
   viewDetails(i) {
-    this.show = true;
+    this.showDetails = true;
+    this.showOverlay = true;
     this.currentTask = this.tasks[i];
   }
 
@@ -64,7 +58,24 @@ export class TasksComponent implements OnInit {
     }, 1);
   }
 
-  off() {
-    this.show = false;
+  closeDetails() {
+    this.showDetails = false;
+    this.showOverlay = false;
+  }
+
+  viewAddForm(): void {
+    this.showOverlay = true;
+    this.showAddForm = true;
+  }
+
+  closeAddForm(): void {
+    this.showOverlay = false;
+    this.showAddForm = false;
+  }
+
+  closeEverything(): void {
+    this.showOverlay = false;
+    this.showAddForm = false;
+    this.showDetails = false;
   }
 }

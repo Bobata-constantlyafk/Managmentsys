@@ -1,4 +1,4 @@
-import {Injectable, OnInit} from '@angular/core';
+import {Injectable} from '@angular/core';
 import {Task} from './tasks.model';
 import {Tasks} from './mock-tasks';
 
@@ -12,13 +12,49 @@ export class TasksService {
     return Tasks;
   }
 
-  removeTask(index): void {
+  getTaskByIndex(index: number): Task {
+    return Tasks[index];
+  }
+
+  getLastTask(): Task {
+    return Tasks[Tasks.length - 1];
+  }
+
+  getTasksOfDepartment(depId: number): Task[] {
+    return Tasks.filter((task) => task.department.id === depId);
+  }
+
+  getTasksOfEmployee(empId: number): Task[] {
+    // return Tasks.filter((task) =>
+    //   task.employees.filter((employee) => employee.id === empId)
+    // );
+    const tasks: Task[] = new Array();
+    Tasks.forEach((task) => {
+      task.employees.forEach((emp) => {
+        if (emp.id === empId) {
+          tasks.push(task);
+        }
+      });
+    });
+    return tasks;
+  }
+
+  removeTask(index: number): void {
     Tasks.splice(index, 1);
   }
 
-  addTask(taskName) {
+  addTask(taskTitle: string, taskDesc: string): void {
     const id: number = Tasks[Tasks.length - 1].id + 1;
-    const name: string = taskName;
-    Tasks.push(new Task(id, name));
+    Tasks.push(new Task(id, taskTitle, taskDesc));
+  }
+
+  editTaskTitle(index: number, title: string): void {
+    const task = Tasks[index];
+    task.title = title;
+  }
+
+  editTaskDescription(index: number, description: string): void {
+    const task = Tasks[index];
+    task.description = description;
   }
 }

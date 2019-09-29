@@ -1,5 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {Department} from '../department';
+import {DEPARTMENTS} from '../mock-departments';
 
 @Component({
   selector: 'app-departments',
@@ -7,12 +8,7 @@ import {Department} from '../department';
   styleUrls: ['./departments.component.css'],
 })
 export class DepartmentsComponent implements OnInit {
-  departments: Department[] = [
-    new Department(1, 'Task1'),
-    new Department(2, 'Task2'),
-    new Department(3, 'Task3'),
-    new Department(4, 'Task4'),
-  ];
+  departments = DEPARTMENTS;
 
   isEditing = false;
 
