@@ -36,7 +36,7 @@
           [(ngModel)]="role.name"
         />
       </div>
-      
+
       <div class="options col-sm-3">
         <div class="button col-sm-4">
           <a class="btn btn-info" (click)="viewDetails(i)">
@@ -44,16 +44,17 @@
           </a>
         </div>
 
-      <div class="button col-sm-4">
-        <a class="btn btn-primary" (click)="editRole(i)">
-          <i class="fa fa-edit" style="color: white"></i>
-        </a>
-      </div>
+        <div class="button col-sm-4">
+          <a class="btn btn-primary" (click)="editRole(i)">
+            <i class="fa fa-edit" style="color: white"></i>
+          </a>
+        </div>
 
-      <div class="button col-sm-4">
-        <a class="btn btn-danger" (click)="removeRole(i)">
-          <i class="fa fa-remove" style="color: white"></i>
-        </a>
+        <div class="button col-sm-4">
+          <a class="btn btn-danger" (click)="removeRole(i)">
+            <i class="fa fa-remove" style="color: white"></i>
+          </a>
+        </div>
       </div>
     </li>
   </ul>

@@ -13,8 +13,9 @@ import {TaskDetailsComponent} from './tasks/task-details/task-details.component'
 import {TaskAddComponent} from './tasks/task-add/task-add.component';
 
 const appRoutes: Routes = [
-  {path: '', redirectTo: 'dashboard', pathMatch: 'full'},
-  {path: 'dashboard', component: DashboardComponent},
+  // {path: '', redirectTo: 'dashboard', pathMatch: 'full'},
+  {path: '', redirectTo: 'tasks', pathMatch: 'full'},
+  // {path: 'dashboard', component: DashboardComponent},
   {path: 'tasks', component: TasksComponent},
   {path: 'departments', component: DepartmentsComponent},
   {path: 'employees', component: EmployeesComponent},
