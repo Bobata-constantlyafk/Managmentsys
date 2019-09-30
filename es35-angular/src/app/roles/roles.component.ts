@@ -9,33 +9,41 @@ import {RolesService} from './roles.service';
 export class RolesComponent implements OnInit {
   roles: Role[];
   isEditing = false;
-  show = false;
+  showDetails: boolean;
+  showOverlay: boolean;
+  showAddForm: boolean;
 
-  currentRole: Role = new Role(0, '');
+  currentRole: Role = new Role(0, ' ', ' ');
 
   constructor(private rolesService: RolesService) {}
 
   ngOnInit() {
-    const addInput = document.getElementById('addInput') as HTMLInputElement;
-    addInput.addEventListener('keydown', (event) => {
-      if (event.keyCode === 13) {
-        this.addRole(addInput);
-      }
-    });
+    // const addInput = document.getElementById('addInput') as HTMLInputElement;
+    // addInput.addEventListener('keydown', (event) => {
+    //   if (event.keyCode === 13) {
+    //     this.addRole(addInput);
+    //   }
+    this.roles = this.rolesService.getRoles();
+    this.showDetails = false;
+    this.showOverlay = false;
+    this.showAddForm = false;
   }
 
   removeRole(id) {
     this.rolesService.removeRole(id);
   }
 
-  addRole(input) {
+  addRole(input, input2) {
     const roleName = input.value;
-    this.rolesService.addRole(roleName);
+    const roleDesc = input2.value;
+    this.rolesService.addRole(roleName, roleDesc);
     input.value = '';
+    input2.value = '';
   }
 
   viewDetails(i) {
-    this.show = true;
+    this.showDetails = true;
+    this.showOverlay = true;
     this.currentRole = this.roles[i];
   }
   editRole(id) {
@@ -59,7 +67,24 @@ export class RolesComponent implements OnInit {
     }, 1);
   }
 
-  off() {
-    this.show = false;
+  closeDetails() {
+    this.showDetails = false;
+    this.showOverlay = false;
+  }
+
+  viewAddForm(): void {
+    this.showOverlay = true;
+    this.showAddForm = true;
+  }
+
+  closeAddForm(): void {
+    this.showOverlay = false;
+    this.showAddForm = false;
+  }
+
+  closeEverything(): void {
+    this.showOverlay = false;
+    this.showAddForm = false;
+    this.showDetails = false;
   }
 }

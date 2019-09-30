@@ -1,15 +1,25 @@
-.name p {
+.title p {
   padding: 0;
   margin: 0;
   vertical-align: middle;
   margin: auto;
-  cursor: pointer;
   transition-duration: 0.1s;
+}
+
+.title {
+  padding: 7px 0;
 }
 
 li:hover {
   background-color: rgb(206, 206, 206);
-  transition-duration: 0.1s;
+}
+
+.options {
+  display: none;
+}
+
+li:hover > .options {
+  display: flex;
 }
 
 h2,
@@ -19,9 +29,21 @@ h3 {
 }
 
 .in-overlay {
+  top: 20%;
+  left: 25%;
+  position: absolute;
   min-width: 50%;
-  height: 60%;
+  max-width: 50%;
+  height: 62%;
   background-color: #fff;
+  z-index: 3;
+  display: flex;
+  padding: 20px;
+}
+
+.select-menu {
+  margin: 0;
+  margin-bottom: 15px;
 }
 
 #overlay {
@@ -54,7 +76,7 @@ a {
   display: flex;
 }
 
-.add-role {
+.add-task {
   display: flex;
 }
 

@@ -12,13 +12,34 @@ export class RolesService {
     return Roles;
   }
 
-  removeRole(index): void {
+  getRoleByIndex(index: number): Role {
+    return Roles[index];
+  }
+
+  getLastRole(): Role {
+    return Roles[Roles.length - 1];
+  }
+
+  getRolesOfDepartment(depId: number): Role[] {
+    return Roles.filter((role) => role.department.id === depId);
+  }
+
+  removeRole(index: number): void {
     Roles.splice(index, 1);
   }
 
-  addRole(roleName) {
+  addRole(roleTitle: string, roleDesc: string): void {
     const id: number = Roles[Roles.length - 1].id + 1;
-    const name: string = roleName;
-    Roles.push(new Role(id, name));
+    Roles.push(new Role(id, roleTitle, roleDesc));
+  }
+
+  editRoleTitle(index: number, title: string): void {
+    const role = Roles[index];
+    role.title = title;
+  }
+
+  editRoleDescription(index: number, description: string): void {
+    const role = Roles[index];
+    role.description = description;
   }
 }
