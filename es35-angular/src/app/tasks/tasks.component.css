@@ -29,13 +29,21 @@ h3 {
 }
 
 .in-overlay {
-  top: 21%;
+  top: 20%;
   left: 25%;
   position: absolute;
   min-width: 50%;
-  height: 60%;
+  max-width: 50%;
+  height: 62%;
   background-color: #fff;
   z-index: 3;
+  display: flex;
+  padding: 20px;
+}
+
+.select-menu {
+  margin: 0;
+  margin-bottom: 15px;
 }
 
 #overlay {

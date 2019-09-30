@@ -1,6 +1,5 @@
-import { Component } from '@angular/core';
-import { Role } from './roles/role';
-
+import {Component} from '@angular/core';
+import {Role} from './roles/role';
 
 @Component({
   selector: 'app-root',
@@ -9,5 +8,4 @@ import { Role } from './roles/role';
 })
 export class AppComponent {
   title = 'es35-angular';
-  
 }

@@ -1,26 +1,22 @@
-<div
-  id="overlay"
-  (click)="off()"
-  [style.display]="show ? 'flex' : 'none'"
-></div>
-<div class="in-overlay" [style.display]="show ? 'inline' : 'none'">
-  <h2>Details</h2>
-  <h3>{{ currentTask.name }}</h3>
-</div>
+<app-task-details
+  [task]="currentTask"
+  [style.display]="showDetails ? 'inline' : 'none'"
+  (closeComp)="showDetails = false"
+></app-task-details>
+<app-task-add
+  [style.display]="showAddForm ? 'inline' : 'none'"
+  (closeComp)="showAddForm = false"
+></app-task-add>
 
 <h1>Tasks</h1>
 
 <div class="container">
   <div class="add-task">
-    <div class="input-group add-input col-sm-10">
-      <input id="addInput" type="text" class="form-control" #addInput />
-    </div>
-
-    <div class="input-group add-input col-sm-2">
+    <div class="input-group add-input col-sm-12">
       <a
         id="addButton"
         class="btn btn-success add-button"
-        (click)="addTask(addInput)"
+        (click)="viewAddForm()"
         ><span style="color: white">Add</span></a
       >
     </div>
@@ -33,14 +29,14 @@
     >
       <div class="col-sm-9 title">
         <p *ngIf="!task.isEditing" #taskName>
-          {{ task.name }}
+          {{ task.title }}
         </p>
         <input
           *ngIf="task.isEditing"
           type="text"
           style="width: 100%"
           id="taskEditInput"
-          [(ngModel)]="task.name"
+          [(ngModel)]="task.title"
         />
       </div>
 
