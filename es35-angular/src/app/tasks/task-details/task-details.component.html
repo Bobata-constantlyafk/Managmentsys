@@ -7,10 +7,28 @@
       <span>Description: </span><span>{{ task.description }}</span>
     </div>
     <div>
-      <span>Department: </span><span>{{ task.department }}</span>
+      <span>Department: </span><span>{{ task.department.name }}</span>
     </div>
     <div>
       <p>Employees:</p>
+      <div class="form-group row">
+        <div class="col-sm-10">
+          <select #employee class="form-control">
+            <option value="" disabled selected>Employees</option>
+            <option *ngFor="let employee of employees; let i = index">{{
+              employee.name
+            }}</option>
+          </select>
+        </div>
+        <div class="col-sm-2">
+          <button
+            class="form-control btn btn-primary"
+            (click)="addEmp(employee.value)"
+          >
+            Add
+          </button>
+        </div>
+      </div>
       <ul>
         <li
           *ngFor="let employee of task.employees; let i = index"
@@ -19,6 +37,9 @@
           {{ employee.name }} {{ employee.lastname }}
         </li>
       </ul>
+    </div>
+    <div>
+      <span>Deadline: </span><span>{{ task.deadline }}</span>
     </div>
   </div>
 </div>

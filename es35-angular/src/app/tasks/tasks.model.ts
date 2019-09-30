@@ -6,16 +6,23 @@ export class Task {
   title: string;
   description: string;
   isEditing: boolean;
-  deadline: Date;
+  deadline: string;
   department: Department;
   employees: Employee[];
 
-  constructor(id: number, title: string, description: string) {
+  constructor(
+    id: number,
+    title: string,
+    description: string,
+    deadline: string
+  ) {
     this.id = id;
     this.title = title;
     this.description = description;
     this.isEditing = false;
     this.employees = new Array();
+    this.department = new Department(1, '');
+    this.deadline = deadline;
   }
 
   assignEmployee(employee: Employee): void {
@@ -24,6 +31,10 @@ export class Task {
 
   assignDepartment(department: Department): void {
     this.department = department;
+  }
+
+  assignDeadline(deadline: string) {
+    this.deadline = deadline;
   }
 
   toggleEdit() {

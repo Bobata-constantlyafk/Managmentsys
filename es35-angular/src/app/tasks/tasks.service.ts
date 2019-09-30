@@ -43,9 +43,10 @@ export class TasksService {
     Tasks.splice(index, 1);
   }
 
-  addTask(taskTitle: string, taskDesc: string): void {
+  addTask(taskTitle: string, taskDesc: string, deadline: string): Task {
     const id: number = Tasks[Tasks.length - 1].id + 1;
-    Tasks.push(new Task(id, taskTitle, taskDesc));
+    Tasks.push(new Task(id, taskTitle, taskDesc, deadline));
+    return Tasks[id - 1];
   }
 
   editTaskTitle(index: number, title: string): void {
