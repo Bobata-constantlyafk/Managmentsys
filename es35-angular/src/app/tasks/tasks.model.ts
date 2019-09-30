@@ -6,7 +6,7 @@ export class Task {
   title: string;
   description: string;
   isEditing: boolean;
-  deadline: Date;
+  deadline: string;
   department: Department;
   employees: Employee[];
 
@@ -24,6 +24,10 @@ export class Task {
 
   assignDepartment(department: Department): void {
     this.department = department;
+  }
+
+  assignDeadline(deadline: string) {
+    this.deadline = deadline;
   }
 
   toggleEdit() {

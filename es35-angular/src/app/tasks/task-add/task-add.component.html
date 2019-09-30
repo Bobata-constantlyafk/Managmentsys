@@ -40,10 +40,35 @@
           </select>
         </div>
         <div class="col-sm-4">
-          <input type="text" class="form-control" placeholder="Deadline" />
+          <form class="form-inline">
+            <div class="form-group">
+              <div class="input-group">
+                <input
+                  class="form-control"
+                  placeholder="yyyy-mm-dd"
+                  name="d2"
+                  ngbDatepicker
+                  #d2="ngbDatepicker"
+                  #deadline
+                />
+                <div class="input-group-append">
+                  <button
+                    class="btn btn-outline-secondary calendar"
+                    (click)="d2.toggle()"
+                    type="button"
+                  >
+                    <i class="fa fa-calendar" aria-hidden="true"></i>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </form>
         </div>
       </div>
-      <button class="btn btn-success" (click)="addTask(title, desc, employee)">
+      <button
+        class="btn btn-success"
+        (click)="addTask(title, desc, employee, deadline)"
+      >
         Add
       </button>
     </form>

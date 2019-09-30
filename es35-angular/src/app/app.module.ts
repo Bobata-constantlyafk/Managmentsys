@@ -2,6 +2,12 @@ import {BrowserModule} from '@angular/platform-browser';
 import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
 import {FormsModule} from '@angular/forms';
+import {
+  NgbModule,
+  NgbDatepickerI18n,
+  NgbCalendar,
+  NgbCalendarGregorian,
+} from '@ng-bootstrap/ng-bootstrap';
 
 import {AppComponent} from './app.component';
 import {TasksComponent} from './tasks/tasks.component';
@@ -40,6 +46,7 @@ const appRoutes: Routes = [
     ),
     BrowserModule,
     FormsModule,
+    NgbModule,
   ],
   providers: [],
   bootstrap: [AppComponent],
