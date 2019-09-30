@@ -24,6 +24,18 @@ export class RolesService {
     return Roles.filter((role) => role.department.id === depId);
   }
 
+  getRolesOfEmployee(empId: number): Role[] {
+    const roles: Role[] = new Array();
+    Roles.forEach((role) => {
+      role.employees.forEach((emp) => {
+        if (emp.id === empId) {
+          roles.push(role);
+        }
+      });
+    });
+    return roles;
+  }
+
   removeRole(index: number): void {
     Roles.splice(index, 1);
   }

@@ -18,11 +18,6 @@ export class RolesComponent implements OnInit {
   constructor(private rolesService: RolesService) {}
 
   ngOnInit() {
-    // const addInput = document.getElementById('addInput') as HTMLInputElement;
-    // addInput.addEventListener('keydown', (event) => {
-    //   if (event.keyCode === 13) {
-    //     this.addRole(addInput);
-    //   }
     this.roles = this.rolesService.getRoles();
     this.showDetails = false;
     this.showOverlay = false;
@@ -31,14 +26,6 @@ export class RolesComponent implements OnInit {
 
   removeRole(id) {
     this.rolesService.removeRole(id);
-  }
-
-  addRole(input, input2) {
-    const roleName = input.value;
-    const roleDesc = input2.value;
-    this.rolesService.addRole(roleName, roleDesc);
-    input.value = '';
-    input2.value = '';
   }
 
   viewDetails(i) {

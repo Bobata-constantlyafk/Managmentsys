@@ -1,24 +1,28 @@
-<div id="overlay" (click)="off()" [style.display]="show ? 'flex' : 'none'">
-  <div class="in-overlay">
-    <h2>Details</h2>
-    <h3>{{ currentRole.name }}</h3>
-  </div>
-</div>
+<app-role-details
+  [role]="currentRole"
+  [style.display]="showDetails ? 'inline' : 'none'"
+  (closeComp)="showDetails = false"
+></app-role-details>
+
+<app-role-add
+  [style.display]="showAddForm ? 'inline' : 'none'"
+  (closeComp)="showAddForm = false"
+></app-role-add>
+
 <h1>Roles</h1>
+
 <div class="container">
   <div class="add-role">
-    <div class="input-group add-input col-sm-10">
-      <input id="addInput" type="text" class="form-control" #addInput />
-    </div>
-    <div class="input-group add-input col-sm-2">
+    <div class="input-group add-input col-sm-12">
       <a
         id="addButton"
         class="btn btn-success add-button"
-        (click)="addRole(addInput)"
+        (click)="viewAddForm()"
         ><span style="color: white">Add</span></a
       >
     </div>
   </div>
+
   <ul class="list-group">
     <li
       class="list-group-item row animated fadeInDown faster"
@@ -26,7 +30,7 @@
     >
       <div class="col-sm-9 title">
         <p *ngIf="!role.isEditing" #roleName>
-          {{ role.name }}
+          {{ role.title }}
         </p>
         <input
           *ngIf="role.isEditing"
