@@ -28,11 +28,13 @@ export class TaskAddComponent implements OnInit {
   addTask(
     title: HTMLInputElement,
     desc: HTMLInputElement,
-    emp: HTMLInputElement
+    emp: HTMLInputElement,
+    deadline: HTMLInputElement
   ) {
     const taskTitle = title.value;
     const taskDesc = desc.value;
-    if (taskTitle === '' || taskDesc === '') {
+    const taskDeadline = deadline.value;
+    if (taskTitle === '' || taskDesc === '' || taskDeadline === '') {
       alert('Fill all');
       return;
     }
@@ -47,8 +49,11 @@ export class TaskAddComponent implements OnInit {
     this.tasksService.getLastTask().assignEmployee(employee);
     this.close();
     // createdTask.assignDepartment(taskDepartment);
+    this.tasksService.getLastTask().assignDeadline(taskDeadline);
+
     title.value = '';
     desc.value = '';
+    deadline.value = '';
   }
 
   close() {
