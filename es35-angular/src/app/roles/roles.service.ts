@@ -40,9 +40,10 @@ export class RolesService {
     Roles.splice(index, 1);
   }
 
-  addRole(roleTitle: string, roleDesc: string): void {
+  addRole(roleTitle: string, roleDesc: string): Role {
     const id: number = Roles[Roles.length - 1].id + 1;
     Roles.push(new Role(id, roleTitle, roleDesc));
+    return Roles[id - 1];
   }
 
   editRoleTitle(index: number, title: string): void {

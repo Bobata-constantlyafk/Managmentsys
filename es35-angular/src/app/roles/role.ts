@@ -15,6 +15,7 @@ export class Role {
     this.description = description;
     this.isEditing = false;
     this.employees = new Array();
+    this.department = new Department(1, '');
   }
 
   assignEmployee(employee: Employee): void {
