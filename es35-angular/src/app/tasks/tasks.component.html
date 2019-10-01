@@ -33,18 +33,18 @@
             <p *ngIf="!task.isEditing" #taskName>
               {{ task.title }}
             </p>
+            <input
+              *ngIf="task.isEditing"
+              type="text"
+              style="width: 100%"
+              id="taskEditInput"
+              [(ngModel)]="task.title"
+            />
           </div>
           <div class="col-sm-5 text-center">
             <span class="text-secondary">Deadline: {{ task.deadline }}</span>
           </div>
         </div>
-        <input
-          *ngIf="task.isEditing"
-          type="text"
-          style="width: 100%"
-          id="taskEditInput"
-          [(ngModel)]="task.title"
-        />
       </div>
 
       <div class="options col-sm-3">

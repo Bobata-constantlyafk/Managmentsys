@@ -41,10 +41,18 @@ export class TaskDetailsComponent implements OnInit {
   }
 
   addEmp(empName: string) {
+    if (empName === '') {
+      return;
+    }
     const selectedEmp = this.employeeService
       .getEmployees()
       .filter((employee) => employee.name === empName)[0];
     this.task.assignEmployee(selectedEmp);
     this.employees.splice(this.employees.indexOf(selectedEmp), 1);
+  }
+
+  removeEmp(empIndex) {
+    this.employees.push(this.task.employees[empIndex]);
+    this.task.employees.splice(empIndex, 1);
   }
 }
