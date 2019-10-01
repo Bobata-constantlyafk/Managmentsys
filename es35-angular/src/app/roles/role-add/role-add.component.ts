@@ -11,7 +11,7 @@ import {DepartmentService} from 'src/app/departments/department.service';
   templateUrl: './role-add.component.html',
   styleUrls: ['../roles.component.css', './role-add.component.css'],
 })
-export class roleAddComponent implements OnInit {
+export class RoleAddComponent implements OnInit {
   @Output() closeComp = new EventEmitter();
   role: Role;
   departments: Department[];
