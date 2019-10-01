@@ -15,6 +15,7 @@ export class TaskDetailsComponent implements OnInit {
 
   employees: Employee[];
   selectedEmp: Employee;
+  allEmployees: Employee[];
 
   constructor(
     private tasksService: TasksService,
@@ -22,7 +23,13 @@ export class TaskDetailsComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.employees = this.employeeService.getEmployees();
+    this.allEmployees = this.employeeService.getEmployees();
+    this.employees = [];
+    for (const employee of this.allEmployees) {
+      if (this.task.employees.indexOf(employee) < 0) {
+        this.employees.push(employee);
+      }
+    }
   }
 
   close() {
@@ -38,5 +45,6 @@ export class TaskDetailsComponent implements OnInit {
       .getEmployees()
       .filter((employee) => employee.name === empName)[0];
     this.task.assignEmployee(selectedEmp);
+    this.employees.splice(this.employees.indexOf(selectedEmp), 1);
   }
 }

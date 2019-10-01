@@ -1,10 +1,10 @@
 <app-task-details
   [task]="currentTask"
-  [style.display]="showDetails ? 'inline' : 'none'"
+  *ngIf="showDetails"
   (closeComp)="showDetails = false"
 ></app-task-details>
 <app-task-add
-  [style.display]="showAddForm ? 'inline' : 'none'"
+  *ngIf="showAddForm"
   (closeComp)="showAddForm = false"
 ></app-task-add>
 
