@@ -33,8 +33,14 @@
         <li
           *ngFor="let employee of task.employees; let i = index"
           (click)="seeEmpTasks(employee.id)"
+          style="width: 100%; margin: 15px 0"
         >
-          {{ employee.name }} {{ employee.lastname }}
+          <span>{{ employee.name }} {{ employee.lastname }}</span>
+          <button
+            class="btn btn-danger fa fa-close"
+            (click)="removeEmp(i)"
+            style="float: right"
+          ></button>
         </li>
       </ul>
     </div>

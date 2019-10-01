@@ -57,11 +57,9 @@ export class TaskAddComponent implements OnInit {
       .getEmployees()
       .filter((empl) => empl.name === taskEmployee)[0];
     createdTask.assignEmployee(employee);
-    // this.tasksService.getLastTask().assignEmployee(employee);
 
     // Assing Deadline
     createdTask.assignDeadline(taskDeadline);
-    // this.tasksService.getLastTask().assignDeadline(taskDeadline);
 
     // Assign Department
     const taskDepartment = dep.value;
@@ -69,10 +67,8 @@ export class TaskAddComponent implements OnInit {
       .getDepartments()
       .filter((depa) => depa.name === taskDepartment)[0];
     createdTask.assignDepartment(department);
-    // this.tasksService.getLastTask().assignDepartment(department);
 
     this.close();
-    // createdTask.assignDepartment(taskDepartment);
 
     title.value = '';
     desc.value = '';
