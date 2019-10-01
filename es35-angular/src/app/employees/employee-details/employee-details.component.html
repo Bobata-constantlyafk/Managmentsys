@@ -1,0 +1,16 @@
+<div id="overlay" (click)="close()" style="display: inline"></div>
+<div class="in-overlay card">
+  <div class="container">
+    <h2>Details</h2>
+    <h4>{{ employee.name }}</h4>
+    <div>
+      <span>Employee name: </span><span>{{ employee.name }}</span>
+    </div>
+    <div>
+      <span>Employee last name: </span><span>{{ employee.lastname }}</span>
+    </div>
+    <div>
+      <span>Department: </span><span>{{ employee.department.name }}</span>
+    </div>
+  </div>
+</div>
