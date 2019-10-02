@@ -1,6 +1,7 @@
 import {Injectable} from '@angular/core';
 import {Role} from '../roles/role';
 import {Roles} from './mock-roles';
+import {Department} from '../department';
 
 @Injectable({
   providedIn: 'root',

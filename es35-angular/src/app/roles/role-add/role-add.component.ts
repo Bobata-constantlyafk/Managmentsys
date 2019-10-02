@@ -36,6 +36,7 @@ export class RoleAddComponent implements OnInit {
   ) {
     const roleTitle = title.value;
     const roleDesc = desc.value;
+    const roleDep = dep.value;
     if (roleTitle === '' || roleDesc === '') {
       alert('Fill all');
       return;
