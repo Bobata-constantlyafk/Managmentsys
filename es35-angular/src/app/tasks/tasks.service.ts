@@ -25,9 +25,6 @@ export class TasksService {
   }
 
   getTasksOfEmployee(empId: number): Task[] {
-    // return Tasks.filter((task) =>
-    //   task.employees.filter((employee) => employee.id === empId)
-    // );
     const tasks: Task[] = new Array();
     Tasks.forEach((task) => {
       task.employees.forEach((emp) => {
