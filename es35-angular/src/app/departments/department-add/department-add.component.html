@@ -1,0 +1,28 @@
+<div id="overlay" (click)="close()" style="display: inline"></div>
+<div class="in-overlay card">
+  <div class="container">
+    <h2>Add Department</h2>
+    <form>
+      <div class="form-group">
+        <label>Name</label>
+        <input
+          #name
+          type="text"
+          class="form-control"
+          placeholder="Enter Name"
+        />
+      </div>
+      <div class="col-sm-4">
+        <select #employee class="form-control">
+          <option value="" disabled selected>Employees</option>
+          <option *ngFor="let employee of employees; let i = index">{{
+            employee.name
+          }}</option>
+        </select>
+      </div>
+      <button class="btn btn-success" (click)="addDep(name, employee)">
+        Add
+      </button>
+    </form>
+  </div>
+</div>

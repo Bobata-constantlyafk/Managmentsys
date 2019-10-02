@@ -1,9 +1,12 @@
-<div id="overlay" (click)="off()" [style.display]="show ? 'flex' : 'none'">
-  <div class="in-overlay">
-    <h2>Details</h2>
-    <h3>{{ currentDep.name }}</h3>
-  </div>
-</div>
+<app-department-details
+  [department]="currentDep"
+  *ngIf="showDetails"
+  (closeComp)="showDetails = false"
+></app-department-details>
+<app-department-add
+  [style.display]="showAddForm ? 'inline' : 'none'"
+  (closeComp)="showAddForm = false"
+></app-department-add>
 
 <h1>Departments</h1>
 
@@ -16,7 +19,7 @@
       <a
         id="addButton"
         class="btn btn-success add-button"
-        (click)="addDep(addInput)"
+        (click)="viewAddForm()"
         ><span style="color: white">Add</span></a
       >
     </div>
@@ -40,7 +43,7 @@
         />
       </div>
       <div class="button col-sm-1">
-        <a class="btn btn-info" (click)="showDep(i)">
+        <a class="btn btn-info" (click)="viewDetails(i)">
           <i class="fa fa-info-circle" style="color: white"></i>
         </a>
       </div>

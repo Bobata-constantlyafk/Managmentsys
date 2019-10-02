@@ -1,0 +1,18 @@
+<div id="overlay" (click)="close()" style="display: inline"></div>
+<div class="in-overlay card">
+  <div class="container">
+    <h2>Details</h2>
+    <h4>{{ department.name }}</h4>
+    <div>
+      <p>Employees:</p>
+      <ul>
+        <li
+          *ngFor="let employee of department.employees; let i = index"
+          (click)="seeDepEmps(department.id)"
+        >
+          {{ employee.name }} {{ employee.lastname }}
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
