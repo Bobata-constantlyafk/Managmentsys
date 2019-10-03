@@ -31,12 +31,11 @@ export class RoleAddComponent implements OnInit {
   addRole(
     title: HTMLInputElement,
     desc: HTMLInputElement,
-    dep: HTMLInputElement,
-    emp: HTMLInputElement
+    dep: HTMLInputElement
+    //emp: HTMLInputElement
   ) {
     const roleTitle = title.value;
     const roleDesc = desc.value;
-    const roleDep = dep.value;
     if (roleTitle === '' || roleDesc === '') {
       alert('Fill all');
       return;
@@ -45,12 +44,12 @@ export class RoleAddComponent implements OnInit {
     const createdRole = this.rolesService.addRole(roleTitle, roleDesc);
     console.log(createdRole);
 
-    // Assing employee
-    const roleEmployee = emp.value;
-    const employee = this.employeeService
-      .getEmployees()
-      .filter((empl) => empl.name === roleEmployee)[0];
-    createdRole.assignEmployee(employee);
+    // Assign employee
+    // const roleEmployee = emp.value;
+    // const employee = this.employeeService
+    //   .getEmployees()
+    //   .filter((empl) => empl.name === roleEmployee)[0];
+    // createdRole.assignEmployee(employee);
 
     // Assign Department
     const roleDepartment = dep.value;
