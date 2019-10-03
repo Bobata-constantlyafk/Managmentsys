@@ -19,7 +19,7 @@ export class TasksComponent implements OnInit {
   showOverlay: boolean;
   showAddForm: boolean;
 
-  currentTask: Task = new Task(0, '', '', '');
+  currentTask: Task = new Task(0, '', '','');
 
   constructor(private tasksService: TasksService) {}
 
