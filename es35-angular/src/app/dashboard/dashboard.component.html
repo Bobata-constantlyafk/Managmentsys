@@ -11,25 +11,10 @@
     <option value="employees">Employees</option>
     <option value="roles">Roles</option>
   </select>
-  <input
-    type="text"
-    class="form-control"
-    placeholder="Search"
-    [(ngModel)]="searchTerm"
-    (ngModelChange)="search(searchTerm)"
-  />
   <div [ngSwitch]="option">
-    <app-tasks *ngSwitchCase="'tasks'"></app-tasks>
+    <app-tasks *ngSwitchDefault></app-tasks>
     <app-departments *ngSwitchCase="'departments'"></app-departments>
     <app-employees *ngSwitchCase="'employees'"></app-employees>
     <app-roles *ngSwitchCase="'roles'"></app-roles>
   </div>
-  <!-- <ul class="list-group">
-    <li
-      *ngFor="let one of selectedOption; let i = index"
-      class="list-group-item row animated fadeInDown faster"
-    >
-      <div *ngIf="isTask(one)"></div>
-    </li>
-  </ul> -->
 </div>

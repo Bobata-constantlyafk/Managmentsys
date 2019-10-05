@@ -87,9 +87,8 @@ export class TasksComponent implements OnInit {
     const tasks = this.tasksService.getTasks();
     const filter = s.toUpperCase();
     this.tasks = tasks.filter(
-      (task) =>
-        task.title.toUpperCase().indexOf(filter) > -1 ||
-        task.description.toUpperCase().indexOf(filter) > -1
+      (task) => task.title.toUpperCase().indexOf(filter) > -1 // ||
+      // task.description.toUpperCase().indexOf(filter) > -1
     );
   }
 }
