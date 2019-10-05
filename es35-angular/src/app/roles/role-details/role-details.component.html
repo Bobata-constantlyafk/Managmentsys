@@ -2,12 +2,12 @@
 <div class="in-overlay card">
   <div class="container">
     <h2>Details</h2>
-    <h4>{{ task.title }}</h4>
+    <h4>{{ role.title }}</h4>
     <div>
-      <span>Description: </span><span>{{ task.description }}</span>
+      <span>Description: </span><span>{{ role.description }}</span>
     </div>
     <div>
-      <span>Department: </span><span>{{ task.department.name }}</span>
+      <span>Department: </span><span>{{ role.department.name }}</span>
     </div>
     <div>
       <p>Employees:</p>
@@ -31,8 +31,8 @@
       </div>
       <ul>
         <li
-          *ngFor="let employee of task.employees; let i = index"
-          (click)="seeEmpTasks(employee.id)"
+          *ngFor="let employee of role.employees; let i = index"
+          (click)="seeEmpRoles(employee.id)"
           style="width: 100%; margin: 15px 0"
         >
           <span>{{ employee.name }} {{ employee.lastname }}</span>
@@ -43,9 +43,6 @@
           ></button>
         </li>
       </ul>
-    </div>
-    <div>
-      <span>Deadline: </span><span>{{ task.deadline }}</span>
     </div>
   </div>
 </div>

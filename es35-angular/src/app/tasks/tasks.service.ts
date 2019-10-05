@@ -25,9 +25,6 @@ export class TasksService {
   }
 
   getTasksOfEmployee(empId: number): Task[] {
-    // return Tasks.filter((task) =>
-    //   task.employees.filter((employee) => employee.id === empId)
-    // );
     const tasks: Task[] = new Array();
     Tasks.forEach((task) => {
       task.employees.forEach((emp) => {
@@ -43,9 +40,10 @@ export class TasksService {
     Tasks.splice(index, 1);
   }
 
-  addTask(taskTitle: string, taskDesc: string): void {
+  addTask(taskTitle: string, taskDesc: string, deadline: string): Task {
     const id: number = Tasks[Tasks.length - 1].id + 1;
-    Tasks.push(new Task(id, taskTitle, taskDesc));
+    Tasks.push(new Task(id, taskTitle, taskDesc, deadline));
+    return Tasks[id - 1];
   }
 
   editTaskTitle(index: number, title: string): void {

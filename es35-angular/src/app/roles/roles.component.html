@@ -1,40 +1,47 @@
-<div id="overlay" (click)="off()" [style.display]="show ? 'flex' : 'none'">
-  <div class="in-overlay">
-    <h2>Details</h2>
-    <h3>{{ currentRole.name }}</h3>
-  </div>
-</div>
+<app-role-details
+  [role]="currentRole"
+  *ngIf="showDetails"
+  (closeComp)="showDetails = false"
+></app-role-details>
+<app-role-add
+  *ngIf="showAddForm"
+  (closeComp)="showAddForm = false"
+></app-role-add>
+
 <h1>Roles</h1>
+
 <div class="container">
   <div class="add-role">
-    <div class="input-group add-input col-sm-10">
-      <input id="addInput" type="text" class="form-control" #addInput />
-    </div>
-    <div class="input-group add-input col-sm-2">
+    <div class="input-group add-input col-sm-12">
       <a
         id="addButton"
         class="btn btn-success add-button"
-        (click)="addRole(addInput)"
+        (click)="viewAddForm()"
         ><span style="color: white">Add</span></a
       >
     </div>
   </div>
+
   <ul class="list-group">
     <li
       class="list-group-item row animated fadeInDown faster"
       *ngFor="let role of roles; let i = index"
     >
       <div class="col-sm-9 title">
-        <p *ngIf="!role.isEditing" #roleName>
-          {{ role.name }}
-        </p>
-        <input
-          *ngIf="role.isEditing"
-          type="text"
-          style="width: 100%"
-          id="roleEditInput"
-          [(ngModel)]="role.name"
-        />
+        <div class="row">
+          <div class="col-sm-7">
+            <p *ngIf="!role.isEditing" #roleName>
+              {{ role.title }}
+            </p>
+            <input
+              *ngIf="role.isEditing"
+              type="text"
+              style="width: 100%"
+              id="roleEditInput"
+              [(ngModel)]="role.name"
+            />
+          </div>
+        </div>
       </div>
 
       <div class="options col-sm-3">

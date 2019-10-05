@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, Output} from '@angular/core';
 import {Task} from './tasks.model';
 import {TasksService} from './tasks.service';
 import {Employee} from '../employees/employee';
@@ -10,18 +10,22 @@ import {Employee} from '../employees/employee';
 })
 export class TasksComponent implements OnInit {
   tasks: Task[];
+  mTasks: Task[];
   isEditing = false;
+
+  searchTerm: string;
 
   showDetails: boolean;
   showOverlay: boolean;
   showAddForm: boolean;
 
-  currentTask: Task = new Task(0, '', '');
+  currentTask: Task = new Task(0, '', '','');
 
   constructor(private tasksService: TasksService) {}
 
   ngOnInit() {
     this.tasks = this.tasksService.getTasks();
+    this.mTasks = [...this.tasks];
     this.showDetails = false;
     this.showOverlay = false;
     this.showAddForm = false;
@@ -77,5 +81,15 @@ export class TasksComponent implements OnInit {
     this.showOverlay = false;
     this.showAddForm = false;
     this.showDetails = false;
+  }
+
+  search(s: string) {
+    const tasks = this.tasksService.getTasks();
+    const filter = s.toUpperCase();
+    this.tasks = tasks.filter(
+      (task) =>
+        task.title.toUpperCase().indexOf(filter) > -1 ||
+        task.description.toUpperCase().indexOf(filter) > -1
+    );
   }
 }

@@ -1,24 +1,23 @@
 import {Component, OnInit, Input, Output, EventEmitter} from '@angular/core';
-import {Task} from '../tasks.model';
-import {TasksService} from '../tasks.service';
+import {Role} from '../role';
+import {RolesService} from '../roles.service';
 import {Employee} from 'src/app/employees/employee';
 import {EmployeeService} from 'src/app/employee.service';
-
 @Component({
-  selector: 'app-task-details',
-  templateUrl: './task-details.component.html',
-  styleUrls: ['../tasks.component.css', './task-details.component.css'],
+  selector: 'app-role-details',
+  templateUrl: './role-details.component.html',
+  styleUrls: ['../roles.component.css', './role-details.component.css'],
 })
-export class TaskDetailsComponent implements OnInit {
+export class RoleDetailsComponent implements OnInit {
   @Output() closeComp = new EventEmitter();
-  @Input() task: Task;
+  @Input() role: Role;
 
   employees: Employee[];
   selectedEmp: Employee;
   allEmployees: Employee[];
 
   constructor(
-    private tasksService: TasksService,
+    private rolesService: RolesService,
     private employeeService: EmployeeService
   ) {}
 
@@ -26,7 +25,7 @@ export class TaskDetailsComponent implements OnInit {
     this.allEmployees = this.employeeService.getEmployees();
     this.employees = [];
     for (const employee of this.allEmployees) {
-      if (this.task.employees.indexOf(employee) < 0) {
+      if (this.role.employees.indexOf(employee) < 0) {
         this.employees.push(employee);
       }
     }
@@ -36,8 +35,8 @@ export class TaskDetailsComponent implements OnInit {
     this.closeComp.emit();
   }
 
-  seeEmpTasks(empId) {
-    console.log(this.tasksService.getTasksOfEmployee(empId));
+  seeEmpRoles(empId) {
+    console.log(this.rolesService.getRolesOfEmployee(empId));
   }
 
   addEmp(empName: string) {
@@ -47,12 +46,12 @@ export class TaskDetailsComponent implements OnInit {
     const selectedEmp = this.employeeService
       .getEmployees()
       .filter((employee) => employee.name === empName)[0];
-    this.task.assignEmployee(selectedEmp);
+    this.role.assignEmployee(selectedEmp);
     this.employees.splice(this.employees.indexOf(selectedEmp), 1);
   }
 
   removeEmp(empIndex) {
-    this.employees.push(this.task.employees[empIndex]);
-    this.task.employees.splice(empIndex, 1);
+    this.employees.push(this.role.employees[empIndex]);
+    this.role.employees.splice(empIndex, 1);
   }
 }

@@ -1,10 +1,10 @@
 <app-task-details
   [task]="currentTask"
-  [style.display]="showDetails ? 'inline' : 'none'"
+  *ngIf="showDetails"
   (closeComp)="showDetails = false"
 ></app-task-details>
 <app-task-add
-  [style.display]="showAddForm ? 'inline' : 'none'"
+  *ngIf="showAddForm"
   (closeComp)="showAddForm = false"
 ></app-task-add>
 
@@ -12,13 +12,22 @@
 
 <div class="container">
   <div class="add-task">
-    <div class="input-group add-input col-sm-12">
+    <div class="input-group add-input col-sm-3">
       <a
         id="addButton"
         class="btn btn-success add-button"
         (click)="viewAddForm()"
         ><span style="color: white">Add</span></a
       >
+    </div>
+    <div class="input-group col-sm-9">
+      <input
+        type="text"
+        class="form-control add-input"
+        [(ngModel)]="searchTerm"
+        (ngModelChange)="search(searchTerm)"
+        placeholder="Search"
+      />
     </div>
   </div>
 
@@ -28,16 +37,23 @@
       *ngFor="let task of tasks; let i = index"
     >
       <div class="col-sm-9 title">
-        <p *ngIf="!task.isEditing" #taskName>
-          {{ task.title }}
-        </p>
-        <input
-          *ngIf="task.isEditing"
-          type="text"
-          style="width: 100%"
-          id="taskEditInput"
-          [(ngModel)]="task.title"
-        />
+        <div class="row">
+          <div class="col-sm-7">
+            <p *ngIf="!task.isEditing" #taskName>
+              {{ task.title }}
+            </p>
+            <input
+              *ngIf="task.isEditing"
+              type="text"
+              style="width: 100%"
+              id="taskEditInput"
+              [(ngModel)]="task.title"
+            />
+          </div>
+          <div class="col-sm-5 text-center">
+            <span class="text-secondary">Deadline: {{ task.deadline }}</span>
+          </div>
+        </div>
       </div>
 
       <div class="options col-sm-3">
