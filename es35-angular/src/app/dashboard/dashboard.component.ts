@@ -8,6 +8,7 @@ import {Task} from '../tasks/tasks.model';
 import {Department} from '../department';
 import {Employee} from '../employees/employee';
 import {Role} from '../roles/role';
+import {Observable} from 'rxjs';
 
 @Component({
   selector: 'app-dashboard',
@@ -38,7 +39,6 @@ export class DashboardComponent implements OnInit {
     this.departments = this.departmentService.getDepartments();
     this.employees = this.employeeService.getEmployees();
     this.roles = this.roleService.getRoles();
-    this.all = this.getAll();
   }
 
   updateView(option) {
@@ -56,24 +56,6 @@ export class DashboardComponent implements OnInit {
         this.selectedOption = this.roles;
         break;
     }
-  }
-
-  getAll() {
-    const arr = [];
-    arr.push([
-      ...this.tasksService.getTasks(),
-      ...this.departmentService.getDepartments(),
-      ...this.employeeService.getEmployees(),
-      ...this.roleService.getRoles(),
-    ]);
-    console.log(arr);
-    return arr;
-  }
-
-  search(term: string) {
-    // if (this.selectedOption === 'task') {
-    // } else {
-    // }
   }
 
   isTask(candidate) {
