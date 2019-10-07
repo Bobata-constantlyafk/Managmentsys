@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {Department} from '../department';
 import {DEPARTMENTS} from '../mock-departments';
-import {Employee} from 'D:/WEB2GIT/es35-2/es35-angular/src/app/employees/employee';
+import {Employee} from '../employees/employee';
 
 @Injectable({
   providedIn: 'root',
