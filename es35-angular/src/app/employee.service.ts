@@ -13,9 +13,17 @@ export class EmployeeService {
   removeEmployee(index): void {
     Employees.splice(index, 1);
   }
-  addEmployee(employeeName) {
+  getLastEmployee(): Employee {
+    return Employees[Employees.length - 1];
+  }
+
+  // getTasksOfDepartment(depId: number): Employee[] {
+  // return Employees.filter((employee) => employee.department.id === depId);
+  // }
+
+  addEmployee(employeeName: string, employeeLastName: string) {
     const id: number = Employees[Employees.length - 1].id + 1;
-    const name: string = employeeName;
-    Employees.push(new Employee(id, name, 'Novakov'));
+    Employees.push(new Employee(id, employeeName, employeeLastName));
+    return Employees[id - 1];
   }
 }

@@ -9,37 +9,31 @@ import {EmployeeService} from '../employee.service';
 })
 export class EmployeesComponent implements OnInit {
   employees: Employee[];
-  employeeservice: EmployeeService;
   isEditing = false;
-  show = false;
-  currentElement;
+
+  showDetails: boolean;
+  showOverlay: boolean;
+  showAddForm: boolean;
+
   currentEmployee: Employee = new Employee(0, '', '');
 
   constructor(private employeeService: EmployeeService) {}
 
   ngOnInit() {
     this.employees = this.employeeService.getEmployees();
-    const addInput = document.getElementById('addInput') as HTMLInputElement;
-    addInput.addEventListener('keydown', (event) => {
-      if (event.keyCode === 13) {
-        this.addEmployee(addInput);
-      }
-    });
-  }
-
-  addEmployee(input) {
-    const employeeName = input.value;
-    this.employeeService.addEmployee(employeeName);
-    input.value = '';
-  }
-
-  viewDetails(i) {
-    this.show = true;
-    this.currentEmployee = this.employees[i];
+    this.showDetails = false;
+    this.showOverlay = false;
+    this.showAddForm = false;
   }
 
   removeEmployee(id) {
     this.employeeService.removeEmployee(id);
+  }
+
+  viewDetails(i) {
+    this.showDetails = true;
+    this.showOverlay = true;
+    this.currentEmployee = this.employees[i];
   }
 
   editEmployee(id) {
@@ -65,7 +59,24 @@ export class EmployeesComponent implements OnInit {
     }, 1);
   }
 
-  off() {
-    this.show = false;
+  closeDetails() {
+    this.showDetails = false;
+    this.showOverlay = false;
+  }
+
+  viewAddForm(): void {
+    this.showOverlay = true;
+    this.showAddForm = true;
+  }
+
+  closeAddForm(): void {
+    this.showOverlay = false;
+    this.showAddForm = false;
+  }
+
+  closeEverything(): void {
+    this.showOverlay = false;
+    this.showAddForm = false;
+    this.showDetails = false;
   }
 }
