@@ -16,6 +16,8 @@ import {DepartmentAddComponent} from './departments/department-add/department-ad
 import {DepartmentDetailsComponent} from './departments/department-details/department-details.component';
 import {RoleDetailsComponent} from './roles/role-details/role-details.component';
 import {RoleAddComponent} from './roles/role-add/role-add.component';
+import {EmployeeAddComponent} from './employees/employee-add/employee-add.component';
+import {EmployeeDetailsComponent} from './employees/employee-details/employee-details.component';
 
 const appRoutes: Routes = [
   {path: '', redirectTo: 'dashboard', pathMatch: 'full'},
@@ -41,6 +43,8 @@ const appRoutes: Routes = [
     DepartmentDetailsComponent,
     RoleDetailsComponent,
     RoleAddComponent,
+    EmployeeAddComponent,
+    EmployeeDetailsComponent,
   ],
   imports: [
     RouterModule.forRoot(
