@@ -17,9 +17,9 @@ export class EmployeeService {
     return Employees[Employees.length - 1];
   }
 
-  // getTasksOfDepartment(depId: number): Employee[] {
-  // return Employees.filter((employee) => employee.department.id === depId);
-  // }
+  getEmployeesOfDepartment(depId: number): Employee[] {
+    return Employees.filter((employee) => employee.department.id === depId);
+  }
 
   addEmployee(employeeName: string, employeeLastName: string) {
     const id: number = Employees[Employees.length - 1].id + 1;
