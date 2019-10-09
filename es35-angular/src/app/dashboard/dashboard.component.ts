@@ -35,7 +35,9 @@ export class DashboardComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.tasks = this.tasksService.getTasks();
+    this.tasksService
+      .getTasks()
+      .subscribe((data) => (this.tasks = Object.values(data)));
     this.departments = this.departmentService.getDepartments();
     this.employees = this.employeeService.getEmployees();
     this.roles = this.roleService.getRoles();

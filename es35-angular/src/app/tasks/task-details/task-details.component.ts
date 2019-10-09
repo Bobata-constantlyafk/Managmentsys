@@ -3,6 +3,8 @@ import {Task} from '../tasks.model';
 import {TasksService} from '../tasks.service';
 import {Employee} from 'src/app/employees/employee';
 import {EmployeeService} from 'src/app/employee.service';
+import {Department} from 'src/app/department';
+import {DepartmentService} from 'src/app/departments/department.service';
 
 @Component({
   selector: 'app-task-details',
@@ -16,14 +18,19 @@ export class TaskDetailsComponent implements OnInit {
   employees: Employee[];
   selectedEmp: Employee;
   allEmployees: Employee[];
+  department: Department;
 
   constructor(
     private tasksService: TasksService,
-    private employeeService: EmployeeService
+    private employeeService: EmployeeService,
+    private departmentService: DepartmentService
   ) {}
 
   ngOnInit() {
     this.allEmployees = this.employeeService.getEmployees();
+    this.departmentService
+      .getDepartmentById(this.task.departmentId)
+      .subscribe((department) => (this.department = department));
     this.employees = [];
     for (const employee of this.allEmployees) {
       if (this.task.employees.indexOf(employee) < 0) {

@@ -10,7 +10,6 @@ import {Employee} from '../employees/employee';
 })
 export class TasksComponent implements OnInit {
   tasks: Task[];
-  mTasks: Task[];
   isEditing = false;
 
   searchTerm: string;
@@ -19,13 +18,14 @@ export class TasksComponent implements OnInit {
   showOverlay: boolean;
   showAddForm: boolean;
 
-  currentTask: Task = new Task(0, '', '', '');
+  currentTask: Task = new Task(0, '', '');
 
   constructor(private tasksService: TasksService) {}
 
   ngOnInit() {
-    this.tasks = this.tasksService.getTasks();
-    this.mTasks = [...this.tasks];
+    this.tasksService.getTasks().subscribe((tasks) => {
+      this.tasks = tasks;
+    });
     this.showDetails = false;
     this.showOverlay = false;
     this.showAddForm = false;
@@ -84,11 +84,14 @@ export class TasksComponent implements OnInit {
   }
 
   search(s: string) {
-    const tasks = this.tasksService.getTasks();
-    const filter = s.toUpperCase();
-    this.tasks = tasks.filter(
-      (task) => task.title.toUpperCase().indexOf(filter) > -1 // ||
-      // task.description.toUpperCase().indexOf(filter) > -1
-    );
+    let tasks = [];
+    this.tasksService.getTasks().subscribe((data) => {
+      tasks = data;
+      const filter = s.toUpperCase();
+      this.tasks = tasks.filter(
+        (task) => task.name.toUpperCase().indexOf(filter) > -1 // ||
+        // task.description.toUpperCase().indexOf(filter) > -1
+      );
+    });
   }
 }

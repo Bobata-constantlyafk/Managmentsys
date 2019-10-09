@@ -30,48 +30,38 @@ export class TaskAddComponent implements OnInit {
 
   addTask(
     title: HTMLInputElement,
-    desc: HTMLInputElement,
     dep: HTMLInputElement,
     emp: HTMLInputElement,
     deadline: HTMLInputElement
   ) {
     const taskTitle = title.value;
-    const taskDesc = desc.value;
     const taskDeadline = deadline.value;
-    if (taskTitle === '' || taskDesc === '' || taskDeadline === '') {
+    if (taskTitle === '' || taskDeadline === '') {
       alert('Fill all');
       return;
     }
 
-    // const taskDepartment = dep.value;
-    const createdTask = this.tasksService.addTask(
-      taskTitle,
-      taskDesc,
-      taskDeadline
-    );
-    console.log(createdTask);
-
-    // Assing employee
-    const taskEmployee = emp.value;
-    const employee = this.employeeService
-      .getEmployees()
-      .filter((empl) => empl.name === taskEmployee)[0];
-    createdTask.assignEmployee(employee);
-
-    // Assing Deadline
-    createdTask.assignDeadline(taskDeadline);
-
     // Assign Department
     const taskDepartment = dep.value;
-    const department = this.departmentService
-      .getDepartments()
-      .filter((depa) => depa.name === taskDepartment)[0];
-    createdTask.assignDepartment(department);
+    const depId = this.departmentService.getDepartmentIdByName(taskDepartment);
+
+    // const taskDepartment = dep.value;
+    this.tasksService.addTask(taskTitle, taskDeadline, depId);
+    this.tasksService.getLastTask().subscribe((task) => {
+      // Assing employee
+      const taskEmployee = emp.value;
+      const employee = this.employeeService
+        .getEmployees()
+        .filter((empl) => empl.name === taskEmployee)[0];
+      task.assignEmployee(employee);
+
+      // Assing Deadline
+      task.assignDeadline(taskDeadline);
+    });
 
     this.close();
 
     title.value = '';
-    desc.value = '';
     deadline.value = '';
   }
 

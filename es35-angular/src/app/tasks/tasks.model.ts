@@ -3,25 +3,18 @@ import {Employee} from '../employees/employee';
 
 export class Task {
   id: number;
-  title: string;
-  description: string;
+  name: string;
   isEditing: boolean;
   deadline: string;
-  department: Department;
+  departmentId: number;
   employees: Employee[];
 
-  constructor(
-    id: number,
-    title: string,
-    description: string,
-    deadline: string
-  ) {
+  constructor(id: number, name: string, deadline: string) {
     this.id = id;
-    this.title = title;
-    this.description = description;
+    this.name = name;
     this.isEditing = false;
     this.employees = new Array();
-    this.department = new Department(1, '');
+    this.departmentId = 0;
     this.deadline = deadline;
   }
 
@@ -29,8 +22,8 @@ export class Task {
     this.employees.push(employee);
   }
 
-  assignDepartment(department: Department): void {
-    this.department = department;
+  assignDepartment(id: number): void {
+    this.departmentId = id;
   }
 
   assignDeadline(deadline: string) {

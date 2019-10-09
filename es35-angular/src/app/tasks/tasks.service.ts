@@ -1,32 +1,39 @@
 import {Injectable} from '@angular/core';
 import {Task} from './tasks.model';
 import {Tasks} from './mock-tasks';
-import {HttpClient, HttpHeaders} from '@angular/common/http';
-import {Observable, of} from 'rxjs';
-import {TaskDetailsComponent} from './task-details/task-details.component';
+import {Observable, Subject} from 'rxjs';
+import {HttpClient} from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root',
 })
 export class TasksService {
-  path = 'http://i875395.hera.fhict.nl/api/402384/task';
+  path = 'http://i875395.hera.fhict.nl/api/3497186/task';
   constructor(private http: HttpClient) {}
 
-  getTasks(): Task[] {
-    return Tasks;
+  getTasks(): Observable<Task[]> {
+    return this.http.get<Task[]>(this.path);
   }
 
-  getTaskByIndex(index: number): Task {
-    return Tasks[index];
+  getTaskById(id: number): Observable<Task> {
+    const subject = new Subject<Task>();
+    this.http.get<Task>(this.path + '?id=' + id).subscribe((task) => {
+      subject.next(task);
+    });
+    return subject.asObservable();
   }
 
-  getLastTask(): Task {
-    return Tasks[Tasks.length - 1];
+  getLastTask(): Observable<Task> {
+    const subject = new Subject<Task>();
+    this.getTasks().subscribe((tasks) => {
+      subject.next(tasks[tasks.length - 1]);
+    });
+    return subject.asObservable();
   }
 
-  getTasksOfDepartment(depId: number): Task[] {
-    return Tasks.filter((task) => task.department.id === depId);
-  }
+  // getTasksOfDepartment(depId: number): Task[] {
+  //   return Tasks.filter((task) => task.department.id === depId);
+  // }
 
   getTasksOfEmployee(empId: number): Task[] {
     const tasks: Task[] = new Array();
@@ -44,19 +51,21 @@ export class TasksService {
     Tasks.splice(index, 1);
   }
 
-  addTask(taskTitle: string, taskDesc: string, deadline: string): Task {
-    const id: number = Tasks[Tasks.length - 1].id + 1;
-    Tasks.push(new Task(id, taskTitle, taskDesc, deadline));
-    return Tasks[id - 1];
+  addTask(taskTitle: string, deadline: string, depId: number): void {
+    this.http.post(this.path, {
+      department_id: depId,
+      name: taskTitle,
+      due_date: deadline,
+    });
   }
 
   editTaskTitle(index: number, title: string): void {
     const task = Tasks[index];
-    task.title = title;
+    task.name = title;
   }
 
-  editTaskDescription(index: number, description: string): void {
-    const task = Tasks[index];
-    task.description = description;
-  }
+  // editTaskDescription(index: number, description: string): void {
+  //   const task = Tasks[index];
+  //   task.description = description;
+  // }
 }
