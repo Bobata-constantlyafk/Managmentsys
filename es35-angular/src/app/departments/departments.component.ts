@@ -87,4 +87,11 @@ export class DepartmentsComponent implements OnInit {
       el.addEventListener('focusout', handler);
     }, 1);
   }
+  search(s: string) {
+    const departments = this.departmentService.getDepartments();
+    const filter = s.toUpperCase();
+    this.departments = departments.filter(
+      (department) => department.name.toUpperCase().indexOf(filter) > -1
+    );
+  }
 }

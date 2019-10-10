@@ -9,6 +9,9 @@ import {RolesService} from './roles.service';
 export class RolesComponent implements OnInit {
   roles: Role[];
   isEditing = false;
+
+  searchText: string;
+
   showDetails: boolean;
   showOverlay: boolean;
   showAddForm: boolean;
@@ -73,5 +76,15 @@ export class RolesComponent implements OnInit {
     this.showOverlay = false;
     this.showAddForm = false;
     this.showDetails = false;
+  }
+
+  search(s: string) {
+    const roles = this.rolesService.getRoles();
+    const filter = s.toUpperCase();
+    this.roles = roles.filter(
+      (role) =>
+        role.title.toUpperCase().indexOf(filter) > -1 ||
+        role.description.toUpperCase().indexOf(filter) > -1
+    );
   }
 }
