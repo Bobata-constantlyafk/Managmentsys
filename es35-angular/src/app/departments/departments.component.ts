@@ -12,9 +12,9 @@ export class DepartmentsComponent implements OnInit {
 
   isEditing = false;
 
-  show = false;
-
-  currentElement;
+  showDetails: boolean;
+  showOverlay: boolean;
+  showAddForm: boolean;
 
   currentDep: Department = new Department(0, '');
   constructor(private departmentService: DepartmentService) {}
@@ -23,8 +23,9 @@ export class DepartmentsComponent implements OnInit {
     this.departments = this.departmentService.getDepartments();
   }
 
-  showDep(i) {
-    this.show = true;
+  viewDetails(i) {
+    this.showDetails = true;
+    this.showOverlay = true;
     this.currentDep = this.departments[i];
   }
 
@@ -34,16 +35,34 @@ export class DepartmentsComponent implements OnInit {
 
   ngOnInit() {
     this.departments = this.departmentService.getDepartments();
-    const addInput = document.getElementById('addInput') as HTMLInputElement;
-    addInput.addEventListener('keydown', (event) => {
-      if (event.keyCode === 13) {
-        this.addDep(addInput);
-      }
-    });
+    this.showDetails = false;
+    this.showOverlay = false;
+    this.showAddForm = false;
   }
 
   removeDep(id) {
     this.departmentService.removeDep(id);
+  }
+
+  closeDetails() {
+    this.showDetails = false;
+    this.showOverlay = false;
+  }
+
+  viewAddForm(): void {
+    this.showOverlay = true;
+    this.showAddForm = true;
+  }
+
+  closeAddForm(): void {
+    this.showOverlay = false;
+    this.showAddForm = false;
+  }
+
+  closeEverything(): void {
+    this.showOverlay = false;
+    this.showAddForm = false;
+    this.showDetails = false;
   }
 
   editDep(id) {
@@ -68,8 +87,11 @@ export class DepartmentsComponent implements OnInit {
       el.addEventListener('focusout', handler);
     }, 1);
   }
-
-  off() {
-    this.show = false;
+  search(s: string) {
+    const departments = this.departmentService.getDepartments();
+    const filter = s.toUpperCase();
+    this.departments = departments.filter(
+      (department) => department.name.toUpperCase().indexOf(filter) > -1
+    );
   }
 }
