@@ -31,8 +31,9 @@ export class TasksComponent implements OnInit {
     this.showAddForm = false;
   }
 
-  removeTask(id) {
-    this.tasksService.removeTask(id);
+  removeTask(i: number) {
+    const taskId = this.tasks[i].id;
+    this.tasksService.removeTask(taskId);
   }
 
   viewDetails(i) {

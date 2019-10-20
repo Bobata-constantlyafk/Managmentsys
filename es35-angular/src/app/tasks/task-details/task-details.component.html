@@ -18,31 +18,28 @@
           </select>
         </div>
         <div class="col-sm-2">
-          <button
-            class="form-control btn btn-primary"
-            (click)="addEmp(employee.value)"
-          >
+          <button class="form-control btn btn-primary">
             Add
+            <!-- (click)="addEmp(employee.value)" -->
           </button>
         </div>
       </div>
       <ul>
         <li
-          *ngFor="let employee of task.employees; let i = index"
-          (click)="seeEmpTasks(employee.id)"
+          *ngFor="let employee of employees; let i = index"
           style="width: 100%; margin: 15px 0"
         >
-          <span>{{ employee.name }} {{ employee.lastname }}</span>
+          <span>{{ employee.first_name }} {{ employee.last_name }}</span>
           <button
             class="btn btn-danger fa fa-close"
-            (click)="removeEmp(i)"
             style="float: right"
           ></button>
+          <!-- (click)="removeEmp(i)" -->
         </li>
       </ul>
     </div>
     <div>
-      <span>Deadline: </span><span>{{ task.deadline }}</span>
+      <span>Deadline: </span><span>{{ task.due_date }}</span>
     </div>
   </div>
 </div>

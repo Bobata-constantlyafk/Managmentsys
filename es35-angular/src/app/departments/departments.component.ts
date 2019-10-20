@@ -16,11 +16,13 @@ export class DepartmentsComponent implements OnInit {
 
   currentElement;
 
-  currentDep: Department = new Department(0, '');
+  currentDep: Department = new Department(0, '', '');
   constructor(private departmentService: DepartmentService) {}
 
   getDepartments(): void {
-    this.departments = this.departmentService.getDepartments();
+    this.departmentService
+      .getDepartments()
+      .subscribe((departments) => (this.departments = departments));
   }
 
   showDep(i) {
@@ -29,11 +31,16 @@ export class DepartmentsComponent implements OnInit {
   }
 
   addDep(input) {
-    this.departmentService.addDep(input);
+    const split = input.value().split(',');
+    const name = split[0];
+    const builing = split[1];
+    this.departmentService.addDepartment(name, builing);
   }
 
   ngOnInit() {
-    this.departments = this.departmentService.getDepartments();
+    this.departmentService
+      .getDepartments()
+      .subscribe((department) => (this.departments = department));
     const addInput = document.getElementById('addInput') as HTMLInputElement;
     addInput.addEventListener('keydown', (event) => {
       if (event.keyCode === 13) {
@@ -42,8 +49,9 @@ export class DepartmentsComponent implements OnInit {
     });
   }
 
-  removeDep(id) {
-    this.departmentService.removeDep(id);
+  removeDep(i: number) {
+    const departmentId = this.departments[i].id;
+    this.departmentService.removeDepartment(departmentId);
   }
 
   editDep(id) {

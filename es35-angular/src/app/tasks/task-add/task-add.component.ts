@@ -24,8 +24,10 @@ export class TaskAddComponent implements OnInit {
   ) {}
 
   ngOnInit() {
+    this.departmentService
+      .getDepartments()
+      .subscribe((departments) => (this.departments = departments));
     this.employees = this.employeeService.getEmployees();
-    this.departments = this.departmentService.getDepartments();
   }
 
   addTask(
@@ -44,20 +46,24 @@ export class TaskAddComponent implements OnInit {
     // Assign Department
     const taskDepartment = dep.value;
     const depId = this.departmentService.getDepartmentIdByName(taskDepartment);
+    this.departmentService
+      .getDepartmentIdByName(taskDepartment)
+      .subscribe((id) => {
+        this.tasksService.addTask(taskTitle, taskDeadline, id);
+        this.tasksService.getLastTask().subscribe((task) => {
+          // Assing employee
+          // const taskEmployee = emp.value;
+          // const employee = this.employeeService
+          //   .getEmployees()
+          //   .filter((empl) => empl.name === taskEmployee)[0];
+          // task.assignEmployee(employee);
 
-    // const taskDepartment = dep.value;
-    this.tasksService.addTask(taskTitle, taskDeadline, depId);
-    this.tasksService.getLastTask().subscribe((task) => {
-      // Assing employee
-      const taskEmployee = emp.value;
-      const employee = this.employeeService
-        .getEmployees()
-        .filter((empl) => empl.name === taskEmployee)[0];
-      task.assignEmployee(employee);
+          // Assing Deadline
+          task.assignDeadline(taskDeadline);
+        });
 
-      // Assing Deadline
-      task.assignDeadline(taskDeadline);
-    });
+        // const taskDepartment = dep.value;
+      });
 
     this.close();
 

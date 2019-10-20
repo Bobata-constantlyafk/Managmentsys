@@ -38,7 +38,9 @@ export class DashboardComponent implements OnInit {
     this.tasksService
       .getTasks()
       .subscribe((data) => (this.tasks = Object.values(data)));
-    this.departments = this.departmentService.getDepartments();
+    this.departmentService
+      .getDepartments()
+      .subscribe((data) => (this.departments = data));
     this.employees = this.employeeService.getEmployees();
     this.roles = this.roleService.getRoles();
   }

@@ -5,29 +5,31 @@ export class Task {
   id: number;
   name: string;
   isEditing: boolean;
-  deadline: string;
-  departmentId: number;
-  employees: Employee[];
+  // tslint:disable-next-line:variable-name
+  due_date: string;
+  // tslint:disable-next-line:variable-name
+  department_id: number;
+  employees: number[];
 
   constructor(id: number, name: string, deadline: string) {
     this.id = id;
     this.name = name;
     this.isEditing = false;
-    this.employees = new Array();
-    this.departmentId = 0;
-    this.deadline = deadline;
+    this.employees = [];
+    this.department_id = 0;
+    this.due_date = deadline;
   }
 
-  assignEmployee(employee: Employee): void {
-    this.employees.push(employee);
+  assignEmployee(employeeId: number): void {
+    this.employees.push(employeeId);
   }
 
   assignDepartment(id: number): void {
-    this.departmentId = id;
+    this.department_id = id;
   }
 
   assignDeadline(deadline: string) {
-    this.deadline = deadline;
+    this.due_date = deadline;
   }
 
   toggleEdit() {

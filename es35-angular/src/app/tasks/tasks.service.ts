@@ -2,7 +2,7 @@ import {Injectable} from '@angular/core';
 import {Task} from './tasks.model';
 import {Tasks} from './mock-tasks';
 import {Observable, Subject} from 'rxjs';
-import {HttpClient} from '@angular/common/http';
+import {HttpClient, HttpParams} from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root',
@@ -17,9 +17,11 @@ export class TasksService {
 
   getTaskById(id: number): Observable<Task> {
     const subject = new Subject<Task>();
-    this.http.get<Task>(this.path + '?id=' + id).subscribe((task) => {
-      subject.next(task);
-    });
+    this.http
+      .get<Task>(this.path, {params: {id: String(id)}})
+      .subscribe((task) => {
+        subject.next(task);
+      });
     return subject.asObservable();
   }
 
@@ -35,27 +37,28 @@ export class TasksService {
   //   return Tasks.filter((task) => task.department.id === depId);
   // }
 
-  getTasksOfEmployee(empId: number): Task[] {
-    const tasks: Task[] = new Array();
-    Tasks.forEach((task) => {
-      task.employees.forEach((emp) => {
-        if (emp.id === empId) {
-          tasks.push(task);
-        }
-      });
-    });
-    return tasks;
+  // getTasksOfEmployee(empId: number): Task[] {
+  //   const tasks: Task[] = new Array();
+  //   Tasks.forEach((task) => {
+  //     task.employees.forEach((emp) => {
+  //       if (emp.id === empId) {
+  //         tasks.push(task);
+  //       }
+  //     });
+  //   });
+  //   return tasks;
+  // }
+
+  removeTask(id: number): void {
+    this.http.delete(this.path, {params: {id: String(id)}});
   }
 
-  removeTask(index: number): void {
-    Tasks.splice(index, 1);
-  }
-
-  addTask(taskTitle: string, deadline: string, depId: number): void {
+  // tslint:disable-next-line:variable-name
+  addTask(name: string, due_date: string, department_id: number): void {
     this.http.post(this.path, {
-      department_id: depId,
-      name: taskTitle,
-      due_date: deadline,
+      department_id,
+      name,
+      due_date,
     });
   }
 

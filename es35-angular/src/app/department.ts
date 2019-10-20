@@ -1,15 +1,19 @@
 export class Department {
-    id: number;
-    name: string;
-    isEditing: boolean;
+  id: number;
+  name: string;
+  building: string;
+  employees: number[];
+  isEditing: boolean;
 
-    constructor(id: number, name: string) {
-      this.id = id;
-      this.name = name;
-      this.isEditing = false;
-    }
-
-    toggleEdit() {
-      this.isEditing = !this.isEditing;
-    }
+  constructor(id: number, name: string, building: string) {
+    this.id = id;
+    this.name = name;
+    this.building = building;
+    this.employees = [];
+    this.isEditing = false;
   }
+
+  toggleEdit() {
+    this.isEditing = !this.isEditing;
+  }
+}
