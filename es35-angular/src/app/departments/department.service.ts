@@ -24,13 +24,14 @@ export class DepartmentService {
   removeDep(id) {
     this.getDepartments().splice(id, 1);
   }
-  addDep(input) {
+  addDep(input, inp) {
     const name: string = input;
+    const building: string = inp;
     const id = Math.max.apply(
       Math,
       this.getDepartments().map((department) => department.id)
     );
-    this.getDepartments().push(new Department(id, name));
+    this.getDepartments().push(new Department(id, name, building));
   }
   getEmployeesOfDepId(depId: number): Employee[] {
     // return Tasks.filter((task) =>

@@ -23,10 +23,20 @@ export class DepartmentAddComponent implements OnInit {
     this.employees = this.employeeService.getEmployees();
   }
 
-  addDep(name: HTMLInputElement, emp: HTMLInputElement) {
+  addDep(
+    name: HTMLInputElement,
+    emp: HTMLInputElement,
+    build: HTMLInputElement
+  ) {
     console.log(name);
     const depName = name.value;
+    console.log(build);
+    const buildName = build.value;
     if (depName === '') {
+      alert('Fill all');
+      return;
+    }
+    if (buildName === '') {
       alert('Fill all');
       return;
     }
@@ -35,7 +45,7 @@ export class DepartmentAddComponent implements OnInit {
     const employee = this.employeeService
       .getEmployees()
       .filter((employee1) => employee1.name === depEmployee)[0];
-    this.departmentService.addDep(depName);
+    this.departmentService.addDep(depName, buildName);
     this.departmentService.getLastDep().assignEmployee(employee);
     this.close();
   }

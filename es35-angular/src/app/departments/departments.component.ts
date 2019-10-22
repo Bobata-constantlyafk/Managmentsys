@@ -16,7 +16,7 @@ export class DepartmentsComponent implements OnInit {
   showOverlay: boolean;
   showAddForm: boolean;
 
-  currentDep: Department = new Department(0, '');
+  currentDep: Department = new Department(0, '', '');
   constructor(private departmentService: DepartmentService) {}
 
   getDepartments(): void {
@@ -29,8 +29,8 @@ export class DepartmentsComponent implements OnInit {
     this.currentDep = this.departments[i];
   }
 
-  addDep(input) {
-    this.departmentService.addDep(input);
+  addDep(input, inp) {
+    this.departmentService.addDep(input, inp);
   }
 
   ngOnInit() {
