@@ -13,7 +13,18 @@
 
 <div class="container">
   <div class="add-task">
-    <div class="input-group add-input col-sm-12">
+    <div class="input-group add-input col-sm-10">
+      <input
+        id="addInput"
+        type="text"
+        class="form-control"
+        #addInput
+        [(ngModel)]="searchTerm"
+        (ngModelChange)="search(searchTerm)"
+        placeholder="Search"
+      />
+    </div>
+    <div class="input-group add-input col-sm-2 pull-right">
       <a
         id="addButton"
         class="btn btn-success add-button"

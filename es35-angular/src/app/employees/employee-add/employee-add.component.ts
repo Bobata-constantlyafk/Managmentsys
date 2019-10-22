@@ -14,6 +14,7 @@ export class EmployeeAddComponent implements OnInit {
   employee: Employee;
   employees: Employee[];
   departments: Department[];
+
   constructor(
     private employeeService: EmployeeService,
     private departmentService: DepartmentService
@@ -38,7 +39,6 @@ export class EmployeeAddComponent implements OnInit {
     const createdEmployee = this.employeeService.addEmployee(
       employeeName,
       employeeLastName
-      // employeeLastName
     );
     console.log(createdEmployee);
 
@@ -46,7 +46,7 @@ export class EmployeeAddComponent implements OnInit {
     const employeeDepartment = dep.value;
     const department = this.departmentService
       .getDepartments()
-      .filter((depa) => depa.name === employeeDepartment)[0];
+      .filter((dep1) => dep1.name === employeeDepartment)[0];
     createdEmployee.assignDepartment(department);
 
     this.close();
