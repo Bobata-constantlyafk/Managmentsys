@@ -15,7 +15,11 @@ export class TasksService {
     return this.http.get<Task[]>(this.path);
   }
 
+  // Get a task by ID
   getTaskById(id: number): Observable<Task> {
+    // Make a subject that will later evaluate to the data that has to be returned
+    // Subject is used because this is the only way to return from a HTTP request
+    // since it is async and a evaluated value has to be returned
     const subject = new Subject<Task>();
     this.http
       .get<Task>(this.path, {params: {id: String(id)}})
@@ -25,6 +29,7 @@ export class TasksService {
     return subject.asObservable();
   }
 
+  // Get the last task that has been created
   getLastTask(): Observable<Task> {
     const subject = new Subject<Task>();
     this.getTasks().subscribe((tasks) => {
@@ -33,42 +38,38 @@ export class TasksService {
     return subject.asObservable();
   }
 
-  // getTasksOfDepartment(depId: number): Task[] {
-  //   return Tasks.filter((task) => task.department.id === depId);
-  // }
-
-  // getTasksOfEmployee(empId: number): Task[] {
-  //   const tasks: Task[] = new Array();
-  //   Tasks.forEach((task) => {
-  //     task.employees.forEach((emp) => {
-  //       if (emp.id === empId) {
-  //         tasks.push(task);
-  //       }
-  //     });
-  //   });
-  //   return tasks;
-  // }
-
+  // Remove/delete task by ID
   removeTask(id: number): void {
-    this.http.delete(this.path, {params: {id: String(id)}});
+    // Make a delete request to the API with param id
+    this.http.delete(this.path, {params: {id: String(id)}}).subscribe();
   }
 
-  // tslint:disable-next-line:variable-name
-  addTask(name: string, due_date: string, department_id: number): void {
-    this.http.post(this.path, {
-      department_id,
-      name,
-      due_date,
-    });
+  // Add task
+  addTask(
+    // tslint:disable-next-line:variable-name
+    department_id: number,
+    name: string,
+    description: string,
+    // tslint:disable-next-line:variable-name
+    due_date: string
+  ): void {
+    this.http
+      .post(this.path, {
+        department_id,
+        name,
+        description,
+        due_date,
+      })
+      .subscribe();
   }
 
+  // Edit the name of the task
   editTaskTitle(index: number, title: string): void {
+    // Update localy the data
     const task = Tasks[index];
     task.name = title;
-  }
 
-  // editTaskDescription(index: number, description: string): void {
-  //   const task = Tasks[index];
-  //   task.description = description;
-  // }
+    // Update the data in the database
+    this.http.put(this.path, {name: title}).subscribe();
+  }
 }

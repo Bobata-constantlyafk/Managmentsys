@@ -7,13 +7,15 @@ export class Task {
   isEditing: boolean;
   // tslint:disable-next-line:variable-name
   due_date: string;
+  description: string;
   // tslint:disable-next-line:variable-name
   department_id: number;
   employees: number[];
 
-  constructor(id: number, name: string, deadline: string) {
+  constructor(id: number, name: string, deadline: string, description: string) {
     this.id = id;
     this.name = name;
+    this.description = description;
     this.isEditing = false;
     this.employees = [];
     this.department_id = 0;
