@@ -18,12 +18,25 @@ export class DepartmentsComponent implements OnInit {
   showOverlay: boolean;
   showAddForm: boolean;
 
+<<<<<<< HEAD
   currentDep: Department = new Department(0, '', '');
   constructor(private departmentService: DepartmentService) {}
 
   // getDepartments(): void {
   //   this.departments = this.departmentService.getDepartments();
   // }
+=======
+  currentElement;
+
+  currentDep: Department = new Department(0, '', '');
+  constructor(private departmentService: DepartmentService) {}
+
+  getDepartments(): void {
+    this.departmentService
+      .getDepartments()
+      .subscribe((departments) => (this.departments = departments));
+  }
+>>>>>>> dimitar
 
   viewDetails(i) {
     this.showDetails = true;
@@ -31,6 +44,7 @@ export class DepartmentsComponent implements OnInit {
     this.currentDep = this.departments[i];
   }
 
+<<<<<<< HEAD
   closeAddDialog() {
     this.showAddForm = false;
     this.departmentService.getDepartments().subscribe();
@@ -43,6 +57,24 @@ export class DepartmentsComponent implements OnInit {
   ngOnInit() {
     this.departmentService.getDepartments().subscribe((departments) => {
       this.departments = departments;
+=======
+  addDep(input) {
+    const split = input.value().split(',');
+    const name = split[0];
+    const builing = split[1];
+    this.departmentService.addDepartment(name, builing);
+  }
+
+  ngOnInit() {
+    this.departmentService
+      .getDepartments()
+      .subscribe((department) => (this.departments = department));
+    const addInput = document.getElementById('addInput') as HTMLInputElement;
+    addInput.addEventListener('keydown', (event) => {
+      if (event.keyCode === 13) {
+        this.addDep(addInput);
+      }
+>>>>>>> dimitar
     });
 
     this.showDetails = false;
@@ -50,8 +82,9 @@ export class DepartmentsComponent implements OnInit {
     this.showAddForm = false;
   }
 
-  removeDep(id) {
-    this.departmentService.removeDep(id);
+  removeDep(i: number) {
+    const departmentId = this.departments[i].id;
+    this.departmentService.removeDepartment(departmentId);
   }
 
   closeDetails() {
