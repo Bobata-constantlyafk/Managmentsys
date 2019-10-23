@@ -22,9 +22,11 @@ export class RoleDetailsComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.allEmployees = this.employeeService.getEmployees();
+    this.employeeService
+      .getEmployees()
+      .subscribe((employees) => (this.employees = employees));
     this.employees = [];
-    for (const employee of this.allEmployees) {
+    for (const employee of this.employees) {
       if (this.role.employees.indexOf(employee) < 0) {
         this.employees.push(employee);
       }
@@ -39,16 +41,16 @@ export class RoleDetailsComponent implements OnInit {
     console.log(this.rolesService.getRolesOfEmployee(empId));
   }
 
-  addEmp(empName: string) {
-    if (empName === '') {
-      return;
-    }
-    const selectedEmp = this.employeeService
-      .getEmployees()
-      .filter((employee) => employee.name === empName)[0];
-    this.role.assignEmployee(selectedEmp);
-    this.employees.splice(this.employees.indexOf(selectedEmp), 1);
-  }
+  // addEmp(empName: string) {
+  //   if (empName === '') {
+  //     return;
+  //   }
+  //   const selectedEmp = this.employeeService
+  //     .getEmployees()
+  //     .filter((employee) => employee.name === empName)[0];
+  //   this.role.assignEmployee(selectedEmp);
+  //   this.employees.splice(this.employees.indexOf(selectedEmp), 1);
+  // }
 
   removeEmp(empIndex) {
     this.employees.push(this.role.employees[empIndex]);

@@ -8,6 +8,8 @@ import {Task} from '../tasks/tasks.model';
 import {Department} from '../department';
 import {Employee} from '../employees/employee';
 import {Role} from '../roles/role';
+import {Employees} from '../employees/employees-mock';
+import {Observable} from 'rxjs';
 
 @Component({
   selector: 'app-dashboard',
@@ -36,7 +38,9 @@ export class DashboardComponent implements OnInit {
   ngOnInit() {
     this.tasks = this.tasksService.getTasks();
     this.departments = this.departmentService.getDepartments();
-    this.employees = this.employeeService.getEmployees();
+    this.employeeService
+      .getEmployees()
+      .subscribe((employees) => (this.employees = employees));
     this.roles = this.roleService.getRoles();
     this.all = this.getAll();
   }
@@ -63,7 +67,6 @@ export class DashboardComponent implements OnInit {
     arr.push([
       ...this.tasksService.getTasks(),
       ...this.departmentService.getDepartments(),
-      ...this.employeeService.getEmployees(),
       ...this.roleService.getRoles(),
     ]);
     console.log(arr);

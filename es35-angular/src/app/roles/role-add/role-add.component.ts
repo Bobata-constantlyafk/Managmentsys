@@ -24,7 +24,9 @@ export class RoleAddComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.employees = this.employeeService.getEmployees();
+    this.employeeService
+      .getEmployees()
+      .subscribe((employees) => (this.employees = employees));
     this.departments = this.departmentService.getDepartments();
   }
 
@@ -32,7 +34,7 @@ export class RoleAddComponent implements OnInit {
     title: HTMLInputElement,
     desc: HTMLInputElement,
     dep: HTMLInputElement
-    //emp: HTMLInputElement
+    // emp: HTMLInputElement
   ) {
     const roleTitle = title.value;
     const roleDesc = desc.value;

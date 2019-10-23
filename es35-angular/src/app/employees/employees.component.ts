@@ -1,6 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {Employee} from './employee';
 import {EmployeeService} from '../employee.service';
+import {Observable, Subject} from 'rxjs';
+import {HttpClient, HttpParams} from '@angular/common/http';
 
 @Component({
   selector: 'app-employees',
@@ -20,7 +22,9 @@ export class EmployeesComponent implements OnInit {
   constructor(private employeeService: EmployeeService) {}
 
   ngOnInit() {
-    this.employees = this.employeeService.getEmployees();
+    this.employeeService
+      .getEmployees()
+      .subscribe((employees) => (this.employees = employees));
     this.showDetails = false;
     this.showOverlay = false;
     this.showAddForm = false;
@@ -36,28 +40,28 @@ export class EmployeesComponent implements OnInit {
     this.currentEmployee = this.employees[i];
   }
 
-  // editEmployee(id) {
-  //   this.currentEmployee = this.employees[id];
-  //   this.currentEmployee.toggleEdit();
-  //   setTimeout(() => {
-  //     const el = document.getElementById(
-  //       'employeeEditInput'
-  //     ) as HTMLInputElement;
-  //     el.focus();
-  //     el.select();
-  //     el.addEventListener('keydown', (event) => {
-  //       if (event.keyCode === 13) {
-  //         this.currentEmployee.toggleEdit();
-  //         el.removeEventListener('focusout', handler);
-  //       }
-  //     });
-  //     const handler = (event) => {
-  //       this.currentEmployee.toggleEdit();
-  //       el.removeEventListener('focusout', handler);
-  //     };
-  //     el.addEventListener('focusout', handler);
-  //   }, 1);
-  // }
+  editEmployee(id) {
+    this.currentEmployee = this.employees[id];
+    this.currentEmployee.toggleEdit();
+    setTimeout(() => {
+      const el = document.getElementById(
+        'employeeEditInput'
+      ) as HTMLInputElement;
+      el.focus();
+      el.select();
+      el.addEventListener('keydown', (event) => {
+        if (event.keyCode === 13) {
+          this.currentEmployee.toggleEdit();
+          el.removeEventListener('focusout', handler);
+        }
+      });
+      const handler = (event) => {
+        this.currentEmployee.toggleEdit();
+        el.removeEventListener('focusout', handler);
+      };
+      el.addEventListener('focusout', handler);
+    }, 1);
+  }
 
   closeDetails() {
     this.showDetails = false;

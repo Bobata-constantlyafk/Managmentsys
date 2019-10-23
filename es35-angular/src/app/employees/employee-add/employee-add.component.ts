@@ -22,7 +22,9 @@ export class EmployeeAddComponent implements OnInit {
 
   ngOnInit() {
     this.departments = this.departmentService.getDepartments();
-    this.employees = this.employeeService.getEmployees();
+    this.employeeService
+      .getEmployees()
+      .subscribe((employees) => (this.employees = employees));
   }
   addEmployee(
     name: HTMLInputElement,

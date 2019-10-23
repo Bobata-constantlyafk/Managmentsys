@@ -56,6 +56,7 @@ const appRoutes: Routes = [
     BrowserModule,
     FormsModule,
     NgbModule,
+    HttpClientModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

@@ -1,15 +1,22 @@
 import {Injectable} from '@angular/core';
 import {Employee} from './employees/employee';
 import {Employees} from './employees/employees-mock';
+import {Observable, Subject} from 'rxjs';
+import {HttpClient} from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root',
 })
 export class EmployeeService {
-  constructor() {}
-  getEmployees(): Employee[] {
-    return Employees;
+  path = 'http://i875395.hera.fhict.nl/api/3561763/employee';
+  constructor(private http: HttpClient) {}
+
+  getEmployees(): Observable<Employee[]> {
+    return this.http.get<Employee[]>(this.path);
   }
+  // getEmployees(): Employee[] {
+  //   return Employees;
+  // }
   removeEmployee(index): void {
     Employees.splice(index, 1);
   }

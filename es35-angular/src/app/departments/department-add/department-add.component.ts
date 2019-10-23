@@ -20,25 +20,28 @@ export class DepartmentAddComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.employees = this.employeeService.getEmployees();
-  }
-
-  addDep(name: HTMLInputElement, emp: HTMLInputElement) {
-    console.log(name);
-    const depName = name.value;
-    if (depName === '') {
-      alert('Fill all');
-      return;
-    }
-
-    const depEmployee = emp.value;
-    const employee = this.employeeService
+    this.employeeService
       .getEmployees()
-      .filter((employee1) => employee1.name === depEmployee)[0];
-    this.departmentService.addDep(depName);
-    this.departmentService.getLastDep().assignEmployee(employee);
-    this.close();
+      .subscribe((employees) => (this.employees = employees));
   }
+
+  // addDep(name: HTMLInputElement, emp: HTMLInputElement) {
+  //   console.log(name);
+  //   const depName = name.value;
+  //   if (depName === '') {
+  //     alert('Fill all');
+  //     return;
+  //   }
+
+  //   const depEmployee = emp.value;
+  //   const employee = this.employeeService
+  //     .getEmployees()
+  //     .filter((employee1) => employee1.name === depEmployee)[0];
+
+  //   this.departmentService.addDep(depName);
+  //   this.departmentService.getLastDep().assignEmployee(employee);
+  //   this.close();
+  // }
 
   close() {
     this.closeComp.emit();

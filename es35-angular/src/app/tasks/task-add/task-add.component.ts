@@ -24,7 +24,9 @@ export class TaskAddComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.employees = this.employeeService.getEmployees();
+    this.employeeService
+      .getEmployees()
+      .subscribe((employees) => (this.employees = employees));
     this.departments = this.departmentService.getDepartments();
   }
 
@@ -52,11 +54,11 @@ export class TaskAddComponent implements OnInit {
     console.log(createdTask);
 
     // Assing employee
-    const taskEmployee = emp.value;
-    const employee = this.employeeService
-      .getEmployees()
-      .filter((empl) => empl.name === taskEmployee)[0];
-    createdTask.assignEmployee(employee);
+    // const taskEmployee = emp.value;
+    // const employee = this.employeeService
+    //   .getEmployees()
+    //   .filter((empl) => empl.name === taskEmployee)[0];
+    // createdTask.assignEmployee(employee);
 
     // Assing Deadline
     createdTask.assignDeadline(taskDeadline);
