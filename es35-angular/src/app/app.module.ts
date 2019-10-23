@@ -18,6 +18,7 @@ import {RoleDetailsComponent} from './roles/role-details/role-details.component'
 import {RoleAddComponent} from './roles/role-add/role-add.component';
 import {EmployeeAddComponent} from './employees/employee-add/employee-add.component';
 import {EmployeeDetailsComponent} from './employees/employee-details/employee-details.component';
+import {HttpClientModule} from '@angular/common/http';
 
 const appRoutes: Routes = [
   {path: '', redirectTo: 'dashboard', pathMatch: 'full'},
@@ -45,6 +46,7 @@ const appRoutes: Routes = [
     RoleAddComponent,
     EmployeeAddComponent,
     EmployeeDetailsComponent,
+    HttpClientModule,
   ],
   imports: [
     RouterModule.forRoot(
