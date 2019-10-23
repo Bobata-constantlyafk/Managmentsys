@@ -12,14 +12,19 @@ export class Task {
   department_id: number;
   employees: number[];
 
-  constructor(id: number, name: string, deadline: string, description: string) {
-    this.id = id;
+  constructor(
+    departmentId: number,
+    name: string,
+    description: string,
+    // tslint:disable-next-line:variable-name
+    due_date: string
+  ) {
     this.name = name;
     this.description = description;
     this.isEditing = false;
     this.employees = [];
-    this.department_id = 0;
-    this.due_date = deadline;
+    this.department_id = departmentId;
+    this.due_date = due_date;
   }
 
   assignEmployee(employeeId: number): void {

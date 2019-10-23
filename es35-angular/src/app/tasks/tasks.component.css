@@ -31,7 +31,7 @@ h3 {
 .in-overlay {
   top: 20%;
   left: 25%;
-  position: absolute;
+  position: fixed;
   min-width: 50%;
   max-width: 50%;
   height: 62%;

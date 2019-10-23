@@ -1,20 +1,18 @@
 <h1>Dashboard</h1>
 
 <div class="container">
-  <select
-    class="form-control"
-    [(ngModel)]="option"
-    (ngModelChange)="updateView(option)"
-  >
-    <option value="tasks">Tasks</option>
-    <option value="departments">Departments</option>
-    <option value="employees">Employees</option>
-    <option value="roles">Roles</option>
-  </select>
-  <div [ngSwitch]="option">
-    <app-tasks *ngSwitchDefault></app-tasks>
-    <app-departments *ngSwitchCase="'departments'"></app-departments>
-    <app-employees *ngSwitchCase="'employees'"></app-employees>
-    <app-roles *ngSwitchCase="'roles'"></app-roles>
+  <div style="height: 100;">
+    <ngx-charts-bar-horizontal
+      [scheme]="colorScheme"
+      [results]="data"
+      [gradient]="gradient"
+      [xAxis]="true"
+      [yAxis]="true"
+      [showXAxisLabel]="showXAxisLabel"
+      [showYAxisLabel]="showYAxisLabel"
+      [xAxisLabel]="xAxisLabel"
+      [yAxisLabel]="yAxisLabel"
+    >
+    </ngx-charts-bar-horizontal>
   </div>
 </div>

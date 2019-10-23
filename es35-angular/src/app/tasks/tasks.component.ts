@@ -58,10 +58,19 @@ export class TasksComponent implements OnInit {
       });
       const handler = (event) => {
         this.currentTask.toggleEdit();
+        this.tasksService.editTaskTitle(
+          this.currentTask,
+          this.currentTask.name
+        );
         el.removeEventListener('focusout', handler);
       };
       el.addEventListener('focusout', handler);
     }, 1);
+  }
+
+  closeAddTaskDialog() {
+    this.showAddForm = false;
+    this.tasksService.getTasks().subscribe((tasks) => (this.tasks = tasks));
   }
 
   closeDetails() {

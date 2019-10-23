@@ -1,8 +1,7 @@
 import {Injectable} from '@angular/core';
 import {Task} from './tasks.model';
-import {Tasks} from './mock-tasks';
 import {Observable, Subject} from 'rxjs';
-import {HttpClient, HttpParams} from '@angular/common/http';
+import {HttpClient} from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root',
@@ -29,15 +28,6 @@ export class TasksService {
     return subject.asObservable();
   }
 
-  // Get the last task that has been created
-  getLastTask(): Observable<Task> {
-    const subject = new Subject<Task>();
-    this.getTasks().subscribe((tasks) => {
-      subject.next(tasks[tasks.length - 1]);
-    });
-    return subject.asObservable();
-  }
-
   // Remove/delete task by ID
   removeTask(id: number): void {
     // Make a delete request to the API with param id
@@ -52,24 +42,39 @@ export class TasksService {
     description: string,
     // tslint:disable-next-line:variable-name
     due_date: string
-  ): void {
-    this.http
-      .post(this.path, {
-        department_id,
-        name,
-        description,
-        due_date,
-      })
-      .subscribe();
+  ): Observable<any> {
+    return this.http.post(this.path, {
+      department_id,
+      name,
+      description,
+      due_date,
+    });
   }
 
   // Edit the name of the task
-  editTaskTitle(index: number, title: string): void {
+  editTaskTitle(task: Task, title: string): void {
     // Update localy the data
-    const task = Tasks[index];
     task.name = title;
-
     // Update the data in the database
-    this.http.put(this.path, {name: title}).subscribe();
+    this.http
+      .put(this.path, {name: title}, {params: {id: String(task.id)}})
+      .subscribe();
+  }
+
+  // Get number of tasks per department
+  getNumberOfTasksPerDepartment(): Observable<any> {
+    const subject = new Subject<any>();
+    this.getTasks().subscribe((tasks) => {
+      const dict = {};
+      tasks.forEach((task) => {
+        if (task.department_id in dict) {
+          dict[task.department_id]++;
+        } else {
+          dict[task.department_id] = 1;
+        }
+      });
+      subject.next(dict);
+    });
+    return subject.asObservable();
   }
 }

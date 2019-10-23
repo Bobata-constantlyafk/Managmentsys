@@ -34,34 +34,33 @@ export class TaskAddComponent implements OnInit {
   }
 
   addTask(
-    title: HTMLInputElement,
     dep: HTMLInputElement,
-    emp: HTMLInputElement,
+    title: HTMLInputElement,
     desc: HTMLInputElement,
     deadline: HTMLInputElement
   ) {
     const taskTitle = title.value;
     const taskDeadline = deadline.value;
     const taskDescription = desc.value;
+    const taskDepartment = dep.value;
     if (taskTitle === '' || taskDeadline === '' || taskDescription === '') {
       alert('Fill all');
       return;
     }
 
     // Assign Department
-    const taskDepartment = dep.value;
     this.departmentService
       .getDepartmentIdByName(taskDepartment)
       .subscribe((depId) => {
-        this.tasksService.addTask(
+        console.log(depId, taskTitle, taskDescription, taskDeadline);
+        const a = this.tasksService.addTask(
           depId,
           taskTitle,
           taskDescription,
           taskDeadline
         );
+        a.subscribe((x) => this.close());
       });
-
-    this.close();
   }
 
   close() {
