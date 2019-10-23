@@ -1,14 +1,8 @@
 import {Injectable} from '@angular/core';
 import {Department} from '../department';
 import {DEPARTMENTS} from '../mock-departments';
-<<<<<<< HEAD
-import {Employee} from '../employees/employee';
-import {Observable, Subject} from 'rxjs';
-import {HttpClient, HttpParams} from '@angular/common/http';
-=======
 import {Observable, Subject} from 'rxjs';
 import {HttpClient} from '@angular/common/http';
->>>>>>> dimitar
 
 @Injectable({
   providedIn: 'root',
@@ -17,7 +11,6 @@ export class DepartmentService {
   path = 'http://i875395.hera.fhict.nl/api/3497186/department';
   constructor(private http: HttpClient) {}
 
-<<<<<<< HEAD
   getDepartments(): Observable<Department[]> {
     return this.http.get<Department[]>(this.path);
   }
@@ -76,7 +69,6 @@ export class DepartmentService {
 
   //   // USE BOYAN METHOD
   // }
-=======
   // getDepartments(): Department[] {
   //   return DEPARTMENTS;
   // }
@@ -98,10 +90,6 @@ export class DepartmentService {
   //   input.value = '';
   // }
 
-  getDepartments(): Observable<Department[]> {
-    return this.http.get<Department[]>(this.path);
-  }
-
   getDepartmentIdByName(name: string): Observable<number> {
     const subject = new Subject<number>();
     this.getDepartments().subscribe((departments) => {
@@ -122,7 +110,6 @@ export class DepartmentService {
   removeDepartment(id: number) {
     this.http.delete(this.path + '?id=' + id);
   }
->>>>>>> dimitar
 }
 
 // getEmployeesOfDepName(depName: string): Employee[] {

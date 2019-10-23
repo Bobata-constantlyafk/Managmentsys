@@ -22,15 +22,9 @@ export class Task {
     this.name = name;
     this.description = description;
     this.isEditing = false;
-<<<<<<< HEAD
-    this.employees = new Array();
-    this.department = new Department(1, '', '');
-    this.deadline = deadline;
-=======
     this.employees = [];
     this.department_id = departmentId;
     this.due_date = due_date;
->>>>>>> dimitar
   }
 
   assignEmployee(employeeId: number): void {

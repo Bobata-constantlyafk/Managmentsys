@@ -53,21 +53,14 @@ export class DashboardComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-<<<<<<< HEAD
-    this.tasks = this.tasksService.getTasks();
-=======
     this.tasksService
       .getTasks()
       .subscribe((data) => (this.tasks = Object.values(data)));
->>>>>>> dimitar
     this.departmentService
       .getDepartments()
       .subscribe((data) => (this.departments = data));
     this.employees = this.employeeService.getEmployees();
     this.roles = this.roleService.getRoles();
-<<<<<<< HEAD
-    // this.all = this.getAll();
-=======
     this.updateChart();
   }
 
@@ -98,7 +91,6 @@ export class DashboardComponent implements OnInit {
         }
       }
     });
->>>>>>> dimitar
   }
 
   updateView(option) {
@@ -118,27 +110,6 @@ export class DashboardComponent implements OnInit {
     }
   }
 
-<<<<<<< HEAD
-  // getAll() {
-  //   const arr = [];
-  //   arr.push([
-  //     ...this.tasksService.getTasks(),
-  //     ...this.departmentService.getDepartments(),
-  //     ...this.employeeService.getEmployees(),
-  //     ...this.roleService.getRoles(),
-  //   ]);
-  //   console.log(arr);
-  //   return arr;
-  // }
-
-  search(term: string) {
-    // if (this.selectedOption === 'task') {
-    // } else {
-    // }
-  }
-
-=======
->>>>>>> dimitar
   isTask(candidate) {
     return candidate instanceof Task;
   }
