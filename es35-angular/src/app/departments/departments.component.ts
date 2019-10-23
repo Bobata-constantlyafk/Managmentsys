@@ -1,6 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {Department} from '../department';
 import {DepartmentService} from './department.service';
+import {TouchSequence} from 'selenium-webdriver';
+import {Task} from '../tasks/tasks.model';
 
 @Component({
   selector: 'app-departments',
@@ -16,11 +18,15 @@ export class DepartmentsComponent implements OnInit {
   showOverlay: boolean;
   showAddForm: boolean;
 
-  currentDep: Department = new Department(0, '');
+  currentElement;
+
+  currentDep: Department = new Department(0, '', '');
   constructor(private departmentService: DepartmentService) {}
 
   getDepartments(): void {
-    this.departments = this.departmentService.getDepartments();
+    this.departmentService
+      .getDepartments()
+      .subscribe((departments) => (this.departments = departments));
   }
 
   viewDetails(i) {
@@ -29,19 +35,28 @@ export class DepartmentsComponent implements OnInit {
     this.currentDep = this.departments[i];
   }
 
-  addDep(input) {
-    this.departmentService.addDep(input);
+  closeAddDialog() {
+    this.showAddForm = false;
+    this.departmentService.getDepartments().subscribe();
+  }
+
+  addDep(input, inp) {
+    this.departmentService.addDep(input, inp);
   }
 
   ngOnInit() {
-    this.departments = this.departmentService.getDepartments();
+    this.departmentService
+      .getDepartments()
+      .subscribe((department) => (this.departments = department));
+
     this.showDetails = false;
     this.showOverlay = false;
     this.showAddForm = false;
   }
 
-  removeDep(id) {
-    this.departmentService.removeDep(id);
+  removeDep(i: number) {
+    const departmentId = this.departments[i].id;
+    this.departmentService.removeDepartment(departmentId);
   }
 
   closeDetails() {
@@ -88,10 +103,13 @@ export class DepartmentsComponent implements OnInit {
     }, 1);
   }
   search(s: string) {
-    const departments = this.departmentService.getDepartments();
-    const filter = s.toUpperCase();
-    this.departments = departments.filter(
-      (department) => department.name.toUpperCase().indexOf(filter) > -1
-    );
+    let departments = [];
+    this.departmentService.getDepartments().subscribe((data) => {
+      departments = data;
+      const filter = s.toUpperCase();
+      this.departments = departments.filter(
+        (task) => task.name.toUpperCase().indexOf(filter) > -1
+      );
+    });
   }
 }

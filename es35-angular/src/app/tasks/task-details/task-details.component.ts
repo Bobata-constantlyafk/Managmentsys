@@ -3,6 +3,8 @@ import {Task} from '../tasks.model';
 import {TasksService} from '../tasks.service';
 import {Employee} from 'src/app/employees/employee';
 import {EmployeeService} from 'src/app/employee.service';
+import {Department} from 'src/app/department';
+import {DepartmentService} from 'src/app/departments/department.service';
 
 @Component({
   selector: 'app-task-details',
@@ -16,31 +18,42 @@ export class TaskDetailsComponent implements OnInit {
   employees: Employee[];
   selectedEmp: Employee;
   allEmployees: Employee[];
+  department: Department;
 
   constructor(
     private tasksService: TasksService,
-    private employeeService: EmployeeService
+    private employeeService: EmployeeService,
+    private departmentService: DepartmentService
   ) {}
 
   ngOnInit() {
     this.employeeService
       .getEmployees()
       .subscribe((employees) => (this.employees = employees));
+    this.departmentService
+      .getDepartmentById(this.task.department_id)
+      .subscribe((department) => {
+        this.department = department;
+        // this.department.employees.forEach((employeeId) => {
+        //   console.log(employeeId);
+        //   this.employeeService
+        //     .getEmployeeById(employeeId)
+        //     .subscribe((employee) => {
+        //       this.employees.push(employee);
+        //       console.log(employee);
+        //     });
+        // });
+      });
     this.employees = [];
-    for (const employee of this.allEmployees) {
-      if (this.task.employees.indexOf(employee) < 0) {
-        this.employees.push(employee);
-      }
-    }
   }
 
   close() {
     this.closeComp.emit();
   }
 
-  seeEmpTasks(empId) {
-    console.log(this.tasksService.getTasksOfEmployee(empId));
-  }
+  // seeEmpTasks(empId) {
+  //   console.log(this.tasksService.getTasksOfEmployee(empId));
+  // }
 
   // addEmp(empName: string) {
   //   if (empName === '') {
@@ -53,8 +66,9 @@ export class TaskDetailsComponent implements OnInit {
   //   this.employees.splice(this.employees.indexOf(selectedEmp), 1);
   // }
 
-  removeEmp(empIndex) {
-    this.employees.push(this.task.employees[empIndex]);
-    this.task.employees.splice(empIndex, 1);
-  }
+  // removeEmp(empIndex) {
+  //   this.tasksService.removeTask();
+  //   this.employees.push(this.task.employees[empIndex]);
+  //   this.task.employees.splice(empIndex, 1);
+  // }
 }

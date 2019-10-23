@@ -3,6 +3,9 @@ import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
 import {FormsModule} from '@angular/forms';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import {NgxChartsModule} from '@swimlane/ngx-charts';
+import {HttpClientModule} from '@angular/common/http';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 
 import {AppComponent} from './app.component';
 import {TasksComponent} from './tasks/tasks.component';
@@ -18,7 +21,6 @@ import {RoleDetailsComponent} from './roles/role-details/role-details.component'
 import {RoleAddComponent} from './roles/role-add/role-add.component';
 import {EmployeeAddComponent} from './employees/employee-add/employee-add.component';
 import {EmployeeDetailsComponent} from './employees/employee-details/employee-details.component';
-import {HttpClientModule} from '@angular/common/http';
 
 const appRoutes: Routes = [
   {path: '', redirectTo: 'dashboard', pathMatch: 'full'},
@@ -57,6 +59,8 @@ const appRoutes: Routes = [
     FormsModule,
     NgbModule,
     HttpClientModule,
+    NgxChartsModule,
+    BrowserAnimationsModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

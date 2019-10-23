@@ -2,6 +2,9 @@ import {Department} from '../department';
 export class Employee {
   id: number;
   name: string;
+  first_name: string;
+  last_name: string;
+  birth_date: string;
   lastname: string;
   isEditing: boolean;
   department: Department;

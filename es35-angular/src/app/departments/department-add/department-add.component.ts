@@ -25,21 +25,53 @@ export class DepartmentAddComponent implements OnInit {
       .subscribe((employees) => (this.employees = employees));
   }
 
-  // addDep(name: HTMLInputElement, emp: HTMLInputElement) {
-  //   console.log(name);
-  //   const depName = name.value;
-  //   if (depName === '') {
+  addDep(name: HTMLInputElement, build: HTMLInputElement) {
+    console.log(name);
+    const depName = name.value;
+    console.log(build);
+    const buildName = build.value;
+    if (depName === '') {
+      alert('Fill all');
+      return;
+    }
+    if (buildName === '') {
+      alert('Fill all');
+      return;
+    }
+
+    this.departmentService
+      .addDep(name.value, build.value)
+      .subscribe((x) => this.close());
+  }
+
+  // addTask(
+  //   title: HTMLInputElement,
+  //   dep: HTMLInputElement,
+  //   emp: HTMLInputElement,
+  //   desc: HTMLInputElement,
+  //   deadline: HTMLInputElement
+  // ) {
+  //   const taskTitle = title.value;
+  //   const taskDeadline = deadline.value;
+  //   const taskDescription = desc.value;
+  //   if (taskTitle === '' || taskDeadline === '' || taskDescription === '') {
   //     alert('Fill all');
   //     return;
   //   }
 
-  //   const depEmployee = emp.value;
-  //   const employee = this.employeeService
-  //     .getEmployees()
-  //     .filter((employee1) => employee1.name === depEmployee)[0];
+  //   // Assign Department
+  //   const taskDepartment = dep.value;
+  //   this.departmentService
+  //     .getDepartmentIdByName(taskDepartment)
+  //     .subscribe((depId) => {
+  //       this.tasksService.addTask(
+  //         depId,
+  //         taskTitle,
+  //         taskDescription,
+  //         taskDeadline
+  //       );
+  //     });
 
-  //   this.departmentService.addDep(depName);
-  //   this.departmentService.getLastDep().assignEmployee(employee);
   //   this.close();
   // }
 
