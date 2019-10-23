@@ -6,6 +6,7 @@
 <app-department-add
   [style.display]="showAddForm ? 'inline' : 'none'"
   (closeComp)="showAddForm = false"
+  (closeComp)="closeAddDialog()"
 ></app-department-add>
 
 <h1>Departments</h1>

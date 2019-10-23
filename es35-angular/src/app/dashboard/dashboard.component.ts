@@ -35,10 +35,12 @@ export class DashboardComponent implements OnInit {
 
   ngOnInit() {
     this.tasks = this.tasksService.getTasks();
-    this.departments = this.departmentService.getDepartments().subscribe();
+    this.departmentService
+      .getDepartments()
+      .subscribe((data) => (this.departments = data));
     this.employees = this.employeeService.getEmployees();
     this.roles = this.roleService.getRoles();
-    this.all = this.getAll();
+    // this.all = this.getAll();
   }
 
   updateView(option) {
@@ -58,17 +60,17 @@ export class DashboardComponent implements OnInit {
     }
   }
 
-  getAll() {
-    const arr = [];
-    arr.push([
-      ...this.tasksService.getTasks(),
-      ...this.departmentService.getDepartments(),
-      ...this.employeeService.getEmployees(),
-      ...this.roleService.getRoles(),
-    ]);
-    console.log(arr);
-    return arr;
-  }
+  // getAll() {
+  //   const arr = [];
+  //   arr.push([
+  //     ...this.tasksService.getTasks(),
+  //     ...this.departmentService.getDepartments(),
+  //     ...this.employeeService.getEmployees(),
+  //     ...this.roleService.getRoles(),
+  //   ]);
+  //   console.log(arr);
+  //   return arr;
+  // }
 
   search(term: string) {
     // if (this.selectedOption === 'task') {

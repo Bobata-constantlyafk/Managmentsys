@@ -31,13 +31,18 @@ export class DepartmentsComponent implements OnInit {
     this.currentDep = this.departments[i];
   }
 
+  closeAddDialog() {
+    this.showAddForm = false;
+    this.departmentService.getDepartments().subscribe();
+  }
+
   addDep(input, inp) {
     this.departmentService.addDep(input, inp);
   }
 
   ngOnInit() {
-    this.departmentService.getDepartments().subscribe((departmnts) => {
-      this.departments = departmnts;
+    this.departmentService.getDepartments().subscribe((departments) => {
+      this.departments = departments;
     });
 
     this.showDetails = false;

@@ -44,13 +44,11 @@ export class DepartmentService {
     this.http.delete(this.path, {params: {id: String(id)}}).subscribe();
   }
 
-  addDep(name: string, building: string): void {
-    this.http
-      .post(this.path, {
-        name,
-        building,
-      })
-      .subscribe();
+  addDep(name: string, building: string): Observable<any> {
+    return this.http.post(this.path, {
+      name,
+      building,
+    });
   }
 
   editDepName(index: number, title: string): void {
@@ -58,19 +56,21 @@ export class DepartmentService {
     department.name = title;
     this.http.put(this.path, {name: title}).subscribe();
   }
-}
 
-// getEmployeesOfDepId(depId: number): Employee[] {
-//   // return Tasks.filter((task) =>
-//   //   task.employees.filter((employee) => employee.id === empId)
-//   // );
-//   this.getDepartments().forEach((dep) => {
-//     if (dep.id === depId) {
-//       return dep.employees;
-//     }
-//   });
-//   return null;
-// }
+  // getEmployeesOfDepId(depId: number): Employee[] {
+  //   // return Tasks.filter((task) =>
+  //   //   task.employees.filter((employee) => employee.id === empId)
+  //   // );
+  //   this.getDepartments().forEach((dep) => {
+  //     if (dep.id === depId) {
+  //       return dep.employees;
+  //     }
+  //   });
+  //   return null;
+
+  //   // USE BOYAN METHOD
+  // }
+}
 
 // getEmployeesOfDepName(depName: string): Employee[] {
 //   // return Tasks.filter((task) =>
