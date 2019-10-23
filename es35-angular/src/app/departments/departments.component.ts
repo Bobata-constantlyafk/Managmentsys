@@ -1,6 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {Department} from '../department';
 import {DepartmentService} from './department.service';
+import {TouchSequence} from 'selenium-webdriver';
+import {Task} from '../tasks/tasks.model';
 
 @Component({
   selector: 'app-departments',
@@ -19,9 +21,9 @@ export class DepartmentsComponent implements OnInit {
   currentDep: Department = new Department(0, '', '');
   constructor(private departmentService: DepartmentService) {}
 
-  getDepartments(): void {
-    this.departments = this.departmentService.getDepartments();
-  }
+  // getDepartments(): void {
+  //   this.departments = this.departmentService.getDepartments();
+  // }
 
   viewDetails(i) {
     this.showDetails = true;
@@ -34,7 +36,10 @@ export class DepartmentsComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.departments = this.departmentService.getDepartments();
+    this.departmentService.getDepartments().subscribe((departmnts) => {
+      this.departments = departmnts;
+    });
+
     this.showDetails = false;
     this.showOverlay = false;
     this.showAddForm = false;
@@ -88,10 +93,13 @@ export class DepartmentsComponent implements OnInit {
     }, 1);
   }
   search(s: string) {
-    const departments = this.departmentService.getDepartments();
-    const filter = s.toUpperCase();
-    this.departments = departments.filter(
-      (department) => department.name.toUpperCase().indexOf(filter) > -1
-    );
+    let departments = [];
+    this.departmentService.getDepartments().subscribe((data) => {
+      departments = data;
+      const filter = s.toUpperCase();
+      this.departments = departments.filter(
+        (task) => task.name.toUpperCase().indexOf(filter) > -1
+      );
+    });
   }
 }
