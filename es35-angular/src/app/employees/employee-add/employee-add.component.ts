@@ -21,7 +21,10 @@ export class EmployeeAddComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.departments = this.departmentService.getDepartments();
+    this.departmentService
+      .getDepartments()
+      .subscribe((departments) => (this.departments = departments));
+
     this.employeeService
       .getEmployees()
       .subscribe((employees) => (this.employees = employees));
@@ -33,6 +36,7 @@ export class EmployeeAddComponent implements OnInit {
   ) {
     const employeeName = name.value;
     const employeeLastName = lastname.value;
+    const employeeDepartment = dep.value;
     if (employeeName === '' || employeeLastName === '') {
       alert('Please assign the information properly');
       return;
@@ -45,16 +49,29 @@ export class EmployeeAddComponent implements OnInit {
     console.log(createdEmployee);
 
     // Assign Department
-    const employeeDepartment = dep.value;
-    const department = this.departmentService
-      .getDepartments()
-      .filter((dep1) => dep1.name === employeeDepartment)[0];
-    createdEmployee.assignDepartment(department);
+    // const employeeDepartment = dep.value;
+    // const department = this.departmentService
+    //   .getDepartments()
+    //   .filter((dep1) => dep1.name === employeeDepartment)[0];
+    // createdEmployee.assignDepartment(department);
 
-    this.close();
+    // this.close();
 
-    name.value = '';
-    lastname.value = '';
+    // name.value = '';
+    // lastname.value = '';
+
+    // TAKAAAA TOVA BI TRQBVALO DA RABOTI SLED KATO OPRAVQ DRUGITE NESHTA
+    // this.employeeService
+    // .getDepartmentIdByName(employeeDepartment)
+    // .subscribe((depId) => {
+    //   console.log(depId, employeeName, employeeLastName);
+    //   const a = this.employeeService.addTask(
+    //     depId,
+    //     employeeName,
+    //     employeeLastName
+    //   );
+    //   a.subscribe((x) => this.close());
+    // });
   }
   close() {
     this.closeComp.emit();
