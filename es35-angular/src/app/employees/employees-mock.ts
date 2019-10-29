@@ -1,11 +1,6 @@
 import {Employee} from './employee';
 
 export const Employees: Employee[] = [
-  new Employee(0, 'Bobert', 'Williamson'),
-  new Employee(1, 'Bjorg', 'Svenskeren'),
-  new Employee(2, 'Strahomir', 'Bozhikravov'),
-  new Employee(3, 'Monica', 'Bellucci'),
-  new Employee(4, 'Himari', 'Nakamoto'),
-  new Employee(5, 'Jordan', 'Jordanoff'),
-  new Employee(6, 'Roza', 'Yordanova'),
+  new Employee('Bobert', 'Williamson', '11-01-2001', 2),
+  new Employee('Bjorg', 'Svenskeren', '23-12-1995', 4),
 ];

@@ -1,12 +1,11 @@
 <app-employee-details
   [employee]="currentEmployee"
-  [style.display]="showDetails ? 'inline' : 'none'"
+  *ngIf="showDetails"
   (closeComp)="showDetails = false"
 ></app-employee-details>
-
 <app-employee-add
-  [style.display]="showAddForm ? 'inline' : 'none'"
-  (closeComp)="showAddForm = false"
+  *ngIf="showAddForm"
+  (closeComp)="closeAddEmployeeDialog()"
 ></app-employee-add>
 
 <h1>Employees</h1>

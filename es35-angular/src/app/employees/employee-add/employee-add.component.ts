@@ -30,48 +30,37 @@ export class EmployeeAddComponent implements OnInit {
       .subscribe((employees) => (this.employees = employees));
   }
   addEmployee(
-    name: HTMLInputElement,
+    firstname: HTMLInputElement,
     lastname: HTMLInputElement,
+    bday: HTMLInputElement,
     dep: HTMLInputElement
   ) {
-    const employeeName = name.value;
+    const employeeName = firstname.value;
     const employeeLastName = lastname.value;
     const employeeDepartment = dep.value;
-    if (employeeName === '' || employeeLastName === '') {
-      alert('Please assign the information properly');
+    const employeeBirthday = bday.value;
+    if (
+      employeeName === '' ||
+      employeeLastName === '' ||
+      employeeBirthday === ''
+    ) {
+      alert('Please input the information properly');
       return;
     }
 
-    const createdEmployee = this.employeeService.addEmployee(
-      employeeName,
-      employeeLastName
-    );
-    console.log(createdEmployee);
-
     // Assign Department
-    // const employeeDepartment = dep.value;
-    // const department = this.departmentService
-    //   .getDepartments()
-    //   .filter((dep1) => dep1.name === employeeDepartment)[0];
-    // createdEmployee.assignDepartment(department);
-
-    // this.close();
-
-    // name.value = '';
-    // lastname.value = '';
-
-    // TAKAAAA TOVA BI TRQBVALO DA RABOTI SLED KATO OPRAVQ DRUGITE NESHTA
-    // this.employeeService
-    // .getDepartmentIdByName(employeeDepartment)
-    // .subscribe((depId) => {
-    //   console.log(depId, employeeName, employeeLastName);
-    //   const a = this.employeeService.addTask(
-    //     depId,
-    //     employeeName,
-    //     employeeLastName
-    //   );
-    //   a.subscribe((x) => this.close());
-    // });
+    this.departmentService
+      .getDepartmentIdByName(employeeDepartment)
+      .subscribe((depId) => {
+        console.log(depId, employeeName, employeeLastName, employeeBirthday);
+        const a = this.employeeService.addEmployee(
+          depId,
+          employeeName,
+          employeeLastName,
+          employeeBirthday
+        );
+        a.subscribe((x) => this.close());
+      });
   }
   close() {
     this.closeComp.emit();

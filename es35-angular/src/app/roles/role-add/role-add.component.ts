@@ -27,7 +27,10 @@ export class RoleAddComponent implements OnInit {
     this.employeeService
       .getEmployees()
       .subscribe((employees) => (this.employees = employees));
-    this.departments = this.departmentService.getDepartments();
+
+    this.departmentService
+      .getDepartments()
+      .subscribe((departments) => (this.departments = departments));
   }
 
   addRole(
@@ -55,10 +58,10 @@ export class RoleAddComponent implements OnInit {
 
     // Assign Department
     const roleDepartment = dep.value;
-    const department = this.departmentService
-      .getDepartments()
-      .filter((depa) => depa.name === roleDepartment)[0];
-    createdRole.assignDepartment(department);
+    // const department = this.departmentService
+    //   .getDepartments()
+    //   .filter((depa) => depa.name === roleDepartment)[0];
+    // createdRole.assignDepartment(department);
 
     this.close();
 

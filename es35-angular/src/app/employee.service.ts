@@ -30,17 +30,26 @@ export class EmployeeService {
   }
 
   addEmployee(
-    employeeid: number,
+    // tslint:disable-next-line:variable-name
+    department_id: number,
     firstname: string,
     lastname: string,
     birthdate: string
   ): Observable<any> {
     return this.http.post(this.path, {
-      employeeid,
+      department_id,
       firstname,
       lastname,
       birthdate,
     });
+  }
+
+  // tslint:disable-next-line:variable-name
+  editEmployeeName(employee: Employee, first_name: string): void {
+    employee.first_name = first_name;
+    this.http
+      .put(this.path, {name: first_name}, {params: {id: String(employee.id)}})
+      .subscribe();
   }
 
   getLastEmployee(): Employee {
