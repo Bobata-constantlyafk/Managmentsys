@@ -27,6 +27,11 @@ export class EmployeesComponent implements OnInit {
     this.employeeService
       .getEmployees()
       .subscribe((employees) => (this.employees = employees));
+
+    this.employeeService
+      .getEmployeesByDep()
+      .subscribe((employees) => console.log(employees));
+
     this.showDetails = false;
     this.showOverlay = false;
     this.showAddForm = false;

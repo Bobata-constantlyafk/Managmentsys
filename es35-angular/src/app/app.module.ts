@@ -48,7 +48,6 @@ const appRoutes: Routes = [
     RoleAddComponent,
     EmployeeAddComponent,
     EmployeeDetailsComponent,
-    HttpClientModule,
   ],
   imports: [
     RouterModule.forRoot(

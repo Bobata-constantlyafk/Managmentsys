@@ -14,6 +14,25 @@ export class EmployeeService {
   getEmployees(): Observable<Employee[]> {
     return this.http.get<Employee[]>(this.path);
   }
+
+  getEmployeesByDep(): Observable<Employee[]> {
+    const dict = {};
+    const subject = new Subject<any>();
+    this.getEmployees().subscribe((employees) => {
+      employees.forEach((employee) => {
+        const dep = employee.department_id;
+        console.log(dep);
+        const depkeys = Object.keys(dict);
+        if (!(dep in dict)) {
+          dict[dep] = 1;
+        } else {
+          dict[dep]++;
+        }
+      });
+      subject.next(dict);
+    });
+    return subject.asObservable();
+  }
   // Get an employee using his id
   getEmployeeById(id: number): Observable<Employee> {
     const subject = new Subject<Employee>();
