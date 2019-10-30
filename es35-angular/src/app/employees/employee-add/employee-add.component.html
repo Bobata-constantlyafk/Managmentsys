@@ -7,7 +7,7 @@
       <div class="form-group">
         <label>First name</label>
         <input
-          #name
+          #firstname
           type="text"
           class="form-control"
           placeholder="First name of employee"
@@ -34,9 +34,31 @@
           </select>
         </div>
 
+        <div class="col-sm-4">
+          <div class="form-inline">
+            <input
+              class="form-control"
+              placeholder="yyyy-mm-dd"
+              name="d2"
+              ngbDatepicker
+              #d2="ngbDatepicker"
+              #bday
+            />
+            <div class="input-group-append">
+              <button
+                class="btn btn-outline-secondary calendar"
+                (click)="d2.toggle()"
+                type="button"
+              >
+                <i class="fa fa-calendar" aria-hidden="true"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+
         <button
           class="btn btn-success"
-          (click)="addEmployee(name, lastname, department)"
+          (click)="addEmployee(1, firstname, lastname, bday)"
         >
           Add
         </button>
