@@ -59,11 +59,11 @@ export class TaskAddComponent implements OnInit {
           taskDescription,
           taskDeadline
         );
-        a.subscribe((x) => this.close());
+        a.subscribe((x) => this.close(true));
       });
   }
 
-  close() {
-    this.closeComp.emit();
+  close(taskAdded: boolean) {
+    this.closeComp.emit(taskAdded);
   }
 }

@@ -17,7 +17,7 @@ export class TasksService {
   // Get a task by ID
   getTaskById(id: number): Observable<Task> {
     // Make a subject that will later evaluate to the data that has to be returned
-    // Subject is used because this is the only way to return from a HTTP request
+    // Subject is used because this is a way to return from a HTTP request
     // since it is async and a evaluated value has to be returned
     const subject = new Subject<Task>();
     this.http
@@ -36,11 +36,9 @@ export class TasksService {
 
   // Add task
   addTask(
-    // tslint:disable-next-line:variable-name
     department_id: number,
     name: string,
     description: string,
-    // tslint:disable-next-line:variable-name
     due_date: string
   ): Observable<any> {
     return this.http.post(this.path, {
@@ -67,11 +65,8 @@ export class TasksService {
     this.getTasks().subscribe((tasks) => {
       const dict = {};
       tasks.forEach((task) => {
-        if (task.department_id in dict) {
-          dict[task.department_id]++;
-        } else {
-          dict[task.department_id] = 1;
-        }
+        const depId = task.department_id;
+        dict[depId] = depId in dict ? dict[depId] + 1 : 1;
       });
       subject.next(dict);
     });

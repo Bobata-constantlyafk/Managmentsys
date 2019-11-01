@@ -1,14 +1,9 @@
-import {Department} from '../department';
-import {Employee} from '../employees/employee';
-
 export class Task {
   id: number;
   name: string;
   isEditing: boolean;
-  // tslint:disable-next-line:variable-name
   due_date: string;
   description: string;
-  // tslint:disable-next-line:variable-name
   department_id: number;
   employees: number[];
 
@@ -16,7 +11,6 @@ export class Task {
     departmentId: number,
     name: string,
     description: string,
-    // tslint:disable-next-line:variable-name
     due_date: string
   ) {
     this.name = name;

@@ -11,6 +11,7 @@ import {Employee} from '../employees/employee';
 export class TasksComponent implements OnInit {
   tasks: Task[];
   isEditing = false;
+  taskToView: any;
 
   searchTerm: string;
 
@@ -35,12 +36,6 @@ export class TasksComponent implements OnInit {
     const taskId = this.tasks[i].id;
     this.tasksService.removeTask(taskId);
     this.tasks.splice(i, 1);
-  }
-
-  viewDetails(i) {
-    this.showDetails = true;
-    this.showOverlay = true;
-    this.currentTask = this.tasks[i];
   }
 
   editTask(id) {
@@ -68,8 +63,11 @@ export class TasksComponent implements OnInit {
     }, 1);
   }
 
-  closeAddTaskDialog() {
+  closeAddTaskDialog(taskAdded: boolean) {
     this.showAddForm = false;
+    if (!taskAdded) {
+      return;
+    }
     this.tasksService.getTasks().subscribe((tasks) => (this.tasks = tasks));
   }
 
@@ -94,6 +92,12 @@ export class TasksComponent implements OnInit {
     this.showDetails = false;
   }
 
+  viewDetails(i) {
+    this.showDetails = true;
+    this.showOverlay = true;
+    this.taskToView = {task: this.tasks[i], index: i};
+  }
+
   search(s: string) {
     let tasks = [];
     this.tasksService.getTasks().subscribe((data) => {
@@ -104,9 +108,5 @@ export class TasksComponent implements OnInit {
         // task.description.toUpperCase().indexOf(filter) > -1
       );
     });
-  }
-
-  foo() {
-    this.tasksService.addTask(620, 'A title', 'A description', '20191212');
   }
 }
