@@ -3,15 +3,14 @@
 <div class="container">
   <div style="height: 100;">
     <ngx-charts-bar-horizontal
-      [scheme]="colorScheme"
-      [results]="data"
-      [gradient]="gradient"
+      [scheme]="charts.tasksPerDepartment.colorScheme"
+      [results]="charts.tasksPerDepartment.data"
       [xAxis]="true"
       [yAxis]="true"
-      [showXAxisLabel]="showXAxisLabel"
-      [showYAxisLabel]="showYAxisLabel"
-      [xAxisLabel]="xAxisLabel"
-      [yAxisLabel]="yAxisLabel"
+      [showXAxisLabel]="true"
+      [showYAxisLabel]="true"
+      [xAxisLabel]="charts.tasksPerDepartment.xAxisLabel"
+      [yAxisLabel]="charts.tasksPerDepartment.yAxisLabel"
     >
     </ngx-charts-bar-horizontal>
   </div>

@@ -7,8 +7,7 @@ import {Task} from '../tasks/tasks.model';
 import {Department} from '../department';
 import {Employee} from '../employees/employee';
 import {Role} from '../roles/role';
-import {Observable} from 'rxjs';
-import {callbackify} from 'util';
+import {Subject} from 'rxjs';
 
 @Component({
   selector: 'app-dashboard',
@@ -16,22 +15,32 @@ import {callbackify} from 'util';
   styleUrls: ['../tasks/tasks.component.css', './dashboard.component.css'],
 })
 export class DashboardComponent implements OnInit {
+  charts = {
+    tasksPerDepartment: {
+      title: 'Tasks Per Department',
+      xAxisLabel: 'Number of Tasks',
+      yAxisLabel: 'Department',
+      timeline: true,
+      colorScheme: {
+        domain: [
+          '#bf9d76',
+          '#e99450',
+          '#d89f59',
+          '#f2dfa7',
+          '#a5d7c6',
+          '#7794b1',
+          '#afafaf',
+          '#707160',
+          '#ba9383',
+          '#d9d5c3',
+        ],
+      },
+      // chart-options <END>
+      data: [],
+    },
+  };
   // Chart Configuration
   // chart-options <START>
-  title = 'Angular Charts';
-  showXAxis = true;
-  showYAxis = true;
-  gradient = false;
-  showXAxisLabel = true;
-  xAxisLabel = 'Number of Tasks';
-  showYAxisLabel = true;
-  yAxisLabel = 'Department';
-  timeline = true;
-  colorScheme = {
-    domain: ['#9370DB', '#87CEFA', '#FA8072', '#FF7F50', '#90EE90', '#9370DB'],
-  };
-  // chart-options <END>
-  data = [];
   // ------------------------
 
   all;
@@ -56,16 +65,22 @@ export class DashboardComponent implements OnInit {
     this.tasksService
       .getTasks()
       .subscribe((data) => (this.tasks = Object.values(data)));
-    // this.departmentService
-    //   .getDepartments()
-    //   .subscribe((data) => (this.departments = data));
-    // this.employees = this.employeeService.getEmployees();
-    // this.roles = this.roleService.getRoles();
-    // this.updateChart();
+    this.departmentService
+      .getDepartments()
+      .subscribe((data) => (this.departments = data));
+    this.roles = this.roleService.getRoles();
+    this.updateCharts();
   }
 
   // Updates the chart data
-  updateChart() {
+  updateCharts() {
+    this.getNumberOfTasksPerDepartment().subscribe(
+      (data) => (this.charts.tasksPerDepartment.data = data)
+    );
+  }
+
+  getNumberOfTasksPerDepartment() {
+    const subject = new Subject<any[]>();
     this.tasksService.getNumberOfTasksPerDepartment().subscribe((x) => {
       const tmp = [];
       // Go through the dictionary
@@ -83,46 +98,14 @@ export class DashboardComponent implements OnInit {
             tmp.push({name: departmentName, value: x[key]});
 
             // If it went through all keys in the dictionary
-            // assign the data variable to the temporary
+            // assign the subject to the temporary so it could be returned
             if (tmp.length === Object.keys(x).length) {
-              this.data = tmp;
+              subject.next(tmp);
             }
           });
         }
       }
     });
-  }
-
-  updateView(option) {
-    switch (option) {
-      case 'tasks':
-        this.selectedOption = this.tasks;
-        break;
-      case 'departments':
-        this.selectedOption = this.departments;
-        break;
-      case 'employees':
-        this.selectedOption = this.employees;
-        break;
-      case 'roles':
-        this.selectedOption = this.roles;
-        break;
-    }
-  }
-
-  isTask(candidate) {
-    return candidate instanceof Task;
-  }
-
-  isDepartment(candidate) {
-    return candidate instanceof Department;
-  }
-
-  isEmployee(candidate) {
-    return candidate instanceof Employee;
-  }
-
-  isRole(candidate) {
-    return candidate instanceof Role;
+    return subject.asObservable();
   }
 }
