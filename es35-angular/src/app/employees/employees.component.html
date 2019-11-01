@@ -1,18 +1,25 @@
+<app-employee-details
+  [employee]="currentEmployee"
+  [style.display]="showDetails ? 'inline' : 'none'"
+  (closeComp)="showDetails = false"
+></app-employee-details>
+
+<app-employee-add
+  [style.display]="showAddForm ? 'inline' : 'none'"
+  (closeComp)="showAddForm = false"
+></app-employee-add>
+
 <h1>Employees</h1>
+
 <div class="container">
   <div class="add-task">
-    <div class="input-group add-input col-sm-10">
-      <input type="text" class="form-control" #addInput />
-    </div>
-
-    <div class="input-group add-input col-sm-2">
+    <div class="input-group add-input col-sm-12">
       <a
         id="addButton"
         class="btn btn-success add-button"
-        (click)="addEmployee(addInput)"
+        (click)="viewAddForm()"
+        ><span style="color: white">Add</span></a
       >
-        <span style="color: white">Add</span>
-      </a>
     </div>
   </div>
 
@@ -22,10 +29,14 @@
       *ngFor="let employee of employees; let i = index"
     >
       <div class="col-sm-9 title">
-        <p *ngIf="!employee.isEditing" #employeeName>
-          {{ employee.name }}
-          {{ employee.lastname }}
-        </p>
+        <div class="row">
+          <div class="col-sm-7">
+            <p *ngIf="!employee.isEditing" #employeeName>
+              {{ employee.name }}
+              {{ employee.lastname }}
+            </p>
+          </div>
+        </div>
         <input
           *ngIf="employee.isEditing"
           type="text"

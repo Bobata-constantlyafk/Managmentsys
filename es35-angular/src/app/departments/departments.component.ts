@@ -12,9 +12,9 @@ export class DepartmentsComponent implements OnInit {
 
   isEditing = false;
 
-  show = false;
-
-  currentElement;
+  showDetails: boolean;
+  showOverlay: boolean;
+  showAddForm: boolean;
 
   currentDep: Department = new Department(0, '', '');
   constructor(private departmentService: DepartmentService) {}
@@ -25,8 +25,9 @@ export class DepartmentsComponent implements OnInit {
       .subscribe((departments) => (this.departments = departments));
   }
 
-  showDep(i) {
-    this.show = true;
+  viewDetails(i) {
+    this.showDetails = true;
+    this.showOverlay = true;
     this.currentDep = this.departments[i];
   }
 
@@ -54,6 +55,27 @@ export class DepartmentsComponent implements OnInit {
     this.departmentService.removeDepartment(departmentId);
   }
 
+  closeDetails() {
+    this.showDetails = false;
+    this.showOverlay = false;
+  }
+
+  viewAddForm(): void {
+    this.showOverlay = true;
+    this.showAddForm = true;
+  }
+
+  closeAddForm(): void {
+    this.showOverlay = false;
+    this.showAddForm = false;
+  }
+
+  closeEverything(): void {
+    this.showOverlay = false;
+    this.showAddForm = false;
+    this.showDetails = false;
+  }
+
   editDep(id) {
     this.currentDep = this.departments[id];
     this.currentDep.toggleEdit();
@@ -76,8 +98,12 @@ export class DepartmentsComponent implements OnInit {
       el.addEventListener('focusout', handler);
     }, 1);
   }
-
-  off() {
-    this.show = false;
+  search(s: string) {
+    this.departmentService.getDepartments().subscribe((departments) => {
+      const filter = s.toUpperCase();
+      this.departments = departments.filter(
+        (department) => department.name.toUpperCase().indexOf(filter) > -1
+      );
+    });
   }
 }
