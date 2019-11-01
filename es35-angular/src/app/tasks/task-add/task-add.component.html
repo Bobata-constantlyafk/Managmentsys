@@ -2,7 +2,7 @@
 <div class="in-overlay card">
   <div class="container">
     <h2>Add Task</h2>
-    <form>
+    <div>
       <div class="form-group">
         <label>Title</label>
         <input
@@ -11,6 +11,16 @@
           class="form-control"
           placeholder="Enter Title"
         />
+      </div>
+      <div class="form-group">
+        <label>Description</label>
+        <textarea
+          #desc
+          cols="30"
+          rows="10"
+          class="form-control"
+          placeholder="Enter a description"
+        ></textarea>
       </div>
       <div class="row select-menu form-group">
         <div class="col-sm-4">
@@ -30,7 +40,7 @@
           </select>
         </div>
         <div class="col-sm-4">
-          <form class="form-inline">
+          <div class="form-inline">
             <input
               class="form-control"
               placeholder="yyyy-mm-dd"
@@ -48,15 +58,15 @@
                 <i class="fa fa-calendar" aria-hidden="true"></i>
               </button>
             </div>
-          </form>
+          </div>
         </div>
+        <button
+          class="btn btn-success"
+          (click)="addTask(department, title, desc, deadline)"
+        >
+          Add
+        </button>
       </div>
-      <button
-        class="btn btn-success"
-        (click)="addTask(title, department, employee, deadline)"
-      >
-        Add
-      </button>
-    </form>
+    </div>
   </div>
 </div>

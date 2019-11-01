@@ -24,51 +24,43 @@ export class TaskAddComponent implements OnInit {
   ) {}
 
   ngOnInit() {
+    this.employeeService
+      .getEmployees()
+      .subscribe((employees) => (this.employees = employees));
+    // Populate the departments
     this.departmentService
       .getDepartments()
       .subscribe((departments) => (this.departments = departments));
-    this.employees = this.employeeService.getEmployees();
   }
 
   addTask(
-    title: HTMLInputElement,
     dep: HTMLInputElement,
-    emp: HTMLInputElement,
+    title: HTMLInputElement,
+    desc: HTMLInputElement,
     deadline: HTMLInputElement
   ) {
     const taskTitle = title.value;
     const taskDeadline = deadline.value;
-    if (taskTitle === '' || taskDeadline === '') {
+    const taskDescription = desc.value;
+    const taskDepartment = dep.value;
+    if (taskTitle === '' || taskDeadline === '' || taskDescription === '') {
       alert('Fill all');
       return;
     }
 
     // Assign Department
-    const taskDepartment = dep.value;
-    const depId = this.departmentService.getDepartmentIdByName(taskDepartment);
     this.departmentService
       .getDepartmentIdByName(taskDepartment)
-      .subscribe((id) => {
-        this.tasksService.addTask(taskTitle, taskDeadline, id);
-        this.tasksService.getLastTask().subscribe((task) => {
-          // Assing employee
-          // const taskEmployee = emp.value;
-          // const employee = this.employeeService
-          //   .getEmployees()
-          //   .filter((empl) => empl.name === taskEmployee)[0];
-          // task.assignEmployee(employee);
-
-          // Assing Deadline
-          task.assignDeadline(taskDeadline);
-        });
-
-        // const taskDepartment = dep.value;
+      .subscribe((depId) => {
+        console.log(depId, taskTitle, taskDescription, taskDeadline);
+        const a = this.tasksService.addTask(
+          depId,
+          taskTitle,
+          taskDescription,
+          taskDeadline
+        );
+        a.subscribe((x) => this.close());
       });
-
-    this.close();
-
-    title.value = '';
-    deadline.value = '';
   }
 
   close() {

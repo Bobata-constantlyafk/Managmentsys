@@ -14,45 +14,53 @@ export class EmployeeAddComponent implements OnInit {
   employee: Employee;
   employees: Employee[];
   departments: Department[];
+
   constructor(
     private employeeService: EmployeeService,
     private departmentService: DepartmentService
   ) {}
 
   ngOnInit() {
-    this.departments = this.departmentService.getDepartments();
-    this.employees = this.employeeService.getEmployees();
+    this.departmentService
+      .getDepartments()
+      .subscribe((departments) => (this.departments = departments));
+
+    this.employeeService
+      .getEmployees()
+      .subscribe((employees) => (this.employees = employees));
   }
   addEmployee(
-    name: HTMLInputElement,
+    firstname: HTMLInputElement,
     lastname: HTMLInputElement,
+    bday: HTMLInputElement,
     dep: HTMLInputElement
   ) {
-    const employeeName = name.value;
+    const employeeName = firstname.value;
     const employeeLastName = lastname.value;
-    if (employeeName === '' || employeeLastName === '') {
-      alert('Please assign the information properly');
+    const employeeDepartment = dep.value;
+    const employeeBirthday = bday.value;
+    if (
+      employeeName === '' ||
+      employeeLastName === '' ||
+      employeeBirthday === ''
+    ) {
+      alert('Please input the information properly');
       return;
     }
 
-    const createdEmployee = this.employeeService.addEmployee(
-      employeeName,
-      employeeLastName
-      // employeeLastName
-    );
-    console.log(createdEmployee);
-
     // Assign Department
-    const employeeDepartment = dep.value;
-    const department = this.departmentService
-      .getDepartments()
-      .filter((depa) => depa.name === employeeDepartment)[0];
-    createdEmployee.assignDepartment(department);
-
-    this.close();
-
-    name.value = '';
-    lastname.value = '';
+    this.departmentService
+      .getDepartmentIdByName(employeeDepartment)
+      .subscribe((depId) => {
+        console.log(depId, employeeName, employeeLastName, employeeBirthday);
+        const a = this.employeeService.addEmployee(
+          depId,
+          employeeName,
+          employeeLastName,
+          employeeBirthday
+        );
+        a.subscribe((x) => this.close());
+      });
   }
   close() {
     this.closeComp.emit();

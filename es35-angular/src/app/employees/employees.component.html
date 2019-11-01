@@ -1,19 +1,29 @@
 <app-employee-details
   [employee]="currentEmployee"
-  [style.display]="showDetails ? 'inline' : 'none'"
+  *ngIf="showDetails"
   (closeComp)="showDetails = false"
 ></app-employee-details>
-
 <app-employee-add
-  [style.display]="showAddForm ? 'inline' : 'none'"
-  (closeComp)="showAddForm = false"
+  *ngIf="showAddForm"
+  (closeComp)="closeAddEmployeeDialog()"
 ></app-employee-add>
 
 <h1>Employees</h1>
 
 <div class="container">
   <div class="add-task">
-    <div class="input-group add-input col-sm-12">
+    <div class="input-group add-input col-sm-10">
+      <input
+        id="addInput"
+        type="text"
+        class="form-control"
+        #addInput
+        [(ngModel)]="searchTerm"
+        (ngModelChange)="search(searchTerm)"
+        placeholder="Search"
+      />
+    </div>
+    <div class="input-group add-input col-sm-2 pull-right">
       <a
         id="addButton"
         class="btn btn-success add-button"
@@ -32,8 +42,8 @@
         <div class="row">
           <div class="col-sm-7">
             <p *ngIf="!employee.isEditing" #employeeName>
-              {{ employee.name }}
-              {{ employee.lastname }}
+              {{ employee.first_name }}
+              {{ employee.last_name }}
             </p>
           </div>
         </div>

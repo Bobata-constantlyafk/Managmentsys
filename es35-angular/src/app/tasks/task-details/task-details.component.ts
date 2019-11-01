@@ -27,7 +27,9 @@ export class TaskDetailsComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.allEmployees = this.employeeService.getEmployees();
+    this.employeeService
+      .getEmployees()
+      .subscribe((employees) => (this.employees = employees));
     this.departmentService
       .getDepartmentById(this.task.department_id)
       .subscribe((department) => {

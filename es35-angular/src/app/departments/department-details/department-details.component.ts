@@ -22,7 +22,8 @@ export class DepartmentDetailsComponent implements OnInit {
     this.closeComp.emit();
   }
 
-  seeDepEmps(depId) {
-    console.log(this.departmentService.getEmployeesOfDepId(depId));
-  }
+  // seeDepEmps(depId) {
+  //   console.log(this.departmentService.getEmployeesOfDepId(depId));
+  //   // bobkata chakam
+  // }
 }

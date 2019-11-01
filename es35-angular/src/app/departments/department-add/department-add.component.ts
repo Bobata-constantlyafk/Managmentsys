@@ -20,25 +20,60 @@ export class DepartmentAddComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.employees = this.employeeService.getEmployees();
+    this.employeeService
+      .getEmployees()
+      .subscribe((employees) => (this.employees = employees));
   }
 
-  addDep(name: HTMLInputElement, emp: HTMLInputElement) {
+  addDep(name: HTMLInputElement, build: HTMLInputElement) {
     console.log(name);
     const depName = name.value;
+    console.log(build);
+    const buildName = build.value;
     if (depName === '') {
       alert('Fill all');
       return;
     }
+    if (buildName === '') {
+      alert('Fill all');
+      return;
+    }
 
-    const depEmployee = emp.value;
-    const employee = this.employeeService
-      .getEmployees()
-      .filter((employee1) => employee1.name === depEmployee)[0];
-    this.departmentService.addDep(depName);
-    this.departmentService.getLastDep().assignEmployee(employee);
-    this.close();
+    this.departmentService
+      .addDep(name.value, build.value)
+      .subscribe((x) => this.close());
   }
+
+  // addTask(
+  //   title: HTMLInputElement,
+  //   dep: HTMLInputElement,
+  //   emp: HTMLInputElement,
+  //   desc: HTMLInputElement,
+  //   deadline: HTMLInputElement
+  // ) {
+  //   const taskTitle = title.value;
+  //   const taskDeadline = deadline.value;
+  //   const taskDescription = desc.value;
+  //   if (taskTitle === '' || taskDeadline === '' || taskDescription === '') {
+  //     alert('Fill all');
+  //     return;
+  //   }
+
+  //   // Assign Department
+  //   const taskDepartment = dep.value;
+  //   this.departmentService
+  //     .getDepartmentIdByName(taskDepartment)
+  //     .subscribe((depId) => {
+  //       this.tasksService.addTask(
+  //         depId,
+  //         taskTitle,
+  //         taskDescription,
+  //         taskDeadline
+  //       );
+  //     });
+
+  //   this.close();
+  // }
 
   close() {
     this.closeComp.emit();

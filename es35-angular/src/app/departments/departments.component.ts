@@ -1,6 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {Department} from '../department';
 import {DepartmentService} from './department.service';
+import {TouchSequence} from 'selenium-webdriver';
+import {Task} from '../tasks/tasks.model';
 
 @Component({
   selector: 'app-departments',
@@ -15,6 +17,8 @@ export class DepartmentsComponent implements OnInit {
   showDetails: boolean;
   showOverlay: boolean;
   showAddForm: boolean;
+
+  currentElement;
 
   currentDep: Department = new Department(0, '', '');
   constructor(private departmentService: DepartmentService) {}
@@ -31,23 +35,32 @@ export class DepartmentsComponent implements OnInit {
     this.currentDep = this.departments[i];
   }
 
-  addDep(input) {
-    const split = input.value().split(',');
-    const name = split[0];
-    const builing = split[1];
-    this.departmentService.addDepartment(name, builing);
+  closeAddDialog() {
+    this.showAddForm = false;
+    this.departmentService.getDepartments().subscribe();
+  }
+
+  addDep(input, inp) {
+    this.departmentService.addDep(input, inp);
   }
 
   ngOnInit() {
     this.departmentService
       .getDepartments()
       .subscribe((department) => (this.departments = department));
+<<<<<<< HEAD
     const addInput = document.getElementById('addInput') as HTMLInputElement;
     addInput.addEventListener('keydown', (event) => {
       if (event.keyCode === 13) {
         this.addDep(addInput);
       }
     });
+=======
+
+    this.showDetails = false;
+    this.showOverlay = false;
+    this.showAddForm = false;
+>>>>>>> Boba
   }
 
   removeDep(i: number) {
@@ -99,10 +112,19 @@ export class DepartmentsComponent implements OnInit {
     }, 1);
   }
   search(s: string) {
+<<<<<<< HEAD
     this.departmentService.getDepartments().subscribe((departments) => {
       const filter = s.toUpperCase();
       this.departments = departments.filter(
         (department) => department.name.toUpperCase().indexOf(filter) > -1
+=======
+    let departments = [];
+    this.departmentService.getDepartments().subscribe((data) => {
+      departments = data;
+      const filter = s.toUpperCase();
+      this.departments = departments.filter(
+        (task) => task.name.toUpperCase().indexOf(filter) > -1
+>>>>>>> Boba
       );
     });
   }

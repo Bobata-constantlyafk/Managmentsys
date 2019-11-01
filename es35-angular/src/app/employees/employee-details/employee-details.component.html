@@ -1,16 +1,18 @@
 <div id="overlay" (click)="close()" style="display: inline"></div>
 <div class="in-overlay card">
   <div class="container">
-    <h2>Details</h2>
-    <h4>{{ employee.name }}</h4>
+    <h2>Employee {{ employee.id }}</h2>
     <div>
-      <span>Employee name: </span><span>{{ employee.name }}</span>
+      <span>Given name: </span><span>{{ employee.first_name }}</span>
     </div>
     <div>
-      <span>Employee last name: </span><span>{{ employee.lastname }}</span>
+      <span>Family name: </span><span>{{ employee.last_name }}</span>
     </div>
     <div>
-      <span>Department: </span><span>{{ employee.department.name }}</span>
+      <span>Identification number: </span><span>{{ employee.id }}</span>
+    </div>
+    <div>
+      <span>Department number: </span><span>{{ employee.department_id }}</span>
     </div>
   </div>
 </div>

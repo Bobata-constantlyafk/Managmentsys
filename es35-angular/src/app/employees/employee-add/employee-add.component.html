@@ -1,12 +1,13 @@
 <div id="overlay" (click)="close()" style="display: inline"></div>
 <div class="in-overlay card">
   <div class="container">
-    <h2>Add Employee</h2>
-    <form>
+    <div>
+      <h2>Add Employee</h2>
+
       <div class="form-group">
         <label>First name</label>
         <input
-          #name
+          #firstname
           type="text"
           class="form-control"
           placeholder="First name of employee"
@@ -32,14 +33,36 @@
             }}</option>
           </select>
         </div>
-      </div>
 
-      <button
-        class="btn btn-success"
-        (click)="addEmployee(name, lastname, department)"
-      >
-        Add
-      </button>
-    </form>
+        <div class="col-sm-4">
+          <div class="form-inline">
+            <input
+              class="form-control"
+              placeholder="yyyy-mm-dd"
+              name="d2"
+              ngbDatepicker
+              #d2="ngbDatepicker"
+              #bday
+            />
+            <div class="input-group-append">
+              <button
+                class="btn btn-outline-secondary calendar"
+                (click)="d2.toggle()"
+                type="button"
+              >
+                <i class="fa fa-calendar" aria-hidden="true"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <button
+          class="btn btn-success"
+          (click)="addEmployee(1, firstname, lastname, bday)"
+        >
+          Add
+        </button>
+      </div>
+    </div>
   </div>
 </div>

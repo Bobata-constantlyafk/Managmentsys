@@ -24,15 +24,20 @@ export class RoleAddComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.employees = this.employeeService.getEmployees();
-    this.departments = this.departmentService.getDepartments();
+    this.employeeService
+      .getEmployees()
+      .subscribe((employees) => (this.employees = employees));
+
+    this.departmentService
+      .getDepartments()
+      .subscribe((departments) => (this.departments = departments));
   }
 
   addRole(
     title: HTMLInputElement,
     desc: HTMLInputElement,
     dep: HTMLInputElement
-    //emp: HTMLInputElement
+    // emp: HTMLInputElement
   ) {
     const roleTitle = title.value;
     const roleDesc = desc.value;
@@ -53,10 +58,10 @@ export class RoleAddComponent implements OnInit {
 
     // Assign Department
     const roleDepartment = dep.value;
-    const department = this.departmentService
-      .getDepartments()
-      .filter((depa) => depa.name === roleDepartment)[0];
-    createdRole.assignDepartment(department);
+    // const department = this.departmentService
+    //   .getDepartments()
+    //   .filter((depa) => depa.name === roleDepartment)[0];
+    // createdRole.assignDepartment(department);
 
     this.close();
 

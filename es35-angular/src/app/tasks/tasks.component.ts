@@ -18,7 +18,7 @@ export class TasksComponent implements OnInit {
   showOverlay: boolean;
   showAddForm: boolean;
 
-  currentTask: Task = new Task(0, '', '');
+  currentTask: Task;
 
   constructor(private tasksService: TasksService) {}
 
@@ -34,6 +34,7 @@ export class TasksComponent implements OnInit {
   removeTask(i: number) {
     const taskId = this.tasks[i].id;
     this.tasksService.removeTask(taskId);
+    this.tasks.splice(i, 1);
   }
 
   viewDetails(i) {
@@ -57,10 +58,19 @@ export class TasksComponent implements OnInit {
       });
       const handler = (event) => {
         this.currentTask.toggleEdit();
+        this.tasksService.editTaskTitle(
+          this.currentTask,
+          this.currentTask.name
+        );
         el.removeEventListener('focusout', handler);
       };
       el.addEventListener('focusout', handler);
     }, 1);
+  }
+
+  closeAddTaskDialog() {
+    this.showAddForm = false;
+    this.tasksService.getTasks().subscribe((tasks) => (this.tasks = tasks));
   }
 
   closeDetails() {
@@ -94,5 +104,9 @@ export class TasksComponent implements OnInit {
         // task.description.toUpperCase().indexOf(filter) > -1
       );
     });
+  }
+
+  foo() {
+    this.tasksService.addTask(620, 'A title', 'A description', '20191212');
   }
 }
