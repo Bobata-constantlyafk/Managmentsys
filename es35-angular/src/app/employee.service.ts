@@ -8,7 +8,7 @@ import {Observable, Subject} from 'rxjs';
   providedIn: 'root',
 })
 export class EmployeeService {
-  path = 'http://i875395.hera.fhict.nl/api/3561763/employee';
+  path = 'http://i875395.hera.fhict.nl/api/3497186/employee';
   constructor(private http: HttpClient) {}
 
   getEmployees(): Observable<Employee[]> {
@@ -21,8 +21,6 @@ export class EmployeeService {
     this.getEmployees().subscribe((employees) => {
       employees.forEach((employee) => {
         const dep = employee.department_id;
-        console.log(dep);
-        const depkeys = Object.keys(dict);
         if (!(dep in dict)) {
           dict[dep] = 1;
         } else {
@@ -71,7 +69,13 @@ export class EmployeeService {
       .subscribe();
   }
 
-  getLastEmployee(): Employee {
-    return Employees[Employees.length - 1];
+  getEmployeesOfDepartment(department_id: number | string) {
+    const subject = new Subject<any>();
+    this.getEmployees().subscribe((employees) => {
+      subject.next(
+        employees.filter((employee) => department_id === employee.department_id)
+      );
+    });
+    return subject.asObservable();
   }
 }

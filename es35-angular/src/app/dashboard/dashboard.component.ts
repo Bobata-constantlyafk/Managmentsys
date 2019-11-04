@@ -7,7 +7,8 @@ import {Task} from '../tasks/tasks.model';
 import {Department} from '../department';
 import {Employee} from '../employees/employee';
 import {Role} from '../roles/role';
-import {Subject} from 'rxjs';
+import {Subject, Observable, ObservedValueOf} from 'rxjs';
+import {ColorSets} from './chart-color-sets';
 
 @Component({
   selector: 'app-dashboard',
@@ -21,20 +22,16 @@ export class DashboardComponent implements OnInit {
       xAxisLabel: 'Number of Tasks',
       yAxisLabel: 'Department',
       timeline: true,
-      colorScheme: {
-        domain: [
-          '#bf9d76',
-          '#e99450',
-          '#d89f59',
-          '#f2dfa7',
-          '#a5d7c6',
-          '#7794b1',
-          '#afafaf',
-          '#707160',
-          '#ba9383',
-          '#d9d5c3',
-        ],
-      },
+      colorScheme: ColorSets[5],
+      // chart-options <END>
+      data: [],
+    },
+    employeesPerDepartment: {
+      title: 'Employees Per Department',
+      xAxisLabel: 'Number of Employees',
+      yAxisLabel: 'Department',
+      timeline: true,
+      colorScheme: ColorSets[4],
       // chart-options <END>
       data: [],
     },
@@ -77,9 +74,32 @@ export class DashboardComponent implements OnInit {
     this.getNumberOfTasksPerDepartment().subscribe(
       (data) => (this.charts.tasksPerDepartment.data = data)
     );
+    this.getNumberOfEmployeesPerDepartment().subscribe(
+      (data) => (this.charts.employeesPerDepartment.data = data)
+    );
   }
 
-  getNumberOfTasksPerDepartment() {
+  getNumberOfEmployeesPerDepartment(): Observable<any> {
+    const subject = new Subject<object>();
+    const tmp = [];
+    this.employeeService.getEmployeesByDep().subscribe((data) => {
+      const data_keys = Object.keys(data);
+      data_keys.forEach((department_id) => {
+        this.departmentService.getDepartments().subscribe((departments) => {
+          const departmentName = departments.find(
+            (department) => department_id === String(department.id)
+          ).name;
+          tmp.push({name: departmentName, value: data[department_id]});
+          if (tmp.length === Object.keys(data).length) {
+            subject.next(tmp);
+          }
+        });
+      });
+    });
+    return subject.asObservable();
+  }
+
+  getNumberOfTasksPerDepartment(): Observable<any> {
     const subject = new Subject<any[]>();
     this.tasksService.getNumberOfTasksPerDepartment().subscribe((x) => {
       const tmp = [];

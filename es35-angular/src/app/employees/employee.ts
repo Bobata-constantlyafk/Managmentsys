@@ -25,12 +25,8 @@ export class Employee {
     this.first_name = first_name;
     this.last_name = last_name;
     this.isEditing = false;
-<<<<<<< HEAD
-    this.department = new Department(1, '', '');
-=======
     this.department_id = department_id;
     this.birth_date = birth_date;
->>>>>>> Boba
   }
 
   assignDepartment(id: number): void {

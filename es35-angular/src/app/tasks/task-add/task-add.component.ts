@@ -12,7 +12,7 @@ import {DepartmentService} from 'src/app/departments/department.service';
   styleUrls: ['../tasks.component.css', './task-add.component.css'],
 })
 export class TaskAddComponent implements OnInit {
-  @Output() closeComp = new EventEmitter();
+  @Output() closeComp = new EventEmitter<boolean>();
   task: Task;
   departments: Department[];
   employees: Employee[];
@@ -24,9 +24,6 @@ export class TaskAddComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.employeeService
-      .getEmployees()
-      .subscribe((employees) => (this.employees = employees));
     // Populate the departments
     this.departmentService
       .getDepartments()
@@ -39,20 +36,22 @@ export class TaskAddComponent implements OnInit {
     desc: HTMLInputElement,
     deadline: HTMLInputElement
   ) {
+    // Get the values form the inputs
     const taskTitle = title.value;
     const taskDeadline = deadline.value;
     const taskDescription = desc.value;
     const taskDepartment = dep.value;
+
+    // Check if inputs are filled
     if (taskTitle === '' || taskDeadline === '' || taskDescription === '') {
       alert('Fill all');
       return;
     }
 
-    // Assign Department
+    // Get the department ID. Add tasks to databse. Close the form.
     this.departmentService
       .getDepartmentIdByName(taskDepartment)
       .subscribe((depId) => {
-        console.log(depId, taskTitle, taskDescription, taskDeadline);
         const a = this.tasksService.addTask(
           depId,
           taskTitle,

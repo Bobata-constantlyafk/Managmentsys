@@ -11,15 +11,13 @@ import {Employee} from '../employees/employee';
 export class TasksComponent implements OnInit {
   tasks: Task[];
   isEditing = false;
-  taskToView: any;
+  taskToView: Task;
 
   searchTerm: string;
 
   showDetails: boolean;
   showOverlay: boolean;
   showAddForm: boolean;
-
-  currentTask: Task;
 
   constructor(private tasksService: TasksService) {}
 
@@ -32,70 +30,67 @@ export class TasksComponent implements OnInit {
     this.showAddForm = false;
   }
 
+  // Remove the task from database and locally
   removeTask(i: number) {
     const taskId = this.tasks[i].id;
     this.tasksService.removeTask(taskId);
     this.tasks.splice(i, 1);
   }
 
-  editTask(id) {
-    this.currentTask = this.tasks[id];
-    this.currentTask.toggleEdit();
-    setTimeout(() => {
-      const el = document.getElementById('taskEditInput') as HTMLInputElement;
-      el.focus();
-      el.select();
-      el.addEventListener('keydown', (event) => {
-        if (event.keyCode === 13) {
-          this.currentTask.toggleEdit();
-          el.removeEventListener('focusout', handler);
-        }
-      });
-      const handler = (event) => {
-        this.currentTask.toggleEdit();
-        this.tasksService.editTaskTitle(
-          this.currentTask,
-          this.currentTask.name
-        );
-        el.removeEventListener('focusout', handler);
-      };
-      el.addEventListener('focusout', handler);
-    }, 1);
-  }
+  // editTask(id) {
+  // this.currentTask = this.tasks[id];
+  // this.currentTask.toggleEdit();
+  // setTimeout(() => {
+  //   const el = document.getElementById('taskEditInput') as HTMLInputElement;
+  //   el.focus();
+  //   el.select();
+  //   el.addEventListener('keydown', (event) => {
+  //     if (event.keyCode === 13) {
+  //       this.currentTask.toggleEdit();
+  //       el.removeEventListener('focusout', handler);
+  //     }
+  //   });
+  //   const handler = (event) => {
+  //     this.currentTask.toggleEdit();
+  //     this.tasksService.editTaskTitle(
+  //       this.currentTask,
+  //       this.currentTask.name
+  //     );
+  //     el.removeEventListener('focusout', handler);
+  //   };
+  //   el.addEventListener('focusout', handler);
+  // }, 1);
+  // }
 
   closeAddTaskDialog(taskAdded: boolean) {
+    // Close the form
     this.showAddForm = false;
-    if (!taskAdded) {
-      return;
+    if (taskAdded) {
+      // Update the tasks
+      this.tasksService.getTasks().subscribe((tasks) => (this.tasks = tasks));
     }
-    this.tasksService.getTasks().subscribe((tasks) => (this.tasks = tasks));
   }
 
   closeDetails() {
     this.showDetails = false;
-    this.showOverlay = false;
   }
 
   viewAddForm(): void {
-    this.showOverlay = true;
     this.showAddForm = true;
   }
 
   closeAddForm(): void {
-    this.showOverlay = false;
     this.showAddForm = false;
   }
 
   closeEverything(): void {
-    this.showOverlay = false;
     this.showAddForm = false;
     this.showDetails = false;
   }
 
   viewDetails(i) {
+    this.taskToView = this.tasks[i];
     this.showDetails = true;
-    this.showOverlay = true;
-    this.taskToView = {task: this.tasks[i], index: i};
   }
 
   search(s: string) {

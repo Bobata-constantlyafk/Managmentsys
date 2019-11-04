@@ -1,11 +1,11 @@
 <app-task-details
-  [task]="currentTask"
+  [task]="taskToView"
   *ngIf="showDetails"
   (closeComp)="showDetails = false"
 ></app-task-details>
 <app-task-add
   *ngIf="showAddForm"
-  (closeComp)="closeAddTaskDialog()"
+  (closeComp)="closeAddTaskDialog($event)"
 ></app-task-add>
 
 <h1>Tasks</h1>

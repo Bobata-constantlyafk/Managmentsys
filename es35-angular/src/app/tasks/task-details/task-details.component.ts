@@ -13,7 +13,7 @@ import {DepartmentService} from 'src/app/departments/department.service';
 })
 export class TaskDetailsComponent implements OnInit {
   @Output() closeComp = new EventEmitter();
-  @Input() task: any;
+  @Input() task: Task;
 
   employees: Employee[];
   selectedEmp: Employee;
@@ -30,7 +30,7 @@ export class TaskDetailsComponent implements OnInit {
 
   ngOnInit() {
     this.employeeService
-      .getEmployees()
+      .getEmployeesOfDepartment(this.task.department_id)
       .subscribe((employees) => (this.employees = employees));
     this.departmentService
       .getDepartmentById(this.task.department_id)
@@ -46,7 +46,6 @@ export class TaskDetailsComponent implements OnInit {
         //     });
         // });
       });
-    this.employees = [];
   }
 
   viewEdit() {

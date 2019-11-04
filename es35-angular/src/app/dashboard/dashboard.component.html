@@ -1,8 +1,11 @@
 <h1>Dashboard</h1>
 
-<div class="container">
-  <div style="height: 100;">
-    <ngx-charts-bar-horizontal
+<div
+  class="container"
+  style="justify-content: center; vertical-align: middle; margin: 0 auto;"
+>
+  <div class="row chart-container">
+    <ngx-charts-bar-vertical
       [scheme]="charts.tasksPerDepartment.colorScheme"
       [results]="charts.tasksPerDepartment.data"
       [xAxis]="true"
@@ -12,6 +15,19 @@
       [xAxisLabel]="charts.tasksPerDepartment.xAxisLabel"
       [yAxisLabel]="charts.tasksPerDepartment.yAxisLabel"
     >
-    </ngx-charts-bar-horizontal>
+    </ngx-charts-bar-vertical>
+  </div>
+  <div class="row chart-container">
+    <ngx-charts-bar-vertical
+      [scheme]="charts.employeesPerDepartment.colorScheme"
+      [results]="charts.employeesPerDepartment.data"
+      [xAxis]="true"
+      [yAxis]="true"
+      [showXAxisLabel]="true"
+      [showYAxisLabel]="true"
+      [xAxisLabel]="charts.employeesPerDepartment.xAxisLabel"
+      [yAxisLabel]="charts.employeesPerDepartment.yAxisLabel"
+    >
+    </ngx-charts-bar-vertical>
   </div>
 </div>

@@ -1,6 +1,5 @@
 import {Injectable} from '@angular/core';
 import {Department} from '../department';
-import {DEPARTMENTS} from '../mock-departments';
 import {Observable, Subject} from 'rxjs';
 import {HttpClient} from '@angular/common/http';
 
@@ -51,9 +50,9 @@ export class DepartmentService {
   }
 
   editDepName(index: number, title: string): void {
-    const department = DEPARTMENTS[index];
-    department.name = title;
-    this.http.put(this.path, {name: title}).subscribe();
+    // const department = DEPARTMENTS[index];
+    // department.name = title;
+    // this.http.put(this.path, {name: title}).subscribe();
   }
 
   // getEmployeesOfDepId(depId: number): Employee[] {
@@ -111,15 +110,3 @@ export class DepartmentService {
     this.http.delete(this.path + '?id=' + id);
   }
 }
-
-// getEmployeesOfDepName(depName: string): Employee[] {
-//   // return Tasks.filter((task) =>
-//   //   task.employees.filter((employee) => employee.id === empId)
-//   // );
-//   this.getDepartments().forEach((dep) => {
-//     if (dep.name === depName) {
-//       return dep.employees;
-//     }
-//   });
-//   return null;
-// }

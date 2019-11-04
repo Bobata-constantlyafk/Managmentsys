@@ -49,15 +49,15 @@ export class TasksService {
     });
   }
 
-  // Edit the name of the task
-  editTaskTitle(task: Task, title: string): void {
-    // Update localy the data
-    task.name = title;
-    // Update the data in the database
-    this.http
-      .put(this.path, {name: title}, {params: {id: String(task.id)}})
-      .subscribe();
-  }
+  // // Edit the name of the task
+  // editTaskTitle(task: Task, title: string): void {
+  //   // Update localy the data
+  //   task.name = title;
+  //   // Update the data in the database
+  //   this.http
+  //     .put(this.path, {name: title}, {params: {id: String(task.id)}})
+  //     .subscribe();
+  // }
 
   // Get number of tasks per department
   getNumberOfTasksPerDepartment(): Observable<any> {

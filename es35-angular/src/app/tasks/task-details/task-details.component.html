@@ -8,41 +8,21 @@
     </div>
     <div>
       <p>Employees:</p>
-      <div class="form-group row">
-        <div class="col-sm-10">
-          <select #employee class="form-control">
-            <option value="" disabled selected>Employees</option>
-            <option *ngFor="let employee of employees; let i = index">{{
-              employee.name
-            }}</option>
-          </select>
-        </div>
-        <div class="col-sm-2">
-          <button class="form-control btn btn-primary">
-            Add
-            <!-- (click)="addEmp(employee.value)" -->
-          </button>
-        </div>
-      </div>
       <ul>
         <li
           *ngFor="let employee of employees; let i = index"
           style="width: 100%; margin: 15px 0"
         >
           <span>{{ employee.first_name }} {{ employee.last_name }}</span>
-          <button
+          <!-- <button
             class="btn btn-danger fa fa-close"
             style="float: right"
-          ></button>
-          <!-- (click)="removeEmp(i)" -->
+          ></button> -->
         </li>
       </ul>
     </div>
     <div>
       <span>Deadline: </span><span>{{ task.due_date }}</span>
-    </div>
-    <div>
-      <button class="btn btn-primary" (click)="viewEdit()">Edit</button>
     </div>
   </div>
 </div>

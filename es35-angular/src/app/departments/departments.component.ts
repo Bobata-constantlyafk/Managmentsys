@@ -18,6 +18,8 @@ export class DepartmentsComponent implements OnInit {
   showOverlay: boolean;
   showAddForm: boolean;
 
+  searchTerm: string;
+
   currentElement;
 
   currentDep: Department = new Department(0, '', '');
@@ -48,19 +50,12 @@ export class DepartmentsComponent implements OnInit {
     this.departmentService
       .getDepartments()
       .subscribe((department) => (this.departments = department));
-<<<<<<< HEAD
     const addInput = document.getElementById('addInput') as HTMLInputElement;
     addInput.addEventListener('keydown', (event) => {
       if (event.keyCode === 13) {
-        this.addDep(addInput);
+        // this.addDep(addInput);
       }
     });
-=======
-
-    this.showDetails = false;
-    this.showOverlay = false;
-    this.showAddForm = false;
->>>>>>> Boba
   }
 
   removeDep(i: number) {
@@ -112,19 +107,12 @@ export class DepartmentsComponent implements OnInit {
     }, 1);
   }
   search(s: string) {
-<<<<<<< HEAD
-    this.departmentService.getDepartments().subscribe((departments) => {
-      const filter = s.toUpperCase();
-      this.departments = departments.filter(
-        (department) => department.name.toUpperCase().indexOf(filter) > -1
-=======
     let departments = [];
     this.departmentService.getDepartments().subscribe((data) => {
       departments = data;
       const filter = s.toUpperCase();
       this.departments = departments.filter(
         (task) => task.name.toUpperCase().indexOf(filter) > -1
->>>>>>> Boba
       );
     });
   }
