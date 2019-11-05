@@ -19,8 +19,8 @@ export class DashboardComponent implements OnInit {
   charts = {
     tasksPerDepartment: {
       title: 'Tasks Per Department',
-      xAxisLabel: 'Number of Tasks',
-      yAxisLabel: 'Department',
+      xAxisLabel: 'Department',
+      yAxisLabel: 'Number of Tasks',
       timeline: true,
       colorScheme: ColorSets[5],
       // chart-options <END>
@@ -28,8 +28,8 @@ export class DashboardComponent implements OnInit {
     },
     employeesPerDepartment: {
       title: 'Employees Per Department',
-      xAxisLabel: 'Number of Employees',
-      yAxisLabel: 'Department',
+      xAxisLabel: 'Department',
+      yAxisLabel: 'Number of Employees',
       timeline: true,
       colorScheme: ColorSets[4],
       // chart-options <END>
